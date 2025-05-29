@@ -9,12 +9,9 @@ public static class GetAll
 {
     public static void MapGetAllRider(this RouteGroupBuilder group)
     {
-        group
-            .MapGet("{id}", GetAllHandler)
-            .WithName("GetAll")
-            .WithOpenApi();
+        group.MapGet("{id}", GetAllHandler).WithName("GetAll").WithOpenApi();
     }
-    
+
     private static async Task<IResult> GetAllHandler(
         IQuerySession session,
         [FromRoute] Guid id,
@@ -23,10 +20,18 @@ public static class GetAll
         [FromQuery(Name = "page-size")] int pageSize = 10
     )
     {
-        var riders = await session.Query<Rider>()
-            .Where(x => 
-                x.FullName.Contains(searchTerm ?? string.Empty, StringComparison.InvariantCultureIgnoreCase) 
-                || x.NerdAlias.Contains(searchTerm ?? string.Empty, StringComparison.InvariantCultureIgnoreCase))
+        var riders = await session
+            .Query<Rider>()
+            .Where(x =>
+                x.FullName.Contains(
+                    searchTerm ?? string.Empty,
+                    StringComparison.InvariantCultureIgnoreCase
+                )
+                || x.NerdAlias.Contains(
+                    searchTerm ?? string.Empty,
+                    StringComparison.InvariantCultureIgnoreCase
+                )
+            )
             .ToPagedListAsync(pageNumber, pageSize);
         return Results.Ok(riders);
     }

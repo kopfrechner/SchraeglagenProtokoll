@@ -9,9 +9,9 @@ public static class AddComment
     {
         group.MapPost("{rideId}/comment", AddCommentHandler).WithName("AddComment").WithOpenApi();
     }
-    
+
     public record AddCommentCommand(Guid CommentedBy, string Text);
-    
+
     public static async Task<IResult> AddCommentHandler(
         IDocumentSession session,
         [FromRoute] Guid rideId,
@@ -19,11 +19,11 @@ public static class AddComment
     )
     {
         var (commentedBy, text) = command;
-        
+
         var commentAdded = new CommentAdded(commentedBy, text);
         session.Events.Append(rideId, commentAdded);
         await session.SaveChangesAsync();
-        
+
         return Results.Ok();
     }
 }

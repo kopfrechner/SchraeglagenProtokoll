@@ -9,12 +9,12 @@ public static class RenameRiderEndpoint
     {
         group.MapPost("{id:guid}/rename", RenameRiderHandler).WithName("RenameRider").WithOpenApi();
     }
-    
+
     public record RenameRider(string FullName);
-    
+
     public static async Task<IResult> RenameRiderHandler(
         IDocumentSession session,
-        [FromRoute] Guid id, 
+        [FromRoute] Guid id,
         RenameRider command
     )
     {

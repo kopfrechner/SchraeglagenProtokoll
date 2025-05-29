@@ -13,12 +13,12 @@ public static class GetScorePerRider
             .WithName("GetScorePerRider")
             .WithOpenApi();
     }
-    
+
     private static async Task<IResult> GetScorePerRiderHandler(IQuerySession session)
     {
-        var scorePerRider = await session.LoadAsync<ScorePerRider>(ScorePerRider.DocumentIdentifier);
-        return scorePerRider is null
-            ? Results.NotFound()
-            : Results.Ok(scorePerRider);
+        var scorePerRider = await session.LoadAsync<ScorePerRider>(
+            ScorePerRider.DocumentIdentifier
+        );
+        return scorePerRider is null ? Results.NotFound() : Results.Ok(scorePerRider);
     }
 }

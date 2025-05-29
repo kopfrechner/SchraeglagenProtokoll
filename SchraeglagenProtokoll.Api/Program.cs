@@ -7,8 +7,6 @@ using SchraeglagenProtokoll.Api.Rides;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 // Learn more about configuring OpenAPI at https://ak.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
@@ -18,7 +16,8 @@ var connectionString =
 var isDevelopment = builder.Environment.IsDevelopment();
 
 // Marten
-builder.Services.AddMarten(options => options.Setup(connectionString, isDevelopment))
+builder
+    .Services.AddMarten(options => options.Setup(connectionString, isDevelopment))
     // Another performance optimization if you're starting from scratch
     .UseLightweightSessions()
     // Enable projection daemon
