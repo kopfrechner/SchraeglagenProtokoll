@@ -1,3 +1,4 @@
+using JasperFx.Core;
 using Marten;
 using Marten.Pagination;
 using Microsoft.AspNetCore.Mvc;
@@ -9,30 +10,34 @@ public static class GetAll
 {
     public static void MapGetAllRider(this RouteGroupBuilder group)
     {
-        group.MapGet("{id}", GetAllHandler).WithName("GetAll").WithOpenApi();
+        group.MapGet("", GetAllHandler).WithName("GetAll").WithOpenApi();
     }
 
     private static async Task<IResult> GetAllHandler(
         IQuerySession session,
-        [FromRoute] Guid id,
         [FromQuery(Name = "search-term")] string? searchTerm,
-        [FromQuery(Name = "page-number")] int pageNumber = 2,
+        [FromQuery(Name = "page-number")] int pageNumber = 1,
         [FromQuery(Name = "page-size")] int pageSize = 10
     )
     {
-        var riders = await session
-            .Query<Rider>()
+        if (string.IsNullOrWhiteSpace(searchTerm))
+        {
+            var riders = await session.Query<Rider>().ToPagedListAsync(pageNumber, pageSize);
+            return Results.Ok(riders);
+        }
+
+        var filteredRiders = await session.Query<Rider>()
             .Where(x =>
                 x.FullName.Contains(
-                    searchTerm ?? string.Empty,
+                    searchTerm!,
                     StringComparison.InvariantCultureIgnoreCase
                 )
                 || x.NerdAlias.Contains(
-                    searchTerm ?? string.Empty,
+                    searchTerm!,
                     StringComparison.InvariantCultureIgnoreCase
                 )
-            )
-            .ToPagedListAsync(pageNumber, pageSize);
-        return Results.Ok(riders);
+            ).ToPagedListAsync(pageNumber, pageSize);
+        
+        return Results.Ok(filteredRiders);
     }
 }
