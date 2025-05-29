@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Scalar.AspNetCore;
 using SchraeglagenProtokoll.Api;
 using SchraeglagenProtokoll.Api.Riders;
+using SchraeglagenProtokoll.Api.Rides;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,5 +46,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapRider();
+app.MapRide();
 
 app.Run();
