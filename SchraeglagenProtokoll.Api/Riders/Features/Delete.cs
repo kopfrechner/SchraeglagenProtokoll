@@ -10,7 +10,7 @@ public static class Delete
         group.MapDelete("{id}", DeleteById).WithName("DeleteRiderById").WithOpenApi();
     }
 
-    public record DeleteRiderCommand(string? RiderFeedback);
+    public record DeleteRiderCommand(string? RiderFeedback, int Version);
 
     public static async Task<IResult> DeleteById(
         IDocumentSession session,
@@ -18,10 +18,11 @@ public static class Delete
         [FromBody] DeleteRiderCommand command
     )
     {
-        var comment = command.RiderFeedback;
+        var (comment, version) = command;
         var riderDeletedAccount = new RiderDeletedAccount(comment);
         await session.Events.WriteToAggregate<Rider>(
             id,
+            version,
             stream => stream.AppendOne(riderDeletedAccount)
         );
         await session.SaveChangesAsync();

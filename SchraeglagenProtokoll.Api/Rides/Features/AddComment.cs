@@ -10,7 +10,7 @@ public static class AddComment
         group.MapPost("{rideId}/comment", AddCommentHandler).WithName("AddComment").WithOpenApi();
     }
 
-    public record AddCommentCommand(Guid CommentedBy, string Text);
+    public record AddCommentCommand(Guid CommentedBy, string Text, int Version);
 
     public static async Task<IResult> AddCommentHandler(
         IDocumentSession session,
@@ -18,10 +18,10 @@ public static class AddComment
         [FromBody] AddCommentCommand command
     )
     {
-        var (commentedBy, text) = command;
+        var (commentedBy, text, version) = command;
 
         var commentAdded = new CommentAdded(commentedBy, text);
-        session.Events.Append(rideId, commentAdded);
+        await session.Events.WriteToAggregate<Ride>(rideId, version, stream => stream.AppendOne(commentAdded));
         await session.SaveChangesAsync();
 
         return Results.Ok();

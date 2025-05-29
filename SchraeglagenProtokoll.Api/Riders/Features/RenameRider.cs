@@ -10,7 +10,7 @@ public static class RenameRiderEndpoint
         group.MapPost("{id:guid}/rename", RenameRiderHandler).WithName("RenameRider").WithOpenApi();
     }
 
-    public record RenameRider(string FullName);
+    public record RenameRider(string FullName, int Version);
 
     public static async Task<IResult> RenameRiderHandler(
         IDocumentSession session,
@@ -18,9 +18,9 @@ public static class RenameRiderEndpoint
         [FromBody] RenameRider command
     )
     {
-        var newFullName = command.FullName;
+        var (newFullName, version) = command;
         var riderRenamed = new RiderRenamed(newFullName);
-        await session.Events.WriteToAggregate<Rider>(id, stream => stream.AppendOne(riderRenamed));
+        await session.Events.WriteToAggregate<Rider>(id, version, stream => stream.AppendOne(riderRenamed));
         return Results.Ok();
     }
 }
