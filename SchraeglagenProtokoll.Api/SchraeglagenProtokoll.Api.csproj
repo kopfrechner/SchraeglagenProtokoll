@@ -3,6 +3,7 @@
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>cce17cc2-0617-4ef7-9d4a-7049681d1ed0</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Marten.AspNetCore" Version="7.40.5" />
