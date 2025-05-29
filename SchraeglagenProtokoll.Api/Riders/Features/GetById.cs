@@ -10,7 +10,7 @@ namespace SchraeglagenProtokoll.Api.Riders.Features;
 
 public static class GetById
 {
-    public static void MapGetById(this RouteGroupBuilder group)
+    public static void MapGetRiderById(this RouteGroupBuilder group)
     {
         group
             .MapGet("{id}", GetRiderById_ByAggregation)

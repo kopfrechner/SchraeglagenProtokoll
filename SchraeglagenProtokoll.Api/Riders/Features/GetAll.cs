@@ -10,7 +10,7 @@ namespace SchraeglagenProtokoll.Api.Riders.Features;
 
 public static class GetAll
 {
-    public static void MapGetAll(this RouteGroupBuilder group)
+    public static void MapGetAllRider(this RouteGroupBuilder group)
     {
         group
             .MapGet("{id}", GetAllHandler)
