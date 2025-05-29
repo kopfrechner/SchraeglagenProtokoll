@@ -1,9 +1,6 @@
 using Marten;
 using Marten.AspNetCore;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
 using IResult = Microsoft.AspNetCore.Http.IResult;
 
 namespace SchraeglagenProtokoll.Api.Riders.Features;

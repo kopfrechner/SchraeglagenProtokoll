@@ -1,9 +1,5 @@
 using Marten;
 using Marten.Events.Daemon.Resiliency;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Scalar.AspNetCore;
 using SchraeglagenProtokoll.Api;
 using SchraeglagenProtokoll.Api.Riders;

@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
 using SchraeglagenProtokoll.Api.Riders.Features;
 
 namespace SchraeglagenProtokoll.Api.Riders;

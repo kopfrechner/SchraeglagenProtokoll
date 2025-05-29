@@ -1,7 +1,4 @@
 using Marten;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
 using SchraeglagenProtokoll.Api.Rides.Projections;
 using IResult = Microsoft.AspNetCore.Http.IResult;
 
