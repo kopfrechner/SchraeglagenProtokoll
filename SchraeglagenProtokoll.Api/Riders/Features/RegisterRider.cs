@@ -1,5 +1,4 @@
 using Marten;
-using Microsoft.AspNetCore.Mvc;
 
 namespace SchraeglagenProtokoll.Api.Riders.Features;
 

@@ -1,4 +1,3 @@
-using JasperFx.Core;
 using Marten;
 using Marten.Pagination;
 using Microsoft.AspNetCore.Mvc;
