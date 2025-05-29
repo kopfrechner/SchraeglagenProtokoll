@@ -11,7 +11,7 @@ public static class RegisterRider
     }
 
     public record RegisterRiderCommand(
-        Guid RiderId,
+        Guid? RiderId,
         string Email,
         string FullName,
         string NerdAlias
@@ -24,8 +24,10 @@ public static class RegisterRider
     {
         var (riderId, email, fullName, nerdAlias) = command;
 
-        var registeredRider = new RiderRegistered(riderId, email, fullName, nerdAlias);
-        var stream = session.Events.StartStream<Rider>(riderId, registeredRider);
+        riderId ??= Guid.NewGuid();
+        
+        var registeredRider = new RiderRegistered(riderId.Value, email, fullName, nerdAlias);
+        var stream = session.Events.StartStream<Rider>(riderId.Value, registeredRider);
         await session.SaveChangesAsync();
 
         return Results.Created($"riders/{stream.Id}", stream.Id);
