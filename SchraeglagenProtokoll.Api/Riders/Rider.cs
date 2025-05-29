@@ -8,6 +8,8 @@ public record RiderDeletedAccount(string? RiderFeedback);
 
 public record Rider(Guid Id, string Email, string FullName, string NerdAlias)
 {
+    public int Version { get; private set; }
+    
     public static Rider Create(RiderRegistered riderRegistered) =>
         new Rider(
             riderRegistered.Id,
