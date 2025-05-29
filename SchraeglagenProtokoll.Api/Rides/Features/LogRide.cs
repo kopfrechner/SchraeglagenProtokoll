@@ -22,7 +22,7 @@ public static class LogRide
 
     public static async Task<IResult> LogRideHandler(
         IDocumentSession session,
-        [FromBody] LogRideCommand command
+        LogRideCommand command
     )
     {
         var (rideId, riderId, date, start, destination, distance) = command;

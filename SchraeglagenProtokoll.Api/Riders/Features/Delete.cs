@@ -15,7 +15,7 @@ public static class Delete
     public static async Task<IResult> DeleteById(
         IDocumentSession session,
         [FromRoute] Guid id,
-        DeleteRiderCommand command
+        [FromBody] DeleteRiderCommand command
     )
     {
         var comment = command.RiderFeedback;

@@ -19,7 +19,7 @@ public static class RegisterRider
 
     public static async Task<IResult> RegisterRiderHandler(
         IDocumentSession session,
-        [FromBody] RegisterRiderCommand command
+        RegisterRiderCommand command
     )
     {
         var (riderId, email, fullName, nerdAlias) = command;

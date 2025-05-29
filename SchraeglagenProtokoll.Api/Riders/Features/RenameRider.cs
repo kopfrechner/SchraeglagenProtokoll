@@ -15,7 +15,7 @@ public static class RenameRiderEndpoint
     public static async Task<IResult> RenameRiderHandler(
         IDocumentSession session,
         [FromRoute] Guid id,
-        RenameRider command
+        [FromBody] RenameRider command
     )
     {
         var newFullName = command.FullName;
