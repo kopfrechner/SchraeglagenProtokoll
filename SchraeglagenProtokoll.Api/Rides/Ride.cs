@@ -14,8 +14,6 @@ public record RideLogged(
 
 public record CommentAdded(Guid CommentedBy, string Text);
 
-public record Comment(Guid CommentedBy, string Text, DateTimeOffset Timestamp);
-
 public class Ride
 {
     [JsonInclude]
@@ -61,4 +59,6 @@ public class Ride
     {
         Comments.Add(new Comment(@event.Data.CommentedBy, @event.Data.Text, @event.Timestamp));
     }
+    
+    public record Comment(Guid CommentedBy, string Text, DateTimeOffset Timestamp);
 }
