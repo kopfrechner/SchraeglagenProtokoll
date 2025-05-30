@@ -1,5 +1,4 @@
 using SchraeglagenProtokoll.Api.Riders;
-using Shouldly;
 
 namespace SchraeglagenProtokoll.Tests.Riders;
 
@@ -18,12 +17,12 @@ public class RegisterRiderTests(WebAppFixture fixture) : WebAppTestBase(fixture)
             x.Post.Json(registerRiderCommand).ToUrl("/rider/register");
             x.StatusCodeShouldBe(201);
         });
-        
+
         // Assert
         var createdWithId = result.ReadAsJson<Guid>();
-        await DocumentSessionAsync(async x =>
+        await DocumentSessionAsync(async session =>
         {
-            var rider = await x.LoadAsync<Rider>(createdWithId);
+            var rider = await session.LoadAsync<Rider>(createdWithId);
             await Verify(rider);
         });
     }

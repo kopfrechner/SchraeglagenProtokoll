@@ -21,7 +21,11 @@ public static class AddComment
         var (commentedBy, text, version) = command;
 
         var commentAdded = new CommentAdded(commentedBy, text);
-        await session.Events.WriteToAggregate<Ride>(rideId, version, stream => stream.AppendOne(commentAdded));
+        await session.Events.WriteToAggregate<Ride>(
+            rideId,
+            version,
+            stream => stream.AppendOne(commentAdded)
+        );
         await session.SaveChangesAsync();
 
         return Results.Ok();

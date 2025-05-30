@@ -25,18 +25,14 @@ public static class GetAll
             return Results.Ok(riders);
         }
 
-        var filteredRiders = await session.Query<Rider>()
+        var filteredRiders = await session
+            .Query<Rider>()
             .Where(x =>
-                x.FullName.Contains(
-                    searchTerm!,
-                    StringComparison.InvariantCultureIgnoreCase
-                )
-                || x.NerdAlias.Contains(
-                    searchTerm!,
-                    StringComparison.InvariantCultureIgnoreCase
-                )
-            ).ToPagedListAsync(pageNumber, pageSize);
-        
+                x.FullName.Contains(searchTerm!, StringComparison.InvariantCultureIgnoreCase)
+                || x.NerdAlias.Contains(searchTerm!, StringComparison.InvariantCultureIgnoreCase)
+            )
+            .ToPagedListAsync(pageNumber, pageSize);
+
         return Results.Ok(filteredRiders);
     }
 }

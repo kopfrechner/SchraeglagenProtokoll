@@ -24,7 +24,7 @@ public static class RegisterRider
         var (riderId, email, fullName, nerdAlias) = command;
 
         riderId ??= Guid.NewGuid();
-        
+
         var registeredRider = new RiderRegistered(riderId.Value, email, fullName, nerdAlias);
         var stream = session.Events.StartStream<Rider>(riderId.Value, registeredRider);
         await session.SaveChangesAsync();

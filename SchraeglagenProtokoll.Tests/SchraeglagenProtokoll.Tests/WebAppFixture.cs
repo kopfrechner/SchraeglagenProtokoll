@@ -12,7 +12,7 @@ internal enum DbSetup
     TestContainer,
 }
 
-public class WebAppFixture: IAsyncInitializer, IAsyncDisposable
+public class WebAppFixture : IAsyncInitializer, IAsyncDisposable
 {
     private static DbSetup UseTestContainer => DbSetup.LocalDb;
 
@@ -37,15 +37,16 @@ public class WebAppFixture: IAsyncInitializer, IAsyncDisposable
         {
             await _container.StartAsync();
         }
-        
-        var connectionString = _container?.GetConnectionString() 
-                               ?? "User ID=marten;Password=change-me-123#!;Host=localhost;Port=5680;Database=schraeglage";
-        
+
+        var connectionString =
+            _container?.GetConnectionString()
+            ?? "User ID=marten;Password=change-me-123#!;Host=localhost;Port=5680;Database=schraeglage";
+
         var configValues = new Dictionary<string, string?>
         {
             { "ConnectionStrings:Marten", connectionString },
         };
-        
+
         Host = await AlbaHost.For<Program>(ConfigurationOverride.Create(configValues));
         await Host.CleanAllMartenDataAsync();
     }
@@ -55,12 +56,12 @@ public class WebAppFixture: IAsyncInitializer, IAsyncDisposable
         // Alba
         await Host.StopAsync();
         Host.Dispose();
-        
+
         // Test container
         if (_container is not null)
         {
             await _container!.StopAsync();
             await _container!.DisposeAsync();
-        }    
+        }
     }
 }

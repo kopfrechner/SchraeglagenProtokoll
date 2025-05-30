@@ -1,24 +1,20 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
-    <PropertyGroup>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <OutputType>Exe</OutputType>
-        <TargetFramework>net9.0</TargetFramework>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <PackageReference Include="Alba" Version="8.2.0" />
-        <PackageReference Include="Bogus" Version="35.6.3" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="9.0.5"/>
-        <PackageReference Include="Shouldly" Version="4.3.0" />
-        <PackageReference Include="Testcontainers.PostgreSql" Version="4.4.0" />
-        <PackageReference Include="TUnit" Version="0.21.16"/>
-        <PackageReference Include="Verify.TUnit" Version="30.1.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\..\SchraeglagenProtokoll.Api\SchraeglagenProtokoll.Api.csproj" />
-    </ItemGroup>
-
+  <PropertyGroup>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Alba" Version="8.2.0" />
+    <PackageReference Include="Bogus" Version="35.6.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="9.0.5" />
+    <PackageReference Include="Shouldly" Version="4.3.0" />
+    <PackageReference Include="Testcontainers.PostgreSql" Version="4.4.0" />
+    <PackageReference Include="TUnit" Version="0.21.16" />
+    <PackageReference Include="Verify.TUnit" Version="30.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\SchraeglagenProtokoll.Api\SchraeglagenProtokoll.Api.csproj" />
+  </ItemGroup>
 </Project>

@@ -10,9 +10,12 @@ public class CommandFaker
     private static int Seed => 0815;
 
     private Faker<Distance> _distanceFaker = new DistanceFaker().UseSeed(Seed);
-    private Faker<LogRide.LogRideCommand> _logRideFaker = new Faker<LogRide.LogRideCommand>().UseSeed(Seed + 1);
-    private Faker<AddComment.AddCommentCommand> _addCommentFaker = new Faker<AddComment.AddCommentCommand>().UseSeed(Seed + 2);
-    private Faker<RegisterRider.RegisterRiderCommand> _registerRiderFaker = new Faker<RegisterRider.RegisterRiderCommand>().UseSeed(Seed + 3);
+    private Faker<LogRide.LogRideCommand> _logRideFaker =
+        new Faker<LogRide.LogRideCommand>().UseSeed(Seed + 1);
+    private Faker<AddComment.AddCommentCommand> _addCommentFaker =
+        new Faker<AddComment.AddCommentCommand>().UseSeed(Seed + 2);
+    private Faker<RegisterRider.RegisterRiderCommand> _registerRiderFaker =
+        new Faker<RegisterRider.RegisterRiderCommand>().UseSeed(Seed + 3);
 
     public LogRide.LogRideCommand LogRide(
         Guid? rideId = null,
@@ -38,7 +41,11 @@ public class CommandFaker
     public AddComment.AddCommentCommand AddComment(Guid commentedById, int version)
     {
         return _addCommentFaker
-            .CustomInstantiator(f => new AddComment.AddCommentCommand(commentedById, f.Random.Words(20), version))
+            .CustomInstantiator(f => new AddComment.AddCommentCommand(
+                commentedById,
+                f.Random.Words(20),
+                version
+            ))
             .Generate();
     }
 

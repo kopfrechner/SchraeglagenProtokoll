@@ -20,7 +20,11 @@ public static class RenameRiderEndpoint
     {
         var (newFullName, version) = command;
         var riderRenamed = new RiderRenamed(newFullName);
-        await session.Events.WriteToAggregate<Rider>(id, version, stream => stream.AppendOne(riderRenamed));
+        await session.Events.WriteToAggregate<Rider>(
+            id,
+            version,
+            stream => stream.AppendOne(riderRenamed)
+        );
         return Results.Ok();
     }
 }
