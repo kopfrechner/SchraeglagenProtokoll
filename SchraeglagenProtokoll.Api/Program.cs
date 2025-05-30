@@ -45,4 +45,7 @@ app.MapRide();
 
 app.Run();
 
-public abstract partial class Program;
+namespace SchraeglagenProtokoll.Api
+{
+    public abstract partial class Program;
+}

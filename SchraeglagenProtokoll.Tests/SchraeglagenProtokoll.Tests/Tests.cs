@@ -2,13 +2,13 @@
 
 public class Tests
 {
-    [ClassDataSource<WebApplicationFactory>(Shared = SharedType.PerTestSession)]
-    public required WebApplicationFactory WebApplicationFactory { get; init; }
+    [ClassDataSource<WebAppFixture>(Shared = SharedType.PerTestSession)]
+    public required WebAppFixture WebAppFixture { get; init; }
 
     [Test]
     public async Task Test()
     {
-        var client = WebApplicationFactory.CreateClient();
+        var client = WebAppFixture.CreateClient();
 
         var response = await client.GetAsync("/ping");
 
