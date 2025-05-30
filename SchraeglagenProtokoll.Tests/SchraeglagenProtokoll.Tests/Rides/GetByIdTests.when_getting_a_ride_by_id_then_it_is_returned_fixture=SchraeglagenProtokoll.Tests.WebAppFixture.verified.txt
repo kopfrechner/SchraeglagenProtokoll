@@ -1,0 +1,13 @@
+﻿{
+  Id: Guid_1,
+  Version: 1,
+  RiderId: Guid_2,
+  Date: DateTimeOffset_1,
+  StartLocation: Lake Brayanstad,
+  Destination: South Myrlborough,
+  Distance: {
+    Value: 222.74507732258414,
+    Unit: Kilometers
+  },
+  Comments: null
+}
