@@ -24,8 +24,8 @@ public static class StoreOptionsExtensions
 
         options.Projections.Snapshot<Rider>(SnapshotLifecycle.Inline);
         options.Projections.Snapshot<Ride>(SnapshotLifecycle.Inline);
+        options.Projections.Add<RiderHistoryProjection>(ProjectionLifecycle.Inline);
         options.Projections.Add<RiderStatsProjection>(ProjectionLifecycle.Async);
-        options.Projections.Add<RiderHistoryProjection>(ProjectionLifecycle.Live);
 
         // Recent optimization you'd want with FetchForWriting up above
         options.Projections.UseIdentityMapForAggregates = true;
