@@ -1,4 +1,5 @@
 using Marten;
+using Marten.AspNetCore;
 using SchraeglagenProtokoll.Api.Rides.Projections;
 using IResult = Microsoft.AspNetCore.Http.IResult;
 
@@ -14,11 +15,11 @@ public static class GetScorePerRider
             .WithOpenApi();
     }
 
-    private static async Task<IResult> GetScorePerRiderHandler(IQuerySession session)
+    private static async Task GetScorePerRiderHandler(
+        IQuerySession session,
+        HttpContext httpContext
+    )
     {
-        var scorePerRider = await session.LoadAsync<ScorePerRider>(
-            ScorePerRider.DocumentIdentifier
-        );
-        return scorePerRider is null ? Results.NotFound() : Results.Ok(scorePerRider);
+        await session.Json.WriteById<ScorePerRider>(ScorePerRider.DocumentIdentifier, httpContext);
     }
 }
