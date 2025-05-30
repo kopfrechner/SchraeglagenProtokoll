@@ -1,0 +1,37 @@
+﻿[
+  {
+    Id: Guid_1,
+    Email: Bertha.Tillman@gmail.com,
+    FullName: Cleta Koss,
+    NerdAlias: Taurean30,
+    Version: 0
+  },
+  {
+    Id: Guid_2,
+    Email: Gloria69@yahoo.com,
+    FullName: Adan Greenfelder,
+    NerdAlias: Valentin46,
+    Version: 0
+  },
+  {
+    Id: Guid_3,
+    Email: Lucile_Moore@yahoo.com,
+    FullName: Thomas Stamm,
+    NerdAlias: Blaze_Leannon61,
+    Version: 0
+  },
+  {
+    Id: Guid_4,
+    Email: Lina.Pacocha52@gmail.com,
+    FullName: Newell Hagenes,
+    NerdAlias: Micah_McClure,
+    Version: 0
+  },
+  {
+    Id: Guid_5,
+    Email: Maddison42@gmail.com,
+    FullName: Mack Schuppe,
+    NerdAlias: Sophia25,
+    Version: 0
+  }
+]

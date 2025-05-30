@@ -1,0 +1,37 @@
+﻿[
+  {
+    Id: Guid_1,
+    Email: john.smith@test.com,
+    FullName: John Smith,
+    NerdAlias: Thunder,
+    Version: 0
+  },
+  {
+    Id: Guid_2,
+    Email: john.smith@test.com,
+    FullName: John Smith,
+    NerdAlias: Thunder,
+    Version: 0
+  },
+  {
+    Id: Guid_3,
+    Email: john.smith@test.com,
+    FullName: John Smith,
+    NerdAlias: Thunder,
+    Version: 0
+  },
+  {
+    Id: Guid_4,
+    Email: john.smith@test.com,
+    FullName: John Smith,
+    NerdAlias: Thunder,
+    Version: 0
+  },
+  {
+    Id: Guid_5,
+    Email: john.smith@test.com,
+    FullName: John Smith,
+    NerdAlias: Thunder,
+    Version: 0
+  }
+]

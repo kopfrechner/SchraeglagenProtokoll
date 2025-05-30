@@ -1,0 +1,37 @@
+﻿[
+  {
+    Id: Guid_1,
+    Email: Hilton78@hotmail.com,
+    FullName: Joshuah O'Connell,
+    NerdAlias: Ayla_Kling47,
+    Version: 0
+  },
+  {
+    Id: Guid_2,
+    Email: Effie_Hudson@gmail.com,
+    FullName: Maryse Ruecker,
+    NerdAlias: Lexi_Morar,
+    Version: 0
+  },
+  {
+    Id: Guid_3,
+    Email: Neha_Crooks34@yahoo.com,
+    FullName: Collin Runolfsson,
+    NerdAlias: Casey58,
+    Version: 0
+  },
+  {
+    Id: Guid_4,
+    Email: Brant_Cole@gmail.com,
+    FullName: Hilario Hudson,
+    NerdAlias: Santiago.Kling,
+    Version: 0
+  },
+  {
+    Id: Guid_5,
+    Email: Franz.Adams@yahoo.com,
+    FullName: Paula Blick,
+    NerdAlias: Liana59,
+    Version: 0
+  }
+]

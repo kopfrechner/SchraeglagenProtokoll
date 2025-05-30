@@ -1,0 +1,37 @@
+﻿[
+  {
+    Id: Guid_1,
+    Email: Angelina.Mills@yahoo.com,
+    FullName: Kaela Hudson,
+    NerdAlias: Samantha.Purdy,
+    Version: 0
+  },
+  {
+    Id: Guid_2,
+    Email: Sammy.Anderson6@yahoo.com,
+    FullName: Vanessa Parisian,
+    NerdAlias: Leonardo50,
+    Version: 0
+  },
+  {
+    Id: Guid_3,
+    Email: Lorine13@hotmail.com,
+    FullName: Jasmin Rowe,
+    NerdAlias: Zoila.Powlowski,
+    Version: 0
+  },
+  {
+    Id: Guid_4,
+    Email: Nina_Hermiston@yahoo.com,
+    FullName: Austin Lang,
+    NerdAlias: Noah9,
+    Version: 0
+  },
+  {
+    Id: Guid_5,
+    Email: Jazmin.Bernier32@hotmail.com,
+    FullName: Tyshawn Boyle,
+    NerdAlias: Dayana.Hauck91,
+    Version: 0
+  }
+]

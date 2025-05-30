@@ -1,0 +1,58 @@
+﻿[
+  {
+    Id: Guid_1,
+    Email: Vincenzo_Walter86@hotmail.com,
+    FullName: Kadin Bradtke,
+    NerdAlias: Darren.Hauck96,
+    Version: 0
+  },
+  {
+    Id: Guid_2,
+    Email: Sierra.Weber93@gmail.com,
+    FullName: Matt Greenholt,
+    NerdAlias: Emely.Walsh,
+    Version: 0
+  },
+  {
+    Id: Guid_3,
+    Email: Lisa.Gleason36@gmail.com,
+    FullName: Cody King,
+    NerdAlias: Phoebe.Hudson43,
+    Version: 0
+  },
+  {
+    Id: Guid_4,
+    Email: Krystal.Kautzer19@yahoo.com,
+    FullName: Martina Okuneva,
+    NerdAlias: Kendrick59,
+    Version: 0
+  },
+  {
+    Id: Guid_5,
+    Email: Consuelo.Franecki@hotmail.com,
+    FullName: Marjorie Keeling,
+    NerdAlias: Quinten.Kirlin,
+    Version: 0
+  },
+  {
+    Id: Guid_6,
+    Email: Annalise_Hettinger93@yahoo.com,
+    FullName: Nickolas Okuneva,
+    NerdAlias: Flossie.Shanahan75,
+    Version: 0
+  },
+  {
+    Id: Guid_7,
+    Email: Lora.Barrows4@yahoo.com,
+    FullName: Myron Bogan,
+    NerdAlias: Lucas_Lind,
+    Version: 0
+  },
+  {
+    Id: Guid_8,
+    Email: Adolph24@yahoo.com,
+    FullName: Porter Welch,
+    NerdAlias: Clay_Padberg,
+    Version: 0
+  }
+]

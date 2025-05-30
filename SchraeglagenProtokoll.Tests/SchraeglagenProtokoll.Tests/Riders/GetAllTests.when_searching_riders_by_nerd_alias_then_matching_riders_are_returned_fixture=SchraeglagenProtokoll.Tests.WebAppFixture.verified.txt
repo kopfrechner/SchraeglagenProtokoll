@@ -1,0 +1,37 @@
+﻿[
+  {
+    Id: Guid_1,
+    Email: jane.doe@test.com,
+    FullName: Jane Doe,
+    NerdAlias: Shadow,
+    Version: 0
+  },
+  {
+    Id: Guid_2,
+    Email: jane.doe@test.com,
+    FullName: Jane Doe,
+    NerdAlias: Shadow,
+    Version: 0
+  },
+  {
+    Id: Guid_3,
+    Email: jane.doe@test.com,
+    FullName: Jane Doe,
+    NerdAlias: Shadow,
+    Version: 0
+  },
+  {
+    Id: Guid_4,
+    Email: jane.doe@test.com,
+    FullName: Jane Doe,
+    NerdAlias: Shadow,
+    Version: 0
+  },
+  {
+    Id: Guid_5,
+    Email: jane.doe@test.com,
+    FullName: Jane Doe,
+    NerdAlias: Shadow,
+    Version: 0
+  }
+]
