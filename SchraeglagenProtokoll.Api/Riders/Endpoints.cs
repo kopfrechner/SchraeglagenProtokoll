@@ -16,6 +16,7 @@ public static class Endpoints
         group.MapGetRiderById_FromStreamedProjection();
         group.MapGetAllRider();
         group.MapGetRiderStats();
+        group.MapGetRiderHistory();
         group.MapDeleteRiderById();
     }
 }
