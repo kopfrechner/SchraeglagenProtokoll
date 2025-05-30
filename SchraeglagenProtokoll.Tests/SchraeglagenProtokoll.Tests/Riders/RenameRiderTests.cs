@@ -15,7 +15,7 @@ public class RenameRiderCommandTests(WebAppFixture fixture) : WebAppTestBase(fix
         var renameRiderCommand = CommandFaker.RenameRider(version: 1);
 
         // Act
-        await Host.Scenario(x =>
+        await Scenario(x =>
         {
             x.Post.Json(renameRiderCommand).ToUrl($"/rider/{riderId}/rename");
             x.StatusCodeShouldBeOk();
@@ -43,7 +43,7 @@ public class RenameRiderCommandTests(WebAppFixture fixture) : WebAppTestBase(fix
         var renameRiderCommand = CommandFaker.RenameRider(wrongVersion);
 
         // Act
-        await Host.Scenario(x =>
+        await Scenario(x =>
         {
             x.Post.Json(renameRiderCommand).ToUrl($"/rider/{riderId}/rename");
             x.StatusCodeShouldBe(400);

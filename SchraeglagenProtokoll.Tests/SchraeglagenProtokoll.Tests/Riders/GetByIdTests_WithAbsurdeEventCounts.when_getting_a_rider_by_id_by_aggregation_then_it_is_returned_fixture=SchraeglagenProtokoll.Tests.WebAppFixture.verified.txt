@@ -1,0 +1,7 @@
+﻿{
+  Id: Guid_1,
+  Email: Jacky26@yahoo.com,
+  FullName: Franco Volkman,
+  NerdAlias: HupenHugo,
+  Version: 0
+}

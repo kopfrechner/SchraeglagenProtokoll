@@ -1,4 +1,5 @@
 using Alba;
+using Oakton;
 using SchraeglagenProtokoll.Api;
 using Testcontainers.PostgreSql;
 using TUnit.Core.Interfaces;
@@ -21,6 +22,8 @@ public class WebAppFixture : IAsyncInitializer, IAsyncDisposable
     public async Task InitializeAsync()
     {
         await _container.StartAsync();
+
+        OaktonEnvironment.AutoStartHost = true;
 
         var configValues = new Dictionary<string, string?>
         {

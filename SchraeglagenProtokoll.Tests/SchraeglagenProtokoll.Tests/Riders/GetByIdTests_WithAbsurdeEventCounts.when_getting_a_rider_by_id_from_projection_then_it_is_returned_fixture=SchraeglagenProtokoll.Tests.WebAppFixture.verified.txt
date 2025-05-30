@@ -1,0 +1,7 @@
+﻿{
+  Id: Guid_1,
+  Email: Cyril.Ratke@yahoo.com,
+  FullName: Jaylan Connelly,
+  NerdAlias: ScheinwerferSusi,
+  Version: 0
+}

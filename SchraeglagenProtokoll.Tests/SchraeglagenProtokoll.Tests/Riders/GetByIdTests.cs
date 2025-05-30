@@ -12,14 +12,14 @@ public class GetByIdTests(WebAppFixture fixture) : WebAppTestBase(fixture)
         var riderId = await StartStream(EventFaker.RiderRegistered());
 
         // Act
-        var result = Scenario(x =>
+        var result = await Scenario(x =>
         {
             x.Get.Url($"/rider/{riderId}/by-aggregation");
             x.StatusCodeShouldBeOk();
         });
 
         // Assert
-        var rider = result.Result.ReadAsJson<Rider>();
+        var rider = result.ReadAsJson<Rider>();
         await Verify(rider);
     }
 
@@ -30,14 +30,14 @@ public class GetByIdTests(WebAppFixture fixture) : WebAppTestBase(fixture)
         var riderId = await StartStream(EventFaker.RiderRegistered());
 
         // Act
-        var result = Scenario(x =>
+        var result = await Scenario(x =>
         {
             x.Get.Url($"/rider/{riderId}/from-projection");
             x.StatusCodeShouldBeOk();
         });
 
         // Assert
-        var rider = result.Result.ReadAsJson<Rider>();
+        var rider = result.ReadAsJson<Rider>();
         await Verify(rider);
     }
 
@@ -48,14 +48,14 @@ public class GetByIdTests(WebAppFixture fixture) : WebAppTestBase(fixture)
         var riderId = await StartStream(EventFaker.RiderRegistered());
 
         // Act
-        var result = Scenario(x =>
+        var result = await Scenario(x =>
         {
             x.Get.Url($"/rider/{riderId}/from-streamed-projection");
             x.StatusCodeShouldBeOk();
         });
 
         // Assert
-        var rider = result.Result.ReadAsJson<Rider>();
+        var rider = result.ReadAsJson<Rider>();
         await Verify(rider);
     }
 }

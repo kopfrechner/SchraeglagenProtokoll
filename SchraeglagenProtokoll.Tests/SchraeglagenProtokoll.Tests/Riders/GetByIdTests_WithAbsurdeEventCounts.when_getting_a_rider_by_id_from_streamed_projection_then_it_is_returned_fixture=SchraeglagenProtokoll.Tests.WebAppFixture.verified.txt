@@ -1,0 +1,7 @@
+﻿{
+  Id: Guid_1,
+  Email: Era36@gmail.com,
+  FullName: Pedro Luettgen,
+  NerdAlias: Krad-Klaus,
+  Version: 0
+}
