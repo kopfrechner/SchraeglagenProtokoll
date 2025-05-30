@@ -6,7 +6,7 @@ public static class RegisterRider
 {
     public static void MapRegisterRider(this RouteGroupBuilder group)
     {
-        group.MapPost("", RegisterRiderHandler).WithName("RegisterRider").WithOpenApi();
+        group.MapPost("/register", RegisterRiderHandler).WithName("RegisterRider").WithOpenApi();
     }
 
     public record RegisterRiderCommand(
