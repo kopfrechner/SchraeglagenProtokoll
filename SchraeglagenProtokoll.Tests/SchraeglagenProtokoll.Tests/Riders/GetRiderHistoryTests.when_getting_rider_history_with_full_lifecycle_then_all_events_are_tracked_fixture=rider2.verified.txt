@@ -1,0 +1,27 @@
+﻿{
+  Id: Guid_1,
+  FullName: Madeline D'Amore,
+  NerdAlias: KnieKeule,
+  History: [
+    {
+      Action: Rider registered with alias KnieKeule.,
+      Timestamp: DateTimeOffset_1
+    },
+    {
+      Action: Rider renamed from Erna Kautzer to Herminia Terry.,
+      Timestamp: DateTimeOffset_1
+    },
+    {
+      Action: Ride from Lednerville to Marquardtbury (138,04 Miles) logged.,
+      Timestamp: DateTimeOffset_1
+    },
+    {
+      Action: Rider added comment to a ride: Quia quia dolore qui a est id.,
+      Timestamp: DateTimeOffset_1
+    },
+    {
+      Action: Rider renamed from Herminia Terry to Madeline D'Amore.,
+      Timestamp: DateTimeOffset_1
+    }
+  ]
+}
