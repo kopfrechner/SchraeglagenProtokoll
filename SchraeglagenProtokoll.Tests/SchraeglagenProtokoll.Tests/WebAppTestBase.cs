@@ -33,4 +33,21 @@ public abstract class WebAppTestBase(WebAppFixture fixture)
         using var session = store.LightweightSession();
         query(session);
     }
+
+    public async Task<Guid> StartStream(params IEnumerable<object> events)
+    {
+        using var scope = fixture.Host.Services.CreateScope();
+        var store = scope.ServiceProvider.GetRequiredService<IDocumentStore>();
+        using var session = store.LightweightSession();
+        var stream = session.Events.StartStream(events);
+        await session.SaveChangesAsync();
+
+        return stream.Id;
+    }
+
+    [Before(Test)]
+    public async Task CleanupDatabase()
+    {
+        await Host.CleanAllMartenDataAsync();
+    }
 }
