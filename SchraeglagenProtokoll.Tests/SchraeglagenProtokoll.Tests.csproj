@@ -17,7 +17,7 @@
     <PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.14.8" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\SchraeglagenProtokoll.Api\SchraeglagenProtokoll.Api.csproj" />
+    <ProjectReference Include="..\SchraeglagenProtokoll.Api\SchraeglagenProtokoll.Api.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Rides\" />

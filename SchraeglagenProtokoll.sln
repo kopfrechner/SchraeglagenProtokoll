@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchraeglagenProtokoll.Api", "SchraeglagenProtokoll.Api\SchraeglagenProtokoll.Api.csproj", "{45334C72-B806-487B-8259-ECB88D08B9DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchraeglagenProtokoll.Tests", "SchraeglagenProtokoll.Tests\SchraeglagenProtokoll.Tests\SchraeglagenProtokoll.Tests.csproj", "{5C8D3899-E5D4-45C0-9B20-31DD4807F139}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchraeglagenProtokoll.Tests", "SchraeglagenProtokoll.Tests\SchraeglagenProtokoll.Tests.csproj", "{5C8D3899-E5D4-45C0-9B20-31DD4807F139}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
