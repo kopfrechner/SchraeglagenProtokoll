@@ -44,3 +44,5 @@ app.MapRider();
 app.MapRide();
 
 app.Run();
+
+public abstract partial class Program;
