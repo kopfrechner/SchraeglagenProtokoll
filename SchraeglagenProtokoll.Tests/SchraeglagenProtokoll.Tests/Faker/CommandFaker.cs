@@ -16,6 +16,8 @@ public class CommandFaker
         new Faker<AddComment.AddCommentCommand>().UseSeed(Seed + 2);
     private Faker<RegisterRider.RegisterRiderCommand> _registerRiderFaker =
         new Faker<RegisterRider.RegisterRiderCommand>().UseSeed(Seed + 3);
+    private Faker<RenameRider.RenameRiderCommand> _renameRiderFaker =
+        new Faker<RenameRider.RenameRiderCommand>().UseSeed(Seed + 4);
 
     public LogRide.LogRideCommand LogRide(
         Guid? rideId = null,
@@ -62,6 +64,16 @@ public class CommandFaker
                 email ?? f.Internet.Email(),
                 fullName ?? f.Name.FullName(),
                 nerdAlias ?? f.Hacker.Noun()
+            ))
+            .Generate();
+    }
+
+    public RenameRider.RenameRiderCommand RenameRider(int version, string? fullName = null)
+    {
+        return _renameRiderFaker
+            .CustomInstantiator(f => new RenameRider.RenameRiderCommand(
+                fullName ?? f.Person.FullName,
+                version
             ))
             .Generate();
     }
