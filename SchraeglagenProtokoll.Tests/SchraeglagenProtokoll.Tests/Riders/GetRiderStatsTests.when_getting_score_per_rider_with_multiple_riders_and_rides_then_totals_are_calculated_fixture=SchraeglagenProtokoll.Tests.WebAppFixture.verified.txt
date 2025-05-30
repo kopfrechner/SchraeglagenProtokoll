@@ -1,0 +1,70 @@
+﻿{
+  Id: Guid_1,
+  RiderInfos: [
+    {
+      RiderId: Guid_2,
+      NerdAlias: VisierVeit,
+      RidesCount: 2,
+      TotalDistance: {
+        Value: 2084.593846478245,
+        Unit: Kilometers
+      },
+      AverageDistance: {
+        Value: 1042.2969232391224,
+        Unit: Kilometers
+      }
+    },
+    {
+      RiderId: Guid_3,
+      NerdAlias: BlinkerBenno,
+      RidesCount: 1,
+      TotalDistance: {
+        Value: 397.331616578182,
+        Unit: Kilometers
+      },
+      AverageDistance: {
+        Value: 397.331616578182,
+        Unit: Kilometers
+      }
+    },
+    {
+      RiderId: Guid_4,
+      NerdAlias: MotorradMichl,
+      RidesCount: 1,
+      TotalDistance: {
+        Value: 515.279480496086,
+        Unit: Kilometers
+      },
+      AverageDistance: {
+        Value: 515.279480496086,
+        Unit: Kilometers
+      }
+    },
+    {
+      RiderId: Guid_5,
+      NerdAlias: Shadow,
+      RidesCount: 1,
+      TotalDistance: {
+        Value: 598.1410221184236,
+        Unit: Kilometers
+      },
+      AverageDistance: {
+        Value: 598.1410221184236,
+        Unit: Kilometers
+      }
+    },
+    {
+      RiderId: Guid_6,
+      NerdAlias: WheelieWilli,
+      RidesCount: 2,
+      TotalDistance: {
+        Value: 1873.67688577812,
+        Unit: Kilometers
+      },
+      AverageDistance: {
+        Value: 936.83844288906,
+        Unit: Kilometers
+      }
+    }
+  ]
+}

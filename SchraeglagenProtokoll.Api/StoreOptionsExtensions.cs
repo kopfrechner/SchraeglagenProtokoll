@@ -1,8 +1,8 @@
 using Marten;
 using Marten.Events.Projections;
 using SchraeglagenProtokoll.Api.Riders;
+using SchraeglagenProtokoll.Api.Riders.Projections;
 using SchraeglagenProtokoll.Api.Rides;
-using SchraeglagenProtokoll.Api.Rides.Projections;
 using Weasel.Core;
 
 namespace SchraeglagenProtokoll.Api;
@@ -24,7 +24,7 @@ public static class StoreOptionsExtensions
 
         options.Projections.Snapshot<Rider>(SnapshotLifecycle.Inline);
         options.Projections.Snapshot<Ride>(SnapshotLifecycle.Inline);
-        options.Projections.Add<ScorePerRiderProjection>(ProjectionLifecycle.Async);
+        options.Projections.Add<RiderStatsProjection>(ProjectionLifecycle.Async);
 
         // Recent optimization you'd want with FetchForWriting up above
         options.Projections.UseIdentityMapForAggregates = true;

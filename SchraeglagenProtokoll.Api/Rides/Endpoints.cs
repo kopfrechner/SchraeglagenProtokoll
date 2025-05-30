@@ -6,10 +6,9 @@ public static class Endpoints
 {
     public static void MapRide(this WebApplication app)
     {
-        var group = app.MapGroup("/rides").WithTags("Ride");
+        var group = app.MapGroup("/rides").WithTags("Rides");
 
         group.MapGetRideById();
         group.MapAddComment();
-        group.MapGetScorePerRider();
     }
 }

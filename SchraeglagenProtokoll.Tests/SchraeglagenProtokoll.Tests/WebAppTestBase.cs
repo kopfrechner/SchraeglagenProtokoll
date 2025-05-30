@@ -2,8 +2,10 @@ using System.Security.Cryptography;
 using System.Text;
 using Alba;
 using Marten;
+using Marten.Events;
 using Microsoft.Extensions.DependencyInjection;
 using SchraeglagenProtokoll.Tests.Faker;
+using TimeSpanExtensions = JasperFx.Core.TimeSpanExtensions;
 
 namespace SchraeglagenProtokoll.Tests;
 
@@ -37,15 +39,37 @@ public abstract class WebAppTestBase(WebAppFixture fixture)
         query(session);
     }
 
-    public async Task<Guid> StartStream(params IEnumerable<object> events)
+    public async Task<Guid> StartStream(params IList<object> events)
     {
         using var scope = fixture.Host.Services.CreateScope();
         var store = scope.ServiceProvider.GetRequiredService<IDocumentStore>();
         using var session = store.LightweightSession();
-        var stream = session.Events.StartStream(events);
+
+        var id = TryExtractEventIdFromFirstEvent(events);
+
+        var stream = id.HasValue
+            ? session.Events.StartStream(id.Value, events)
+            : session.Events.StartStream(events);
         await session.SaveChangesAsync();
 
         return stream.Id;
+    }
+
+    private static Guid? TryExtractEventIdFromFirstEvent(IList<object> events)
+    {
+        return
+            events.FirstOrDefault() is { } e
+            && e.GetType().GetProperty("Id") is { PropertyType: Type t } p
+            && t == typeof(Guid)
+            ? p.GetValue(e) as Guid?
+            : null;
+    }
+
+    public async Task WaitForNonStaleProjectionDataAsync(TimeSpan timeout)
+    {
+        using var scope = fixture.Host.Services.CreateScope();
+        var store = scope.ServiceProvider.GetRequiredService<IDocumentStore>();
+        await store.WaitForNonStaleProjectionDataAsync(timeout);
     }
 
     [Before(Test)]

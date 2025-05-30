@@ -23,6 +23,8 @@ public record Distance : IComparable<Distance>
         Unit = unit;
     }
 
+    public static Distance Zero() => new Distance(0, DistanceUnit.Kilometers);
+
     public override string ToString() => $"{Value:N2} {Unit}";
 
     public static Distance operator +(Distance left, Distance right) => left.Add(right);

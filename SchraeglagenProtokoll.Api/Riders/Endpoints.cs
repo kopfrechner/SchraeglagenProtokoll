@@ -14,6 +14,7 @@ public static class Endpoints
         group.MapRenameRider();
         group.MapGetRiderById();
         group.MapGetAllRider();
+        group.MapGetRiderStats();
         group.MapDeleteRiderById();
     }
 }

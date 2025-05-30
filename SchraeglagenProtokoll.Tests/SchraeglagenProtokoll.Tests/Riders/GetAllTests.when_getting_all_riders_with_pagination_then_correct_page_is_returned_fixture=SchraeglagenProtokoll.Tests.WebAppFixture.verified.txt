@@ -1,37 +1,37 @@
 ﻿[
   {
     Id: Guid_1,
-    Email: Bertha.Tillman@gmail.com,
-    FullName: Cleta Koss,
-    NerdAlias: Taurean30,
+    Email: Nelson82@hotmail.com,
+    FullName: Samara Robel,
+    NerdAlias: Simmerringe,
     Version: 0
   },
   {
     Id: Guid_2,
-    Email: Gloria69@yahoo.com,
-    FullName: Adan Greenfelder,
-    NerdAlias: Valentin46,
+    Email: Taurean30@yahoo.com,
+    FullName: Ned Larson,
+    NerdAlias: Rider,
     Version: 0
   },
   {
     Id: Guid_3,
-    Email: Lucile_Moore@yahoo.com,
-    FullName: Thomas Stamm,
-    NerdAlias: Blaze_Leannon61,
+    Email: Mattie95@gmail.com,
+    FullName: Erich Buckridge,
+    NerdAlias: RollOnRosi,
     Version: 0
   },
   {
     Id: Guid_4,
-    Email: Lina.Pacocha52@gmail.com,
-    FullName: Newell Hagenes,
-    NerdAlias: Micah_McClure,
+    Email: Lucile_Moore@yahoo.com,
+    FullName: Thomas Stamm,
+    NerdAlias: Kolbenfresser,
     Version: 0
   },
   {
     Id: Guid_5,
-    Email: Maddison42@gmail.com,
-    FullName: Mack Schuppe,
-    NerdAlias: Sophia25,
+    Email: Josephine30@gmail.com,
+    FullName: Lina Pacocha,
+    NerdAlias: AusrittAnke,
     Version: 0
   }
 ]

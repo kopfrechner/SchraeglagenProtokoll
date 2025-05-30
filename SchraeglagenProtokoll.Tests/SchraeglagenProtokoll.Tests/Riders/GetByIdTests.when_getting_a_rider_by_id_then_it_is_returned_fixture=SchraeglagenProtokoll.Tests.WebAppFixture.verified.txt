@@ -2,6 +2,6 @@
   Id: Guid_1,
   Email: Rebekah2@yahoo.com,
   FullName: Maxwell Littel,
-  NerdAlias: Kathryn_Krajcik85,
+  NerdAlias: BikerBiene,
   Version: 0
 }
