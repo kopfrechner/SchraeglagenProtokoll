@@ -13,6 +13,17 @@ services:
       - "${POSTGRES_HOST_PORT:-5432}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+  
+  postgres-integration-tests:
+    image: postgres:latest
+    container_name: ${POSTGRES_CONTAINER_NAME:-mypostgrescontainer}-integration-tests
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-myuser}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-mypassword}
+      POSTGRES_DB: ${POSTGRES_DB:-mydatabase}
+    ports:
+      - "${POSTGRES_HOST_PORT_INTEGRATION_TEST:-5433}:5432"
 
 volumes:
   postgres_data:
