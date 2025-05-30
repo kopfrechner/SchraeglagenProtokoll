@@ -1,11 +1,15 @@
 using Marten;
 using Marten.Events.Daemon.Resiliency;
+using Oakton;
 using Scalar.AspNetCore;
 using SchraeglagenProtokoll.Api;
 using SchraeglagenProtokoll.Api.Riders;
 using SchraeglagenProtokoll.Api.Rides;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Add command line parsing for Marten
+builder.Host.ApplyOaktonExtensions();
 
 // Learn more about configuring OpenAPI at https://ak.ms/aspnet/openapi
 builder.Services.AddOpenApi();
@@ -43,7 +47,7 @@ app.UseHttpsRedirection();
 app.MapRider();
 app.MapRide();
 
-app.Run();
+await app.RunOaktonCommands(args);
 
 namespace SchraeglagenProtokoll.Api
 {
