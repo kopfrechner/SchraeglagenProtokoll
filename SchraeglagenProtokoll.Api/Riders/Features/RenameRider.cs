@@ -1,4 +1,5 @@
 using Marten;
+using Marten.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace SchraeglagenProtokoll.Api.Riders.Features;
@@ -20,11 +21,18 @@ public static class RenameRider
     {
         var (newFullName, version) = command;
         var riderRenamed = new RiderRenamed(newFullName);
-        await session.Events.WriteToAggregate<Rider>(
-            id,
-            version,
-            stream => stream.AppendOne(riderRenamed)
-        );
-        return Results.Ok();
+        try
+        {
+            await session.Events.WriteToAggregate<Rider>(
+                id,
+                version,
+                stream => stream.AppendOne(riderRenamed)
+            );
+            return Results.Ok();
+        }
+        catch (ConcurrencyException e)
+        {
+            return Results.BadRequest(e.Message);
+        }
     }
 }

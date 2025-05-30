@@ -25,9 +25,35 @@ public class RenameRiderCommandTests(WebAppFixture fixture) : WebAppTestBase(fix
         await DocumentSessionAsync(async session =>
         {
             var updatedRider = await session.LoadAsync<Rider>(riderId);
-            updatedRider.ShouldNotBeNull();
-            updatedRider.FullName.ShouldBe(renameRiderCommand.FullName);
+            updatedRider.ShouldNotBeNull().FullName.ShouldBe(renameRiderCommand.FullName);
             await Verify(updatedRider);
+        });
+    }
+
+    [Test]
+    public async Task when_renaming_a_rider_then_it_is_not_renamed_if_version_is_wrong()
+    {
+        // Arrange
+        var riderId = await StartStream(
+            EventFaker.RiderRegistered(), // v1
+            EventFaker.RiderRenamed() // v2
+        );
+
+        var wrongVersion = 1; // should be 2
+        var renameRiderCommand = CommandFaker.RenameRider(wrongVersion);
+
+        // Act
+        await Host.Scenario(x =>
+        {
+            x.Post.Json(renameRiderCommand).ToUrl($"/rider/{riderId}/rename");
+            x.StatusCodeShouldBe(400);
+        });
+
+        // Assert
+        await DocumentSessionAsync(async session =>
+        {
+            var updatedRider = await session.LoadAsync<Rider>(riderId);
+            updatedRider.ShouldNotBeNull().FullName.ShouldNotBe(renameRiderCommand.FullName);
         });
     }
 }
