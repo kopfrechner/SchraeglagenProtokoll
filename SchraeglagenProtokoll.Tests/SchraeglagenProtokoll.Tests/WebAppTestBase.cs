@@ -8,6 +8,7 @@ using SchraeglagenProtokoll.Tests.Faker;
 namespace SchraeglagenProtokoll.Tests;
 
 [ClassDataSource<WebAppFixture>(Shared = SharedType.PerTestSession)]
+[NotInParallel]
 public abstract class WebAppTestBase(WebAppFixture fixture)
 {
     protected IAlbaHost Host => fixture.Host;
