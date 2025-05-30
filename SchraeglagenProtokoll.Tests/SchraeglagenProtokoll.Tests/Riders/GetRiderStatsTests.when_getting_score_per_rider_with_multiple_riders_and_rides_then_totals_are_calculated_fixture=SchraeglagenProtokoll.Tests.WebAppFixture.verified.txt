@@ -3,7 +3,7 @@
   RiderInfos: [
     {
       RiderId: Guid_2,
-      NerdAlias: VisierVeit,
+      RoadName: VisierVeit,
       RidesCount: 2,
       TotalDistance: {
         Value: 2084.593846478245,
@@ -16,7 +16,7 @@
     },
     {
       RiderId: Guid_3,
-      NerdAlias: BlinkerBenno,
+      RoadName: BlinkerBenno,
       RidesCount: 1,
       TotalDistance: {
         Value: 397.331616578182,
@@ -29,7 +29,7 @@
     },
     {
       RiderId: Guid_4,
-      NerdAlias: MotorradMichl,
+      RoadName: MotorradMichl,
       RidesCount: 1,
       TotalDistance: {
         Value: 515.279480496086,
@@ -42,7 +42,7 @@
     },
     {
       RiderId: Guid_5,
-      NerdAlias: Shadow,
+      RoadName: Shadow,
       RidesCount: 1,
       TotalDistance: {
         Value: 598.1410221184236,
@@ -55,7 +55,7 @@
     },
     {
       RiderId: Guid_6,
-      NerdAlias: WheelieWilli,
+      RoadName: WheelieWilli,
       RidesCount: 2,
       TotalDistance: {
         Value: 1873.67688577812,

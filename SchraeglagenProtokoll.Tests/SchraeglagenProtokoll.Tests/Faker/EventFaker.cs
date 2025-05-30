@@ -55,7 +55,7 @@ public class EventFaker
         Guid? id = null,
         string? email = null,
         string? fullName = null,
-        string? nerdAlias = null
+        string? roadName = null
     )
     {
         return _riderRegisteredFaker
@@ -63,7 +63,7 @@ public class EventFaker
                 id ?? f.Random.Guid(),
                 email ?? f.Internet.Email(),
                 fullName ?? f.Name.FullName(),
-                nerdAlias ?? f.PickRandom(RiderAlias)
+                roadName ?? f.PickRandom(RoadNames)
             ))
             .Generate();
     }
@@ -85,7 +85,7 @@ public class EventFaker
             .Generate();
     }
 
-    private static IEnumerable<string> RiderAlias =>
+    private static IEnumerable<string> RoadNames =>
         [
             "Thunder",
             "Shadow",

@@ -1,7 +1,7 @@
 ﻿{
   Id: Guid_1,
   FullName: Madeline D'Amore,
-  NerdAlias: KnieKeule,
+  RoadName: KnieKeule,
   History: [
     {
       Action: Rider registered with alias KnieKeule.,

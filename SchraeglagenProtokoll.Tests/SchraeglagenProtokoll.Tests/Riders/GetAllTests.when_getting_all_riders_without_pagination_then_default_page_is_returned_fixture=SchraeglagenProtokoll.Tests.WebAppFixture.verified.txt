@@ -3,35 +3,35 @@
     Id: Guid_1,
     Email: Hilton78@hotmail.com,
     FullName: Joshuah O'Connell,
-    NerdAlias: Bikerella,
+    RoadName: Bikerella,
     Version: 1
   },
   {
     Id: Guid_2,
     Email: Caleb.Daniel@yahoo.com,
     FullName: Effie Hudson,
-    NerdAlias: Tachonadel,
+    RoadName: Tachonadel,
     Version: 1
   },
   {
     Id: Guid_3,
     Email: Christopher83@gmail.com,
     FullName: Berta Gislason,
-    NerdAlias: SeitenständerSven,
+    RoadName: SeitenständerSven,
     Version: 1
   },
   {
     Id: Guid_4,
     Email: Clementine_Schuppe@yahoo.com,
     FullName: Gerald Cremin,
-    NerdAlias: Helm-Horst,
+    RoadName: Helm-Horst,
     Version: 1
   },
   {
     Id: Guid_5,
     Email: Emmitt.Bahringer@yahoo.com,
     FullName: Karina Mayert,
-    NerdAlias: BlubbiBiker,
+    RoadName: BlubbiBiker,
     Version: 1
   }
 ]

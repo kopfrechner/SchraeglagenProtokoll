@@ -3,7 +3,7 @@
     Id: Guid_1,
     Email: john.smith@test.com,
     FullName: John Smith,
-    NerdAlias: Thunder,
+    RoadName: Thunder,
     Version: 1
   }
 ]

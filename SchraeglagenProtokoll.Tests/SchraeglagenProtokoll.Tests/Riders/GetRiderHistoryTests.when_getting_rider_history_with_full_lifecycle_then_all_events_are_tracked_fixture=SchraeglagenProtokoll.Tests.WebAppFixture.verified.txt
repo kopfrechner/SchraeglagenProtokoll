@@ -1,7 +1,7 @@
 ﻿{
   Id: Guid_1,
   FullName: Kailee Kunde,
-  NerdAlias: GangwechselGabi,
+  RoadName: GangwechselGabi,
   History: [
     {
       Action: Rider registered with alias GangwechselGabi.,

@@ -29,7 +29,7 @@ public static class GetAll
             .Query<Rider>()
             .Where(x =>
                 x.FullName.Contains(searchTerm!, StringComparison.InvariantCultureIgnoreCase)
-                || x.NerdAlias.Contains(searchTerm!, StringComparison.InvariantCultureIgnoreCase)
+                || x.RoadName.Contains(searchTerm!, StringComparison.InvariantCultureIgnoreCase)
             )
             .ToPagedListAsync(pageNumber, pageSize);
 

@@ -3,7 +3,7 @@
     Id: Guid_1,
     Email: jane.doe@test.com,
     FullName: Jane Doe,
-    NerdAlias: Shadow,
+    RoadName: Shadow,
     Version: 1
   }
 ]

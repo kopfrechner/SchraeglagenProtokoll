@@ -9,7 +9,7 @@ public class RiderHistory
 {
     public Guid Id { get; set; }
     public string FullName { get; set; } = default!;
-    public string NerdAlias { get; set; } = default!;
+    public string RoadName { get; set; } = default!;
 
     public List<RiderHistoryEntry> History { get; set; } = new();
 
@@ -40,9 +40,9 @@ public class RiderHistoryProjection : MultiStreamProjection<RiderHistory, Guid>
     {
         details.Id = e.Data.Id;
         details.FullName = e.Data.FullName;
-        details.NerdAlias = e.Data.NerdAlias;
+        details.RoadName = e.Data.RoadName;
 
-        details.AddHistoryEntry($"Rider registered with alias {details.NerdAlias}.", e.Timestamp);
+        details.AddHistoryEntry($"Rider registered with alias {details.RoadName}.", e.Timestamp);
     }
 
     public void Apply(IEvent<RideLogged> e, RiderHistory details)

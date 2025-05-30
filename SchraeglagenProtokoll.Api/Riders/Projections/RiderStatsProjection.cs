@@ -18,7 +18,7 @@ public class RiderStats
     public class RiderStat
     {
         public Guid RiderId { get; init; }
-        public string NerdAlias { get; init; }
+        public string RoadName { get; init; }
 
         [JsonInclude]
         public int RidesCount { get; private set; } = 0;
@@ -48,7 +48,7 @@ public class RiderStatsProjection : MultiStreamProjection<RiderStats, Guid>
 
     public void Apply(RiderRegistered e, RiderStats stats)
     {
-        stats.RiderInfos.Add(new RiderStats.RiderStat { RiderId = e.Id, NerdAlias = e.NerdAlias });
+        stats.RiderInfos.Add(new RiderStats.RiderStat { RiderId = e.Id, RoadName = e.RoadName });
     }
 
     public void Apply(RideLogged e, RiderStats stats)

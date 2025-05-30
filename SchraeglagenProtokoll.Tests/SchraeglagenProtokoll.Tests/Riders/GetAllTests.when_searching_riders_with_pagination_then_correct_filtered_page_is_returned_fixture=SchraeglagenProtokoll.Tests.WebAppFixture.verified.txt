@@ -3,21 +3,21 @@
     Id: Guid_1,
     Email: test4@test.com,
     FullName: Test Rider 4,
-    NerdAlias: TestAlias4,
+    RoadName: TestAlias4,
     Version: 1
   },
   {
     Id: Guid_2,
     Email: test5@test.com,
     FullName: Test Rider 5,
-    NerdAlias: TestAlias5,
+    RoadName: TestAlias5,
     Version: 1
   },
   {
     Id: Guid_3,
     Email: test6@test.com,
     FullName: Test Rider 6,
-    NerdAlias: TestAlias6,
+    RoadName: TestAlias6,
     Version: 1
   }
 ]

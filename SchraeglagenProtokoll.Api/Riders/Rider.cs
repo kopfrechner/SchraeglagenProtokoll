@@ -2,13 +2,13 @@ using System.Text.Json.Serialization;
 
 namespace SchraeglagenProtokoll.Api.Riders;
 
-public record RiderRegistered(Guid Id, string Email, string FullName, string NerdAlias);
+public record RiderRegistered(Guid Id, string Email, string FullName, string RoadName);
 
 public record RiderRenamed(string FullName);
 
 public record RiderDeletedAccount(string? RiderFeedback);
 
-public record Rider(Guid Id, string Email, string FullName, string NerdAlias)
+public record Rider(Guid Id, string Email, string FullName, string RoadName)
 {
     [JsonInclude]
     public int Version { get; private set; }
@@ -18,7 +18,7 @@ public record Rider(Guid Id, string Email, string FullName, string NerdAlias)
             riderRegistered.Id,
             riderRegistered.Email,
             riderRegistered.FullName,
-            riderRegistered.NerdAlias
+            riderRegistered.RoadName
         );
 
     public Rider Apply(RiderRenamed riderRenamed) => this with { FullName = riderRenamed.FullName };

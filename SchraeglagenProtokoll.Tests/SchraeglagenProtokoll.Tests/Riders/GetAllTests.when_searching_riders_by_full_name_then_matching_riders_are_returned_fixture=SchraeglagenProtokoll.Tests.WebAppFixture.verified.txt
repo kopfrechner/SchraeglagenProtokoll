@@ -3,14 +3,14 @@
     Id: Guid_1,
     Email: john.smith@test.com,
     FullName: John Smith,
-    NerdAlias: Thunder,
+    RoadName: Thunder,
     Version: 1
   },
   {
     Id: Guid_2,
     Email: alice.smith@test.com,
     FullName: Alice Smith,
-    NerdAlias: Storm,
+    RoadName: Storm,
     Version: 1
   }
 ]

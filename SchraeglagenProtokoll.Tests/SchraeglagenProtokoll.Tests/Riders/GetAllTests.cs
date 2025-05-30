@@ -222,27 +222,27 @@ public class GetAllTests(WebAppFixture fixture) : WebAppTestBase(fixture)
             FakeEvent.RiderRegistered(
                 email: "john.smith@test.com",
                 fullName: "John Smith",
-                nerdAlias: "Thunder"
+                roadName: "Thunder"
             ),
             FakeEvent.RiderRegistered(
                 email: "jane.doe@test.com",
                 fullName: "Jane Doe",
-                nerdAlias: "Shadow"
+                roadName: "Shadow"
             ),
             FakeEvent.RiderRegistered(
                 email: "bob.johnson@test.com",
                 fullName: "Bob Johnson",
-                nerdAlias: "Lightning"
+                roadName: "Lightning"
             ),
             FakeEvent.RiderRegistered(
                 email: "alice.smith@test.com",
                 fullName: "Alice Smith",
-                nerdAlias: "Storm"
+                roadName: "Storm"
             ),
             FakeEvent.RiderRegistered(
                 email: "charlie.brown@test.com",
                 fullName: "Charlie Brown",
-                nerdAlias: "Rider"
+                roadName: "Rider"
             ),
         };
 
@@ -259,7 +259,7 @@ public class GetAllTests(WebAppFixture fixture) : WebAppTestBase(fixture)
             var rider = FakeEvent.RiderRegistered(
                 email: $"test{i}@test.com",
                 fullName: $"Test Rider {i}",
-                nerdAlias: $"TestAlias{i}"
+                roadName: $"TestAlias{i}"
             );
             await StartStream(rider);
         }

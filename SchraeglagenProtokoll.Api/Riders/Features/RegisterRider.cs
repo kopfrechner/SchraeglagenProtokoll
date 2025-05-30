@@ -13,7 +13,7 @@ public static class RegisterRider
         Guid? RiderId,
         string Email,
         string FullName,
-        string NerdAlias
+        string RoadName
     );
 
     public static async Task<IResult> RegisterRiderHandler(
@@ -21,11 +21,11 @@ public static class RegisterRider
         RegisterRiderCommand command
     )
     {
-        var (riderId, email, fullName, nerdAlias) = command;
+        var (riderId, email, fullName, roadName) = command;
 
         riderId ??= Guid.NewGuid();
 
-        var registeredRider = new RiderRegistered(riderId.Value, email, fullName, nerdAlias);
+        var registeredRider = new RiderRegistered(riderId.Value, email, fullName, roadName);
         var stream = session.Events.StartStream<Rider>(riderId.Value, registeredRider);
         await session.SaveChangesAsync();
 
