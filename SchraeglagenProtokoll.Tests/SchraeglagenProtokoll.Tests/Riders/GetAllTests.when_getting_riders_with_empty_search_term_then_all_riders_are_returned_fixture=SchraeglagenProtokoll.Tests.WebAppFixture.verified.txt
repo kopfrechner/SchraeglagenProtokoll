@@ -4,34 +4,34 @@
     Email: Angelina.Mills@yahoo.com,
     FullName: Kaela Hudson,
     NerdAlias: CrashKalle,
-    Version: 0
+    Version: 1
   },
   {
     Id: Guid_2,
     Email: Candice_Beer@yahoo.com,
     FullName: Adelle Russel,
     NerdAlias: KlapphelmKarl,
-    Version: 0
+    Version: 1
   },
   {
     Id: Guid_3,
     Email: Bernadette50@hotmail.com,
     FullName: Vladimir Kihn,
     NerdAlias: SpritSpartakus,
-    Version: 0
+    Version: 1
   },
   {
     Id: Guid_4,
     Email: Roscoe.Walter@gmail.com,
     FullName: Kendall Kuphal,
     NerdAlias: SturzbügelStefan,
-    Version: 0
+    Version: 1
   },
   {
     Id: Guid_5,
     Email: Jannie_Graham71@yahoo.com,
     FullName: Jefferey Trantow,
     NerdAlias: BlubberBea,
-    Version: 0
+    Version: 1
   }
 ]

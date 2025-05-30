@@ -4,20 +4,20 @@
     Email: test4@test.com,
     FullName: Test Rider 4,
     NerdAlias: TestAlias4,
-    Version: 0
+    Version: 1
   },
   {
     Id: Guid_2,
     Email: test5@test.com,
     FullName: Test Rider 5,
     NerdAlias: TestAlias5,
-    Version: 0
+    Version: 1
   },
   {
     Id: Guid_3,
     Email: test6@test.com,
     FullName: Test Rider 6,
     NerdAlias: TestAlias6,
-    Version: 0
+    Version: 1
   }
 ]

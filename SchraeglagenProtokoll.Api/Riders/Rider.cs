@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace SchraeglagenProtokoll.Api.Riders;
 
 public record RiderRegistered(Guid Id, string Email, string FullName, string NerdAlias);
@@ -8,6 +10,7 @@ public record RiderDeletedAccount(string? RiderFeedback);
 
 public record Rider(Guid Id, string Email, string FullName, string NerdAlias)
 {
+    [JsonInclude]
     public int Version { get; private set; }
 
     public static Rider Create(RiderRegistered riderRegistered) =>

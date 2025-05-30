@@ -4,6 +4,6 @@
     Email: john.smith@test.com,
     FullName: John Smith,
     NerdAlias: Thunder,
-    Version: 0
+    Version: 1
   }
 ]

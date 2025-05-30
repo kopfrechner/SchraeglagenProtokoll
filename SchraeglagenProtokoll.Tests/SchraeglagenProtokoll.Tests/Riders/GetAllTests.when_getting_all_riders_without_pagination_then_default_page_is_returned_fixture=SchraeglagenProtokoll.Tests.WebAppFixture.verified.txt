@@ -4,34 +4,34 @@
     Email: Hilton78@hotmail.com,
     FullName: Joshuah O'Connell,
     NerdAlias: Bikerella,
-    Version: 0
+    Version: 1
   },
   {
     Id: Guid_2,
     Email: Caleb.Daniel@yahoo.com,
     FullName: Effie Hudson,
     NerdAlias: Tachonadel,
-    Version: 0
+    Version: 1
   },
   {
     Id: Guid_3,
     Email: Christopher83@gmail.com,
     FullName: Berta Gislason,
     NerdAlias: SeitenständerSven,
-    Version: 0
+    Version: 1
   },
   {
     Id: Guid_4,
     Email: Clementine_Schuppe@yahoo.com,
     FullName: Gerald Cremin,
     NerdAlias: Helm-Horst,
-    Version: 0
+    Version: 1
   },
   {
     Id: Guid_5,
     Email: Emmitt.Bahringer@yahoo.com,
     FullName: Karina Mayert,
     NerdAlias: BlubbiBiker,
-    Version: 0
+    Version: 1
   }
 ]

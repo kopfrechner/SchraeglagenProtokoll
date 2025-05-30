@@ -4,55 +4,55 @@
     Email: Vincenzo_Walter86@hotmail.com,
     FullName: Kadin Bradtke,
     NerdAlias: Zylinderzorro,
-    Version: 0
+    Version: 1
   },
   {
     Id: Guid_2,
     Email: Warren.Collier88@gmail.com,
     FullName: Tre Rogahn,
     NerdAlias: DrehmomentDieter,
-    Version: 0
+    Version: 1
   },
   {
     Id: Guid_3,
     Email: Brandi66@gmail.com,
     FullName: Adele Hudson,
     NerdAlias: Bikerella,
-    Version: 0
+    Version: 1
   },
   {
     Id: Guid_4,
     Email: Lawrence_Turcotte69@yahoo.com,
     FullName: Dixie Pfeffer,
     NerdAlias: Zweiradzeus,
-    Version: 0
+    Version: 1
   },
   {
     Id: Guid_5,
     Email: Dewitt_Cassin25@gmail.com,
     FullName: Billie Cartwright,
     NerdAlias: SupermotoSören,
-    Version: 0
+    Version: 1
   },
   {
     Id: Guid_6,
     Email: Jaylen.Jones@gmail.com,
     FullName: Kirk Hansen,
     NerdAlias: DukeDieter,
-    Version: 0
+    Version: 1
   },
   {
     Id: Guid_7,
     Email: Flossie.Shanahan75@yahoo.com,
     FullName: Nickolas Koch,
     NerdAlias: GabelGünni,
-    Version: 0
+    Version: 1
   },
   {
     Id: Guid_8,
     Email: Allene.Bauch63@hotmail.com,
     FullName: Kaleigh Lubowitz,
     NerdAlias: V-TwinVati,
-    Version: 0
+    Version: 1
   }
 ]

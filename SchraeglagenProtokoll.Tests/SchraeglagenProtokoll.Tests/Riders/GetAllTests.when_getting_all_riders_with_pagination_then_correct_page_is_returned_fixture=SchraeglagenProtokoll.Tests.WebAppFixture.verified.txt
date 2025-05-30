@@ -4,34 +4,34 @@
     Email: Nelson82@hotmail.com,
     FullName: Samara Robel,
     NerdAlias: Simmerringe,
-    Version: 0
+    Version: 1
   },
   {
     Id: Guid_2,
     Email: Taurean30@yahoo.com,
     FullName: Ned Larson,
     NerdAlias: Rider,
-    Version: 0
+    Version: 1
   },
   {
     Id: Guid_3,
     Email: Mattie95@gmail.com,
     FullName: Erich Buckridge,
     NerdAlias: RollOnRosi,
-    Version: 0
+    Version: 1
   },
   {
     Id: Guid_4,
     Email: Lucile_Moore@yahoo.com,
     FullName: Thomas Stamm,
     NerdAlias: Kolbenfresser,
-    Version: 0
+    Version: 1
   },
   {
     Id: Guid_5,
     Email: Josephine30@gmail.com,
     FullName: Lina Pacocha,
     NerdAlias: AusrittAnke,
-    Version: 0
+    Version: 1
   }
 ]

@@ -4,13 +4,13 @@
     Email: john.smith@test.com,
     FullName: John Smith,
     NerdAlias: Thunder,
-    Version: 0
+    Version: 1
   },
   {
     Id: Guid_2,
     Email: alice.smith@test.com,
     FullName: Alice Smith,
     NerdAlias: Storm,
-    Version: 0
+    Version: 1
   }
 ]

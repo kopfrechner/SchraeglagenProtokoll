@@ -4,6 +4,6 @@
     Email: jane.doe@test.com,
     FullName: Jane Doe,
     NerdAlias: Shadow,
-    Version: 0
+    Version: 1
   }
 ]
