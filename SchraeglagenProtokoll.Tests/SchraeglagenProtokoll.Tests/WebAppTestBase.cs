@@ -5,7 +5,6 @@ using Marten;
 using Marten.Events;
 using Microsoft.Extensions.DependencyInjection;
 using SchraeglagenProtokoll.Tests.Faker;
-using TimeSpanExtensions = JasperFx.Core.TimeSpanExtensions;
 
 namespace SchraeglagenProtokoll.Tests;
 

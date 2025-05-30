@@ -1,0 +1,7 @@
+﻿{
+  Id: Guid_1,
+  Email: Luisa.Ferry@yahoo.com,
+  FullName: Roger Braun,
+  NerdAlias: Sturzflug,
+  Version: 0
+}

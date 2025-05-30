@@ -1,5 +1,4 @@
 using SchraeglagenProtokoll.Api.Riders.Features;
-using SchraeglagenProtokoll.Api.Rides.Features;
 
 namespace SchraeglagenProtokoll.Api.Riders;
 
@@ -12,7 +11,9 @@ public static class Endpoints
         group.MapRegisterRider();
         group.MapLogRide();
         group.MapRenameRider();
-        group.MapGetRiderById();
+        group.MapGetRiderById_ByAggregation();
+        group.MapGetRiderById_FromProjection();
+        group.MapGetRiderById_FromStreamedProjection();
         group.MapGetAllRider();
         group.MapGetRiderStats();
         group.MapDeleteRiderById();

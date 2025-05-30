@@ -1,7 +1,0 @@
-﻿{
-  Id: Guid_1,
-  Email: Rebekah2@yahoo.com,
-  FullName: Maxwell Littel,
-  NerdAlias: BikerBiene,
-  Version: 0
-}
