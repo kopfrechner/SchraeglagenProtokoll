@@ -1,4 +1,5 @@
 using Marten;
+using Marten.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 
 namespace SchraeglagenProtokoll.Api.Rides.Features;
@@ -10,12 +11,12 @@ public static class GetById
         group.MapGet("{id}", GetRideByIdHandler).WithName("GetRideById").WithOpenApi();
     }
 
-    private static async Task<IResult> GetRideByIdHandler(
+    private static async Task GetRideByIdHandler(
         IQuerySession session,
-        [FromRoute] Guid id
+        HttpContext httpContext,
+        Guid id
     )
     {
-        var ride = await session.Events.AggregateStreamAsync<Ride>(id);
-        return ride is null ? Results.NotFound() : Results.Ok(ride);
+        await session.Json.WriteById<Ride>(id, httpContext);
     }
 }
