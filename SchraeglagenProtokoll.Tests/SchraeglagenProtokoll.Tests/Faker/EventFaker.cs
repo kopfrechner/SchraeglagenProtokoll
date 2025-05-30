@@ -6,17 +6,18 @@ namespace SchraeglagenProtokoll.Tests.Faker;
 
 public class EventFaker
 {
-    private static int Seed => 0815;
+    public EventFaker(int seed = 0815)
+    {
+        _distanceFaker = new DistanceFaker().UseSeed(seed);
+        _rideLoggedFaker = new Faker<RideLogged>().UseSeed(seed + 1);
+        _riderRenamedFaker = new Faker<RiderRenamed>().UseSeed(seed + 2);
+        _riderRegisteredFaker = new Faker<RiderRegistered>().UseSeed(seed + 3);
+    }
 
-    private Faker<Distance> _distanceFaker = new DistanceFaker().UseSeed(Seed);
-
-    private Faker<RideLogged> _rideLoggedFaker = new Faker<RideLogged>().UseSeed(Seed + 1);
-
-    private Faker<RiderRenamed> _riderRenamedFaker = new Faker<RiderRenamed>().UseSeed(Seed + 2);
-
-    private Faker<RiderRegistered> _riderRegisteredFaker = new Faker<RiderRegistered>().UseSeed(
-        Seed + 3
-    );
+    private readonly Faker<Distance> _distanceFaker;
+    private readonly Faker<RideLogged> _rideLoggedFaker;
+    private readonly Faker<RiderRenamed> _riderRenamedFaker;
+    private readonly Faker<RiderRegistered> _riderRegisteredFaker;
 
     public RideLogged RideLogged(
         Guid? rideId = null,

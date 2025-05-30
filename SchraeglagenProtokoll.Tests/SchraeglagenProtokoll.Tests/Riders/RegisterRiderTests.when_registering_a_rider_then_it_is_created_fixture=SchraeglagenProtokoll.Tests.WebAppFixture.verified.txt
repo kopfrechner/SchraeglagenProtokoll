@@ -1,7 +1,7 @@
 ﻿{
   Id: Guid_1,
-  Email: Carissa50@hotmail.com,
-  FullName: Kacie Ferry,
-  NerdAlias: transmitter,
+  Email: Wendy_Anderson@yahoo.com,
+  FullName: Thelma D'Amore,
+  NerdAlias: alarm,
   Version: 0
 }

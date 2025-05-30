@@ -7,17 +7,20 @@ namespace SchraeglagenProtokoll.Tests.Faker;
 
 public class CommandFaker
 {
-    private static int Seed => 0815;
+    public CommandFaker(int seed = 0815)
+    {
+        _distanceFaker = new DistanceFaker().UseSeed(seed);
+        _logRideFaker = new Faker<LogRide.LogRideCommand>().UseSeed(seed + 1);
+        _addCommentFaker = new Faker<AddComment.AddCommentCommand>().UseSeed(seed + 2);
+        _registerRiderFaker = new Faker<RegisterRider.RegisterRiderCommand>().UseSeed(seed + 3);
+        _renameRiderFaker = new Faker<RenameRider.RenameRiderCommand>().UseSeed(seed + 4);
+    }
 
-    private Faker<Distance> _distanceFaker = new DistanceFaker().UseSeed(Seed);
-    private Faker<LogRide.LogRideCommand> _logRideFaker =
-        new Faker<LogRide.LogRideCommand>().UseSeed(Seed + 1);
-    private Faker<AddComment.AddCommentCommand> _addCommentFaker =
-        new Faker<AddComment.AddCommentCommand>().UseSeed(Seed + 2);
-    private Faker<RegisterRider.RegisterRiderCommand> _registerRiderFaker =
-        new Faker<RegisterRider.RegisterRiderCommand>().UseSeed(Seed + 3);
-    private Faker<RenameRider.RenameRiderCommand> _renameRiderFaker =
-        new Faker<RenameRider.RenameRiderCommand>().UseSeed(Seed + 4);
+    private Faker<Distance> _distanceFaker;
+    private Faker<LogRide.LogRideCommand> _logRideFaker;
+    private Faker<AddComment.AddCommentCommand> _addCommentFaker;
+    private Faker<RegisterRider.RegisterRiderCommand> _registerRiderFaker;
+    private Faker<RenameRider.RenameRiderCommand> _renameRiderFaker;
 
     public LogRide.LogRideCommand LogRide(
         Guid? rideId = null,

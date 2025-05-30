@@ -1,3 +1,5 @@
+using System.Security.Cryptography;
+using System.Text;
 using Alba;
 using Marten;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,8 +12,8 @@ public abstract class WebAppTestBase(WebAppFixture fixture)
 {
     protected IAlbaHost Host => fixture.Host;
 
-    public EventFaker EventFaker { get; } = new();
-    public CommandFaker CommandFaker { get; } = new();
+    public EventFaker EventFaker { get; private set; } = null!;
+    public CommandFaker CommandFaker { get; private set; } = null!;
 
     public Task<IScenarioResult> Scenario(Action<Scenario> configure)
     {
@@ -46,8 +48,24 @@ public abstract class WebAppTestBase(WebAppFixture fixture)
     }
 
     [Before(Test)]
-    public async Task CleanupDatabase()
+    public async Task CleanupDatabase(TestContext context)
     {
         await Host.CleanAllMartenDataAsync();
+
+        var testClass = context.TestDetails.TestClass.Name;
+        var testName = context.TestDetails.TestName;
+
+        var stableSeed = GetStableIntFromString($"{testClass}.{testName}");
+        EventFaker = new EventFaker(stableSeed);
+        CommandFaker = new CommandFaker(stableSeed);
+    }
+
+    public static int GetStableIntFromString(string input)
+    {
+        using var md5 = MD5.Create();
+        byte[] hashBytes = md5.ComputeHash(Encoding.UTF8.GetBytes(input));
+
+        // Convert first 4 bytes of hash to int (little endian)
+        return BitConverter.ToInt32(hashBytes, 0);
     }
 }

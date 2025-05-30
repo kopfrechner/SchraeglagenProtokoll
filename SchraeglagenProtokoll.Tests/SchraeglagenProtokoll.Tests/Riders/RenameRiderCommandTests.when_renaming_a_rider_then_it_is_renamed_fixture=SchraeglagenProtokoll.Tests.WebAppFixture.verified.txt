@@ -1,7 +1,7 @@
 ﻿{
   Id: Guid_1,
-  Email: Carissa50@hotmail.com,
-  FullName: Judith Fisher,
-  NerdAlias: Phyllis.Stroman,
+  Email: Scottie.Deckow63@yahoo.com,
+  FullName: Nichole Dickens,
+  NerdAlias: Susanna88,
   Version: 0
 }
