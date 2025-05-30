@@ -1,0 +1,24 @@
+﻿{
+  Id: Guid_1,
+  Version: 3,
+  RiderId: Guid_2,
+  Date: DateTimeOffset_1,
+  StartLocation: New Caleighbury,
+  Destination: South Marlen,
+  Distance: {
+    Value: 859.1339280172875,
+    Unit: Kilometers
+  },
+  Comments: [
+    {
+      CommentedBy: Guid_3,
+      Text: Great ride!,
+      Timestamp: DateTimeOffset_2
+    },
+    {
+      CommentedBy: Guid_4,
+      Text: Yeah, beautiful scenery on this route,
+      Timestamp: DateTimeOffset_3
+    }
+  ]
+}

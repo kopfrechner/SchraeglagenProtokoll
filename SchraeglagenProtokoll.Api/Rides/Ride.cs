@@ -37,6 +37,7 @@ public class Ride
     [JsonInclude]
     public Distance Distance { get; private set; }
 
+    [JsonInclude]
     public List<Comment> Comments { get; private set; } = new();
 
     // Make serialization easy
