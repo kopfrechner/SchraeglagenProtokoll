@@ -14,8 +14,8 @@ public abstract class WebAppTestBase(WebAppFixture fixture)
 {
     protected IAlbaHost Host => fixture.Host;
 
-    public EventFaker EventFaker { get; private set; } = null!;
-    public CommandFaker CommandFaker { get; private set; } = null!;
+    public EventFaker FakeEvent { get; private set; } = null!;
+    public CommandFaker FakeCommand { get; private set; } = null!;
 
     public Task<IScenarioResult> Scenario(Action<Scenario> configure)
     {
@@ -80,8 +80,8 @@ public abstract class WebAppTestBase(WebAppFixture fixture)
         var testName = context.TestDetails.TestName;
 
         var stableSeed = GetStableIntFromString($"{testClass}.{testName}");
-        EventFaker = new EventFaker(stableSeed);
-        CommandFaker = new CommandFaker(stableSeed);
+        FakeEvent = new EventFaker(stableSeed);
+        FakeCommand = new CommandFaker(stableSeed);
     }
 
     public static int GetStableIntFromString(string input)

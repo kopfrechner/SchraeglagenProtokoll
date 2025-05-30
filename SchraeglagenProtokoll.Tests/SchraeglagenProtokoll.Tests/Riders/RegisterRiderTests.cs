@@ -8,7 +8,7 @@ public class RegisterRiderTests(WebAppFixture fixture) : WebAppTestBase(fixture)
     public async Task when_registering_a_rider_then_it_is_created()
     {
         // Arrange
-        var registerRiderCommand = CommandFaker.RegisterRider();
+        var registerRiderCommand = FakeCommand.RegisterRider();
 
         // Act
         var result = await Host.Scenario(x =>

@@ -210,7 +210,7 @@ public class GetAllTests(WebAppFixture fixture) : WebAppTestBase(fixture)
     {
         for (int i = 1; i <= count; i++)
         {
-            var riderRegistered = EventFaker.RiderRegistered();
+            var riderRegistered = FakeEvent.RiderRegistered();
             await StartStream(riderRegistered);
         }
     }
@@ -219,27 +219,27 @@ public class GetAllTests(WebAppFixture fixture) : WebAppTestBase(fixture)
     {
         var riders = new[]
         {
-            EventFaker.RiderRegistered(
+            FakeEvent.RiderRegistered(
                 email: "john.smith@test.com",
                 fullName: "John Smith",
                 nerdAlias: "Thunder"
             ),
-            EventFaker.RiderRegistered(
+            FakeEvent.RiderRegistered(
                 email: "jane.doe@test.com",
                 fullName: "Jane Doe",
                 nerdAlias: "Shadow"
             ),
-            EventFaker.RiderRegistered(
+            FakeEvent.RiderRegistered(
                 email: "bob.johnson@test.com",
                 fullName: "Bob Johnson",
                 nerdAlias: "Lightning"
             ),
-            EventFaker.RiderRegistered(
+            FakeEvent.RiderRegistered(
                 email: "alice.smith@test.com",
                 fullName: "Alice Smith",
                 nerdAlias: "Storm"
             ),
-            EventFaker.RiderRegistered(
+            FakeEvent.RiderRegistered(
                 email: "charlie.brown@test.com",
                 fullName: "Charlie Brown",
                 nerdAlias: "Rider"
@@ -256,7 +256,7 @@ public class GetAllTests(WebAppFixture fixture) : WebAppTestBase(fixture)
     {
         for (int i = 1; i <= 10; i++)
         {
-            var rider = EventFaker.RiderRegistered(
+            var rider = FakeEvent.RiderRegistered(
                 email: $"test{i}@test.com",
                 fullName: $"Test Rider {i}",
                 nerdAlias: $"TestAlias{i}"

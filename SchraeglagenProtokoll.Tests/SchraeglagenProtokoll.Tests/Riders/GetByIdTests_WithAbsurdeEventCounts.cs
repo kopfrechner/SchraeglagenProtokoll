@@ -15,9 +15,9 @@ public class GetByIdTests_WithAbsurdeEventCounts(WebAppFixture fixture) : WebApp
         // Arrange
         var renameEvents = Enumerable
             .Range(0, AbsurdeEventCount)
-            .Select(_ => EventFaker.RiderRenamed())
+            .Select(_ => FakeEvent.RiderRenamed())
             .ToList();
-        var riderId = await StartStream([EventFaker.RiderRegistered(), .. renameEvents]);
+        var riderId = await StartStream([FakeEvent.RiderRegistered(), .. renameEvents]);
 
         // Act
         var stopwatch = Stopwatch.StartNew();
@@ -42,9 +42,9 @@ public class GetByIdTests_WithAbsurdeEventCounts(WebAppFixture fixture) : WebApp
         // Arrange
         var renameEvents = Enumerable
             .Range(0, AbsurdeEventCount)
-            .Select(_ => EventFaker.RiderRenamed())
+            .Select(_ => FakeEvent.RiderRenamed())
             .ToList();
-        var riderId = await StartStream([EventFaker.RiderRegistered(), .. renameEvents]);
+        var riderId = await StartStream([FakeEvent.RiderRegistered(), .. renameEvents]);
 
         // Act
         var stopwatch = Stopwatch.StartNew();
@@ -69,9 +69,9 @@ public class GetByIdTests_WithAbsurdeEventCounts(WebAppFixture fixture) : WebApp
         // Arrange
         var renameEvents = Enumerable
             .Range(0, AbsurdeEventCount)
-            .Select(_ => EventFaker.RiderRenamed())
+            .Select(_ => FakeEvent.RiderRenamed())
             .ToList();
-        var riderId = await StartStream([EventFaker.RiderRegistered(), .. renameEvents]);
+        var riderId = await StartStream([FakeEvent.RiderRegistered(), .. renameEvents]);
 
         // Act
         var stopwatch = Stopwatch.StartNew();

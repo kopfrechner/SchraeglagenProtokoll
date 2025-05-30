@@ -8,9 +8,9 @@ public class LogRideTests(WebAppFixture fixture) : WebAppTestBase(fixture)
     public async Task when_logging_a_ride_then_it_is_created()
     {
         // Arrange
-        var riderId = await StartStream(EventFaker.RiderRegistered());
+        var riderId = await StartStream(FakeEvent.RiderRegistered());
 
-        var logRideCommand = CommandFaker.LogRide();
+        var logRideCommand = FakeCommand.LogRide();
 
         // Act
         var result = await Scenario(x =>
@@ -33,7 +33,7 @@ public class LogRideTests(WebAppFixture fixture) : WebAppTestBase(fixture)
     {
         // Arrange
         var nonExistentRiderId = Guid.NewGuid();
-        var logRideCommand = CommandFaker.LogRide();
+        var logRideCommand = FakeCommand.LogRide();
 
         // Act & Assert
         await Scenario(x =>

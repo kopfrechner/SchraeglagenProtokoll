@@ -8,20 +8,20 @@ public class GetRiderStatsTests(WebAppFixture fixture) : WebAppTestBase(fixture)
     public async Task when_getting_score_per_rider_with_multiple_riders_and_rides_then_totals_are_calculated()
     {
         // Arrange
-        var rider1Id = await StartStream(EventFaker.RiderRegistered());
-        var rider2Id = await StartStream(EventFaker.RiderRegistered());
-        var rider3Id = await StartStream(EventFaker.RiderRegistered());
-        var rider4Id = await StartStream(EventFaker.RiderRegistered());
-        var rider5Id = await StartStream(EventFaker.RiderRegistered());
+        var rider1Id = await StartStream(FakeEvent.RiderRegistered());
+        var rider2Id = await StartStream(FakeEvent.RiderRegistered());
+        var rider3Id = await StartStream(FakeEvent.RiderRegistered());
+        var rider4Id = await StartStream(FakeEvent.RiderRegistered());
+        var rider5Id = await StartStream(FakeEvent.RiderRegistered());
 
         // Add multiple rides for each rider
-        await StartStream(EventFaker.RideLogged(riderId: rider1Id));
-        await StartStream(EventFaker.RideLogged(riderId: rider1Id));
-        await StartStream(EventFaker.RideLogged(riderId: rider2Id));
-        await StartStream(EventFaker.RideLogged(riderId: rider3Id));
-        await StartStream(EventFaker.RideLogged(riderId: rider4Id));
-        await StartStream(EventFaker.RideLogged(riderId: rider5Id));
-        await StartStream(EventFaker.RideLogged(riderId: rider5Id));
+        await StartStream(FakeEvent.RideLogged(riderId: rider1Id));
+        await StartStream(FakeEvent.RideLogged(riderId: rider1Id));
+        await StartStream(FakeEvent.RideLogged(riderId: rider2Id));
+        await StartStream(FakeEvent.RideLogged(riderId: rider3Id));
+        await StartStream(FakeEvent.RideLogged(riderId: rider4Id));
+        await StartStream(FakeEvent.RideLogged(riderId: rider5Id));
+        await StartStream(FakeEvent.RideLogged(riderId: rider5Id));
 
         // The daemon updates the projection asynchronously
         await WaitForNonStaleProjectionDataAsync(15.Seconds());

@@ -11,20 +11,20 @@ public class GetRiderHistoryTests(WebAppFixture fixture) : WebAppTestBase(fixtur
         // Arrange
         var rider1Id = Guid.NewGuid();
         await StartStream(
-            EventFaker.RiderRegistered(rider1Id),
-            EventFaker.RiderRenamed(),
-            EventFaker.RideLogged(riderId: rider1Id),
-            EventFaker.CommentAdded(rider1Id),
-            EventFaker.RiderRenamed()
+            FakeEvent.RiderRegistered(rider1Id),
+            FakeEvent.RiderRenamed(),
+            FakeEvent.RideLogged(riderId: rider1Id),
+            FakeEvent.CommentAdded(rider1Id),
+            FakeEvent.RiderRenamed()
         );
 
         var rider2Id = Guid.NewGuid();
         await StartStream(
-            EventFaker.RiderRegistered(rider2Id),
-            EventFaker.RiderRenamed(),
-            EventFaker.RideLogged(riderId: rider2Id),
-            EventFaker.CommentAdded(rider2Id),
-            EventFaker.RiderRenamed()
+            FakeEvent.RiderRegistered(rider2Id),
+            FakeEvent.RiderRenamed(),
+            FakeEvent.RideLogged(riderId: rider2Id),
+            FakeEvent.CommentAdded(rider2Id),
+            FakeEvent.RiderRenamed()
         );
 
         // Act
@@ -54,8 +54,8 @@ public class GetRiderHistoryTests(WebAppFixture fixture) : WebAppTestBase(fixtur
         // Arrange
         var riderId = Guid.NewGuid();
 
-        var riderRegistered = EventFaker.RiderRegistered(riderId);
-        var deleteCommand = EventFaker.RiderDeletedAccount();
+        var riderRegistered = FakeEvent.RiderRegistered(riderId);
+        var deleteCommand = FakeEvent.RiderDeletedAccount();
 
         // Act - Create events in sequence
         await StartStream(riderRegistered, deleteCommand);

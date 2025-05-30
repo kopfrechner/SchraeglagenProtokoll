@@ -9,9 +9,9 @@ public class AddCommentTests(WebAppFixture fixture) : WebAppTestBase(fixture)
     public async Task when_adding_two_comments_to_a_ride_then_both_are_added()
     {
         // Arrange
-        var riderAId = await StartStream(EventFaker.RiderRegistered());
-        var riderBId = await StartStream(EventFaker.RiderRegistered());
-        var rideId = await StartStream(EventFaker.RideLogged(riderAId));
+        var riderAId = await StartStream(FakeEvent.RiderRegistered());
+        var riderBId = await StartStream(FakeEvent.RiderRegistered());
+        var rideId = await StartStream(FakeEvent.RideLogged(riderAId));
 
         var firstComment = new AddComment.AddCommentCommand(
             CommentedBy: riderBId,
