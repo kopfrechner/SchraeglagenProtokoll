@@ -20,12 +20,18 @@ var connectionString =
 var isDevelopment = builder.Environment.IsDevelopment();
 
 // Marten
-builder
+var martenConfiguration = builder
     .Services.AddMarten(options => options.Setup(connectionString, isDevelopment))
     // Another performance optimization if you're starting from scratch
     .UseLightweightSessions()
     // Enable projection daemon
     .AddAsyncDaemon(DaemonMode.Solo);
+
+// Initial data
+if (builder.Configuration.GetValue("InitializeWithInitialData", defaultValue: false))
+{
+    martenConfiguration.InitializeWith<InitialData>();
+}
 
 // OpenApi
 builder.Services.AddEndpointsApiExplorer();
@@ -34,6 +40,12 @@ builder.Services.AddOpenApi();
 // ======================================
 // Build app
 var app = builder.Build();
+
+// Clean all Marten data
+if (builder.Configuration.GetValue("CleanAllMartenData", defaultValue: false))
+{
+    await app.CleanAllMartenDataAsync();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

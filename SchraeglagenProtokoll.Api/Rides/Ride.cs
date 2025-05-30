@@ -4,7 +4,7 @@ using Marten.Events;
 namespace SchraeglagenProtokoll.Api.Rides;
 
 public record RideLogged(
-    Guid RideId,
+    Guid Id,
     Guid RiderId,
     DateTimeOffset Date,
     string StartLocation,
@@ -47,7 +47,7 @@ public class Ride
     {
         return new Ride
         {
-            Id = @event.RideId,
+            Id = @event.Id,
             RiderId = @event.RiderId,
             Date = @event.Date,
             StartLocation = @event.StartLocation,
