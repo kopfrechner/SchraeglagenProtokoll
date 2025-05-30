@@ -12,12 +12,16 @@ public class EventFaker
         _rideLoggedFaker = new Faker<RideLogged>().UseSeed(seed + 1);
         _riderRenamedFaker = new Faker<RiderRenamed>().UseSeed(seed + 2);
         _riderRegisteredFaker = new Faker<RiderRegistered>().UseSeed(seed + 3);
+        _commentAddedFaker = new Faker<CommentAdded>().UseSeed(seed + 4);
+        _deleteRiderFaker = new Faker<RiderDeletedAccount>().UseSeed(seed + 5);
     }
 
     private readonly Faker<Distance> _distanceFaker;
     private readonly Faker<RideLogged> _rideLoggedFaker;
     private readonly Faker<RiderRenamed> _riderRenamedFaker;
     private readonly Faker<RiderRegistered> _riderRegisteredFaker;
+    private readonly Faker<CommentAdded> _commentAddedFaker;
+    private readonly Faker<RiderDeletedAccount> _deleteRiderFaker;
 
     public RideLogged RideLogged(
         Guid? rideId = null,
@@ -61,6 +65,23 @@ public class EventFaker
                 fullName ?? f.Name.FullName(),
                 nerdAlias ?? f.PickRandom(RiderAlias)
             ))
+            .Generate();
+    }
+
+    public CommentAdded CommentAdded(Guid? commentedBy = null, string? text = null)
+    {
+        return _commentAddedFaker
+            .CustomInstantiator(f => new CommentAdded(
+                commentedBy ?? f.Random.Guid(),
+                text ?? f.Lorem.Sentence()
+            ))
+            .Generate();
+    }
+
+    public RiderDeletedAccount RiderDeletedAccount(string? riderFeedback = null)
+    {
+        return _deleteRiderFaker
+            .CustomInstantiator(f => new RiderDeletedAccount(riderFeedback ?? f.Lorem.Sentence()))
             .Generate();
     }
 
