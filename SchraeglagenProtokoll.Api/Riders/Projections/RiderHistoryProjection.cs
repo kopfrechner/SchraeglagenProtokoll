@@ -1,4 +1,3 @@
-using Marten;
 using Marten.Events;
 using Marten.Events.Projections;
 using SchraeglagenProtokoll.Api.Riders.Features;
