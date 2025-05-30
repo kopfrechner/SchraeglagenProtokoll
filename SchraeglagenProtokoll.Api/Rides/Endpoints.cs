@@ -8,7 +8,6 @@ public static class Endpoints
     {
         var group = app.MapGroup("/rides").WithTags("Ride");
 
-        group.MapLogRide();
         group.MapGetRideById();
         group.MapAddComment();
         group.MapGetScorePerRider();

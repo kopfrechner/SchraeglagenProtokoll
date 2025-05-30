@@ -1,18 +1,17 @@
 using Marten;
-using SchraeglagenProtokoll.Api.Riders;
+using SchraeglagenProtokoll.Api.Rides;
 
-namespace SchraeglagenProtokoll.Api.Rides.Features;
+namespace SchraeglagenProtokoll.Api.Riders.Features;
 
 public static class LogRide
 {
     public static void MapLogRide(this RouteGroupBuilder group)
     {
-        group.MapPost("log-ride", LogRideHandler).WithName("LogRide").WithOpenApi();
+        group.MapPost("{riderId:guid}/log-ride", LogRideHandler).WithName("LogRide").WithOpenApi();
     }
 
     public record LogRideCommand(
         Guid RideId,
-        Guid RiderId,
         DateTimeOffset Date,
         string Start,
         string Destination,
@@ -21,10 +20,11 @@ public static class LogRide
 
     public static async Task<IResult> LogRideHandler(
         IDocumentSession session,
+        Guid riderId,
         LogRideCommand command
     )
     {
-        var (rideId, riderId, date, start, destination, distance) = command;
+        var (rideId, date, start, destination, distance) = command;
 
         var riderExists = await session.Query<Rider>().AnyAsync(x => x.Id == riderId);
         if (!riderExists)

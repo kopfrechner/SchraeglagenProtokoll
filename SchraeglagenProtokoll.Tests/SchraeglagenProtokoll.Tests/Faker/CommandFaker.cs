@@ -24,7 +24,6 @@ public class CommandFaker
 
     public LogRide.LogRideCommand LogRide(
         Guid? rideId = null,
-        Guid? riderId = null,
         DateTimeOffset? date = null,
         string? startLocation = null,
         string? destination = null,
@@ -34,7 +33,6 @@ public class CommandFaker
         return _logRideFaker
             .CustomInstantiator(f => new LogRide.LogRideCommand(
                 rideId ?? f.Random.Guid(),
-                riderId ?? f.Random.Guid(),
                 date ?? f.Date.Recent(3),
                 startLocation ?? f.Address.City(),
                 destination ?? f.Address.City(),

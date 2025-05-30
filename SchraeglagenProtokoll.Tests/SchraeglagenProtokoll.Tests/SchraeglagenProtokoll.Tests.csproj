@@ -17,4 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\SchraeglagenProtokoll.Api\SchraeglagenProtokoll.Api.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Rides\" />
+  </ItemGroup>
 </Project>

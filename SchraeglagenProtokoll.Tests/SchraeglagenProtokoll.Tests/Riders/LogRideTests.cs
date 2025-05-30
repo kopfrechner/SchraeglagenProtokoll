@@ -1,6 +1,6 @@
 using SchraeglagenProtokoll.Api.Rides;
 
-namespace SchraeglagenProtokoll.Tests.Rides;
+namespace SchraeglagenProtokoll.Tests.Riders;
 
 public class LogRideTests(WebAppFixture fixture) : WebAppTestBase(fixture)
 {
@@ -10,12 +10,12 @@ public class LogRideTests(WebAppFixture fixture) : WebAppTestBase(fixture)
         // Arrange
         var riderId = await StartStream(EventFaker.RiderRegistered());
 
-        var logRideCommand = CommandFaker.LogRide(riderId: riderId);
+        var logRideCommand = CommandFaker.LogRide();
 
         // Act
         var result = await Scenario(x =>
         {
-            x.Post.Json(logRideCommand).ToUrl("/rides/log-ride");
+            x.Post.Json(logRideCommand).ToUrl($"/rider/{riderId}/log-ride");
             x.StatusCodeShouldBe(201);
         });
 
@@ -33,12 +33,12 @@ public class LogRideTests(WebAppFixture fixture) : WebAppTestBase(fixture)
     {
         // Arrange
         var nonExistentRiderId = Guid.NewGuid();
-        var logRideCommand = CommandFaker.LogRide(nonExistentRiderId);
+        var logRideCommand = CommandFaker.LogRide();
 
         // Act & Assert
         await Scenario(x =>
         {
-            x.Post.Json(logRideCommand).ToUrl("/rides/log-ride");
+            x.Post.Json(logRideCommand).ToUrl($"/rider/{nonExistentRiderId}/log-ride");
             x.StatusCodeShouldBe(400);
         });
     }
