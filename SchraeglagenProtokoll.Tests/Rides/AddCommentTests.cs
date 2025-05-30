@@ -11,7 +11,7 @@ public class AddCommentTests(WebAppFixture fixture) : WebAppTestBase(fixture)
         // Arrange
         var riderAId = await StartStream(FakeEvent.RiderRegistered());
         var riderBId = await StartStream(FakeEvent.RiderRegistered());
-        var rideId = await StartStream(FakeEvent.RideLogged(riderAId));
+        var rideId = await StartStream(FakeEvent.RideLogged(riderId: riderAId));
 
         var firstComment = new AddComment.AddCommentCommand(
             CommentedBy: riderBId,
