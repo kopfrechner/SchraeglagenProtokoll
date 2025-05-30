@@ -2,7 +2,6 @@ using SchraeglagenProtokoll.Api.Riders;
 
 namespace SchraeglagenProtokoll.Tests.Riders;
 
-[ClassDataSource<WebAppFixture>(Shared = SharedType.PerTestSession)]
 public class RegisterRiderTests(WebAppFixture fixture) : WebAppTestBase(fixture)
 {
     [Test]
