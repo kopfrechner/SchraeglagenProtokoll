@@ -7,7 +7,7 @@ public static class LogRide
 {
     public static void MapLogRide(this RouteGroupBuilder group)
     {
-        group.MapPost("", LogRideHandler).WithName("LogRide").WithOpenApi();
+        group.MapPost("log-ride", LogRideHandler).WithName("LogRide").WithOpenApi();
     }
 
     public record LogRideCommand(

@@ -1,0 +1,13 @@
+﻿{
+  Id: Guid_1,
+  Version: 1,
+  RiderId: Guid_2,
+  Date: DateTimeOffset_1,
+  StartLocation: Raestad,
+  Destination: Leuschkestad,
+  Distance: {
+    Value: 180.30248357928474,
+    Unit: Miles
+  },
+  Comments: null
+}
