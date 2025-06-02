@@ -1,7 +1,27 @@
 using System.Text.Json.Serialization;
+using JasperFx.Core;
 using Marten.Events;
 
 namespace SchraeglagenProtokoll.Api.Rides;
+
+public record RideStarted(Guid Id, Guid RiderId, string StartLocation);
+
+public record RideLocationTracked(Guid Id, string Location);
+
+public record RideFinished(Guid Id, string Destination, Distance Distance);
+
+public record RideRated(Guid Id, SchraeglagenRating Rating);
+
+// TODO Implement Pause and Resume
+
+public enum SchraeglagenRating
+{
+    Bockgerade = 0,
+    Pendlerstrecke = 1,
+    Feierabendkurven = 2,
+    Kurvenspa = 3,
+    Kehrenparadies = 4,
+}
 
 public record RideLogged(
     Guid Id,
@@ -13,7 +33,6 @@ public record RideLogged(
 );
 
 public record CommentAdded(Guid CommentedBy, string Text);
-
 
 public enum RideStatus
 {
@@ -45,7 +64,13 @@ public class Ride
     public Distance Distance { get; private set; }
 
     [JsonInclude]
+    public SchraeglagenRating? Rating { get; private set; }
+
+    [JsonInclude]
     public List<Comment> Comments { get; private set; } = new();
+
+    [JsonInclude]
+    public List<string> TrackedLocations { get; init; }
 
     // Make serialization easy
     public Ride() { }
@@ -60,6 +85,7 @@ public class Ride
             Destination = @event.Destination,
             Distance = @event.Distance,
             Status = RideStatus.Finished,
+            TrackedLocations = [@event.StartLocation],
         };
     }
 

@@ -9,5 +9,9 @@
     Value: 222.74507732258414,
     Unit: Kilometers
   },
-  Comments: null
+  Rating: null,
+  Comments: null,
+  TrackedLocations: [
+    Lake Brayanstad
+  ]
 }

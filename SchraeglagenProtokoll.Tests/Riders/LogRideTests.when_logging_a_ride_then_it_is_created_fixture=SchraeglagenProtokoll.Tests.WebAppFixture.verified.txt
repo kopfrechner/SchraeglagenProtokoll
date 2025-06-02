@@ -9,5 +9,9 @@
     Value: 180.30248357928474,
     Unit: Miles
   },
-  Comments: null
+  Rating: null,
+  Comments: null,
+  TrackedLocations: [
+    Raestad
+  ]
 }

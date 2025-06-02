@@ -9,6 +9,7 @@
     Value: 859.1339280172875,
     Unit: Kilometers
   },
+  Rating: null,
   Comments: [
     {
       CommentedBy: Guid_3,
@@ -20,5 +21,8 @@
       Text: Yeah, beautiful scenery on this route,
       Timestamp: DateTimeOffset_2
     }
+  ],
+  TrackedLocations: [
+    New Caleighbury
   ]
 }
