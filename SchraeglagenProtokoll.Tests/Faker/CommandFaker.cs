@@ -1,7 +1,6 @@
 using Bogus;
 using SchraeglagenProtokoll.Api.Riders.Features;
 using SchraeglagenProtokoll.Api.Rides;
-using SchraeglagenProtokoll.Api.Rides.Features;
 
 namespace SchraeglagenProtokoll.Tests.Faker;
 

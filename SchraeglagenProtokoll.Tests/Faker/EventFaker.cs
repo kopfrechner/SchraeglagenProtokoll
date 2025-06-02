@@ -1,6 +1,5 @@
 using Bogus;
 using SchraeglagenProtokoll.Api.Riders;
-using SchraeglagenProtokoll.Api.Riders.Projections;
 using SchraeglagenProtokoll.Api.Rides;
 
 namespace SchraeglagenProtokoll.Tests.Faker;
@@ -14,28 +13,17 @@ public class EventFaker
         _riderRegisteredFaker = new Faker<RiderRegistered>().UseSeed(seed + 3);
         _deleteRiderFaker = new Faker<RiderDeletedAccount>().UseSeed(seed + 5);
         _rideStartedFaker = new Faker<RideStarted>().UseSeed(seed + 1);
+        _rideLocationTrackedFaker = new Faker<RideLocationTracked>().UseSeed(seed + 1);
+        _rideFinishedFaker = new Faker<RideFinished>().UseSeed(seed + 1);
     }
 
     private readonly Faker<Distance> _distanceFaker;
-    private readonly Faker<RideStarted> _rideStartedFaker;
     private readonly Faker<RiderRenamed> _riderRenamedFaker;
     private readonly Faker<RiderRegistered> _riderRegisteredFaker;
     private readonly Faker<RiderDeletedAccount> _deleteRiderFaker;
-
-    public RideStarted RideStarted(
-        Guid? rideId = null,
-        Guid? riderId = null,
-        string? startLocation = null
-    )
-    {
-        return _rideStartedFaker
-            .CustomInstantiator(f => new RideStarted(
-                rideId ?? f.Random.Guid(),
-                riderId ?? f.Random.Guid(),
-                startLocation ?? f.Address.City()
-            ))
-            .Generate();
-    }
+    private readonly Faker<RideStarted> _rideStartedFaker;
+    private readonly Faker<RideLocationTracked> _rideLocationTrackedFaker;
+    private readonly Faker<RideFinished> _rideFinishedFaker;
 
     public RiderRenamed RiderRenamed(string? fullName = null)
     {
@@ -65,6 +53,38 @@ public class EventFaker
     {
         return _deleteRiderFaker
             .CustomInstantiator(f => new RiderDeletedAccount(riderFeedback ?? f.Lorem.Sentence()))
+            .Generate();
+    }
+
+    public RideStarted RideStarted(
+        Guid? rideId = null,
+        Guid? riderId = null,
+        string? startLocation = null
+    )
+    {
+        return _rideStartedFaker
+            .CustomInstantiator(f => new RideStarted(
+                rideId ?? f.Random.Guid(),
+                riderId ?? f.Random.Guid(),
+                startLocation ?? f.Address.City()
+            ))
+            .Generate();
+    }
+
+    public RideLocationTracked RideLocationTracked(string? location = null)
+    {
+        return _rideLocationTrackedFaker
+            .CustomInstantiator(f => new RideLocationTracked(location ?? f.Address.City()))
+            .Generate();
+    }
+
+    public RideFinished RideFinished(string? destination = null)
+    {
+        return _rideFinishedFaker
+            .CustomInstantiator(f => new RideFinished(
+                destination ?? f.Address.City(),
+                _distanceFaker.Generate()
+            ))
             .Generate();
     }
 }

@@ -14,6 +14,8 @@ public class GetRiderHistoryTests(WebAppFixture fixture) : WebAppTestBase(fixtur
             FakeEvent.RiderRegistered(rider1Id),
             FakeEvent.RiderRenamed(),
             FakeEvent.RideStarted(riderId: rider1Id),
+            FakeEvent.RideLocationTracked(),
+            FakeEvent.RideFinished(),
             FakeEvent.RiderRenamed()
         );
 
@@ -22,6 +24,7 @@ public class GetRiderHistoryTests(WebAppFixture fixture) : WebAppTestBase(fixtur
             FakeEvent.RiderRegistered(rider2Id),
             FakeEvent.RiderRenamed(),
             FakeEvent.RideStarted(riderId: rider2Id),
+            FakeEvent.RideFinished(),
             FakeEvent.RiderRenamed()
         );
 
@@ -59,7 +62,7 @@ public class GetRiderHistoryTests(WebAppFixture fixture) : WebAppTestBase(fixtur
         await StartStream(riderRegistered, deleteCommand);
 
         // Get the rider history
-        var result = await Scenario(x =>
+        await Scenario(x =>
         {
             x.Get.Url($"/rider/{riderId}/history");
             x.StatusCodeShouldBe(404);
