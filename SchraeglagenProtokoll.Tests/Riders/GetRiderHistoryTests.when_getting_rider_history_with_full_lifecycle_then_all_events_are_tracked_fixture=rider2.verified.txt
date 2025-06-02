@@ -12,7 +12,7 @@
       Timestamp: DateTimeOffset_1
     },
     {
-      Action: Ride from Lednerville to Marquardtbury (138,04 Miles) logged.,
+      Action: New ride started at Trishafort.,
       Timestamp: DateTimeOffset_1
     },
     {

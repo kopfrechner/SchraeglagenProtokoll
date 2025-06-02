@@ -2,16 +2,15 @@
   Id: Guid_1,
   Version: 1,
   RiderId: Guid_2,
-  Status: Finished,
-  StartLocation: Lake Brayanstad,
-  Destination: South Myrlborough,
+  Status: Started,
+  StartLocation: Boganmouth,
+  Destination: null,
   Distance: {
-    Value: 222.74507732258414,
+    Value: 0.0,
     Unit: Kilometers
   },
   Rating: null,
-  Comments: null,
   TrackedLocations: [
-    Lake Brayanstad
+    Boganmouth
   ]
 }

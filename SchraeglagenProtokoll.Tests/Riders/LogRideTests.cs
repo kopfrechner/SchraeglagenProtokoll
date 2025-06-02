@@ -15,7 +15,7 @@ public class LogRideTests(WebAppFixture fixture) : WebAppTestBase(fixture)
         // Act
         var result = await Scenario(x =>
         {
-            x.Post.Json(logRideCommand).ToUrl($"/rider/{riderId}/log-ride");
+            x.Post.Json(logRideCommand).ToUrl($"/rider/{riderId}/start-ride");
             x.StatusCodeShouldBe(201);
         });
 
@@ -38,7 +38,7 @@ public class LogRideTests(WebAppFixture fixture) : WebAppTestBase(fixture)
         // Act & Assert
         await Scenario(x =>
         {
-            x.Post.Json(logRideCommand).ToUrl($"/rider/{nonExistentRiderId}/log-ride");
+            x.Post.Json(logRideCommand).ToUrl($"/rider/{nonExistentRiderId}/start-ride");
             x.StatusCodeShouldBe(400);
         });
     }

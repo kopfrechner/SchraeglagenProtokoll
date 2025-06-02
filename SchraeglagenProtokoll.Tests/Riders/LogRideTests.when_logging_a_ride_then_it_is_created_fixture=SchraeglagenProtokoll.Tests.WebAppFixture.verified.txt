@@ -2,16 +2,15 @@
   Id: Guid_1,
   Version: 1,
   RiderId: Guid_2,
-  Status: Finished,
-  StartLocation: Raestad,
-  Destination: Leuschkestad,
+  Status: Started,
+  StartLocation: Mireillefort,
+  Destination: null,
   Distance: {
-    Value: 180.30248357928474,
-    Unit: Miles
+    Value: 0.0,
+    Unit: Kilometers
   },
   Rating: null,
-  Comments: null,
   TrackedLocations: [
-    Raestad
+    Mireillefort
   ]
 }

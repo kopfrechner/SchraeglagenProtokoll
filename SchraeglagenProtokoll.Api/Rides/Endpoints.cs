@@ -9,6 +9,5 @@ public static class Endpoints
         var group = app.MapGroup("/rides").WithTags("Rides");
 
         group.MapGetRideById();
-        group.MapAddComment();
     }
 }

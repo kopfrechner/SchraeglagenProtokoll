@@ -10,14 +10,12 @@ public class CommandFaker
     public CommandFaker(int seed = 0815)
     {
         _distanceFaker = new DistanceFaker().UseSeed(seed);
-        _addCommentFaker = new Faker<AddComment.AddCommentCommand>().UseSeed(seed + 2);
         _registerRiderFaker = new Faker<RegisterRider.RegisterRiderCommand>().UseSeed(seed + 3);
         _renameRiderFaker = new Faker<RenameRider.RenameRiderCommand>().UseSeed(seed + 4);
         _startRideFaker = new Faker<LogRide.StartRideCommand>().UseSeed(seed + 1);
     }
 
     private Faker<Distance> _distanceFaker;
-    private Faker<AddComment.AddCommentCommand> _addCommentFaker;
     private Faker<RegisterRider.RegisterRiderCommand> _registerRiderFaker;
     private Faker<RenameRider.RenameRiderCommand> _renameRiderFaker;
     private Faker<LogRide.StartRideCommand> _startRideFaker;
@@ -28,17 +26,6 @@ public class CommandFaker
             .CustomInstantiator(f => new LogRide.StartRideCommand(
                 rideId ?? f.Random.Guid(),
                 startLocation ?? f.Address.City()
-            ))
-            .Generate();
-    }
-
-    public AddComment.AddCommentCommand AddComment(Guid commentedById, int version)
-    {
-        return _addCommentFaker
-            .CustomInstantiator(f => new AddComment.AddCommentCommand(
-                commentedById,
-                f.Random.Words(20),
-                version
             ))
             .Generate();
     }

@@ -1,16 +1,14 @@
 using System.Text.Json.Serialization;
-using JasperFx.Core;
-using Marten.Events;
 
 namespace SchraeglagenProtokoll.Api.Rides;
 
 public record RideStarted(Guid Id, Guid RiderId, string StartLocation);
 
-public record RideLocationTracked(Guid Id, string Location);
+public record RideLocationTracked(string Location);
 
-public record RideFinished(Guid Id, string Destination, Distance Distance);
+public record RideFinished(string Destination, Distance Distance);
 
-public record RideRated(Guid Id, SchraeglagenRating Rating);
+public record RideRated(SchraeglagenRating Rating);
 
 // TODO Implement Pause and Resume
 
@@ -58,9 +56,6 @@ public class Ride
     public SchraeglagenRating? Rating { get; private set; }
 
     [JsonInclude]
-    public List<Comment> Comments { get; private set; } = new();
-
-    [JsonInclude]
     public List<string> TrackedLocations { get; init; }
 
     // Make serialization easy
@@ -79,22 +74,20 @@ public class Ride
         };
     }
 
-    public void Apply(IEvent<RideFinished> @event)
+    public void Apply(RideLocationTracked @event)
     {
-        Distance = @event.Data.Distance;
+        TrackedLocations.Add(@event.Location);
+    }
+
+    public void Apply(RideFinished @event)
+    {
+        Distance = @event.Distance;
         Status = RideStatus.Finished;
-        Destination = @event.Data.Destination;
+        Destination = @event.Destination;
     }
 
     public void Apply(RideRated @event)
     {
         Rating = @event.Rating;
     }
-
-    public void Apply(IEvent<CommentAdded> @event)
-    {
-        Comments.Add(new Comment(@event.Data.CommentedBy, @event.Data.Text, @event.Timestamp));
-    }
-
-    public record Comment(Guid CommentedBy, string Text, DateTimeOffset Timestamp);
 }
