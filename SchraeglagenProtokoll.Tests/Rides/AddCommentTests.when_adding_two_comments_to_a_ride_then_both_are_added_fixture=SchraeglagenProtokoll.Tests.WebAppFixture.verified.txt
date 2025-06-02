@@ -3,6 +3,7 @@
   Version: 3,
   RiderId: Guid_2,
   Date: DateTimeOffset_1,
+  Status: Finished,
   StartLocation: New Caleighbury,
   Destination: South Marlen,
   Distance: {

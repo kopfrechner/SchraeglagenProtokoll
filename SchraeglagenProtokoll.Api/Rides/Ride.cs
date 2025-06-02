@@ -14,31 +14,25 @@ public record RideLogged(
 
 public record CommentAdded(Guid CommentedBy, string Text);
 
+
+public enum RideStatus
+{
+    Started,
+    Finished,
+}
+
 public class Ride
 {
-    [JsonInclude]
-    public Guid Id { get; private set; }
+    [JsonInclude] public Guid Id { get; private set; }
 
-    [JsonInclude]
-    public int Version { get; private set; }
-
-    [JsonInclude]
-    public Guid RiderId { get; private set; }
-
-    [JsonInclude]
-    public DateTimeOffset Date { get; private set; }
-
-    [JsonInclude]
-    public string StartLocation { get; private set; } = null!;
-
-    [JsonInclude]
-    public string Destination { get; private set; } = null!;
-
-    [JsonInclude]
-    public Distance Distance { get; private set; }
-
-    [JsonInclude]
-    public List<Comment> Comments { get; private set; } = new();
+    [JsonInclude] public int Version { get; private set; }
+    [JsonInclude] public Guid RiderId { get; private set; }
+    [JsonInclude] public DateTimeOffset Date { get; private set; } // TODO: Remove this
+    [JsonInclude] public RideStatus Status { get; private set; }
+    [JsonInclude] public string StartLocation { get; private set; } = null!;
+    [JsonInclude] public string Destination { get; private set; } = null!;
+    [JsonInclude] public Distance Distance { get; private set; }
+    [JsonInclude] public List<Comment> Comments { get; private set; } = new();
 
     // Make serialization easy
     public Ride() { }
@@ -53,6 +47,7 @@ public class Ride
             StartLocation = @event.StartLocation,
             Destination = @event.Destination,
             Distance = @event.Distance,
+            Status = RideStatus.Finished
         };
     }
 
