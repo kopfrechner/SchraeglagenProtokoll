@@ -3,32 +3,41 @@ using SchraeglagenProtokoll.Api.Rides;
 
 namespace SchraeglagenProtokoll.Api.Riders.Features;
 
-public static class LogRide
+public static class StartRide
 {
-    public static void MapLogRide(this RouteGroupBuilder group)
+    public static void MapstartRide(this RouteGroupBuilder group)
     {
         group
-            .MapPost("{riderId:guid}/start-ride", LogRideHandler)
-            .WithName("LogRide")
+            .MapPost("{riderId:guid}/start-ride", startRideHandler)
+            .WithName("startRide")
             .WithOpenApi();
     }
 
     public record StartRideCommand(Guid RideId, string Start);
 
-    public static async Task<IResult> LogRideHandler(
+    public static async Task<IResult> startRideHandler(
         IDocumentSession session,
         Guid riderId,
         StartRideCommand command
     )
     {
         var (rideId, start) = command;
-
+        
         var riderExists = await session.Query<Rider>().AnyAsync(x => x.Id == riderId);
         if (!riderExists)
         {
             return Results.BadRequest($"Unknown rider id {riderId}");
         }
 
+        var hasUnfinishedRides = await session
+            .Query<Ride>()
+            .AnyAsync(x => x.RiderId == riderId && x.Status != RideStatus.Finished);
+
+        if (hasUnfinishedRides)
+        {
+            return Results.BadRequest($"Rider {riderId} has unfinished rides");
+        }
+        
         var logged = new RideStarted(rideId, riderId, start);
         var stream = session.Events.StartStream<Ride>(rideId, logged);
         await session.SaveChangesAsync();

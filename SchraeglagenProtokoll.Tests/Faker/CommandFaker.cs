@@ -11,18 +11,18 @@ public class CommandFaker
         _distanceFaker = new DistanceFaker().UseSeed(seed);
         _registerRiderFaker = new Faker<RegisterRider.RegisterRiderCommand>().UseSeed(seed + 3);
         _renameRiderFaker = new Faker<RenameRider.RenameRiderCommand>().UseSeed(seed + 4);
-        _startRideFaker = new Faker<LogRide.StartRideCommand>().UseSeed(seed + 1);
+        _startRideFaker = new Faker<StartRide.StartRideCommand>().UseSeed(seed + 1);
     }
 
     private Faker<Distance> _distanceFaker;
     private Faker<RegisterRider.RegisterRiderCommand> _registerRiderFaker;
     private Faker<RenameRider.RenameRiderCommand> _renameRiderFaker;
-    private Faker<LogRide.StartRideCommand> _startRideFaker;
+    private Faker<StartRide.StartRideCommand> _startRideFaker;
 
-    public LogRide.StartRideCommand StartRide(Guid? rideId = null, string? startLocation = null)
+    public StartRide.StartRideCommand StartRide(Guid? rideId = null, string? startLocation = null)
     {
         return _startRideFaker
-            .CustomInstantiator(f => new LogRide.StartRideCommand(
+            .CustomInstantiator(f => new StartRide.StartRideCommand(
                 rideId ?? f.Random.Guid(),
                 startLocation ?? f.Address.City()
             ))

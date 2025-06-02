@@ -1,0 +1,16 @@
+﻿{
+  Id: Guid_1,
+  Version: 1,
+  RiderId: Guid_2,
+  Status: Started,
+  StartLocation: New Lisandro,
+  Destination: null,
+  Distance: {
+    Value: 0.0,
+    Unit: Kilometers
+  },
+  Rating: null,
+  TrackedLocations: [
+    New Lisandro
+  ]
+}

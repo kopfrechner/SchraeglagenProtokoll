@@ -22,4 +22,9 @@
   <ItemGroup>
     <Folder Include="Rides\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="Riders\StartRideTests.when_logging_a_ride_then_it_is_created_fixture=SchraeglagenProtokoll.Tests.WebAppFixture.verified.txt">
+      <DependentUpon>StartRideTests.cs</DependentUpon>
+    </None>
+  </ItemGroup>
 </Project>

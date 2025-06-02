@@ -9,7 +9,7 @@ public static class Endpoints
         var group = app.MapGroup("/rider").WithTags("Rider");
 
         group.MapRegisterRider();
-        group.MapLogRide();
+        group.MapstartRide();
         group.MapRenameRider();
         group.MapGetRiderById_ByAggregation();
         group.MapGetRiderById_FromProjection();
