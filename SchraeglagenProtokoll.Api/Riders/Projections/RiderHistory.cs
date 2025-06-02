@@ -32,7 +32,7 @@ public class RiderHistoryProjection : MultiStreamProjection<RiderHistory, Guid>
         Identity<IEvent<IRiderEvent>>(_ => _.StreamId);
         DeleteEvent<IEvent<RiderDeletedAccount>>(_ => true);
 
-        Identity<IEvent<IRideEvent>>(_ => _.StreamId);
+        CustomGrouping(new RideEventsToRiderInlineGrouper());
     }
 
     public void Apply(IEvent<RiderRegistered> e, RiderHistory details)

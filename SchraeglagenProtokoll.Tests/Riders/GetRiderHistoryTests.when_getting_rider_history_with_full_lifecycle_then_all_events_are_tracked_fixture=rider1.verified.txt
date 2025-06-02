@@ -12,20 +12,20 @@
       Timestamp: DateTimeOffset_1
     },
     {
-      Action: New ride started at Heidiburgh.,
+      Action: Rider renamed from Emory Olson to Kailee Kunde.,
       Timestamp: DateTimeOffset_1
+    },
+    {
+      Action: New ride started at Heidiburgh.,
+      Timestamp: DateTimeOffset_2
     },
     {
       Action: Ride location logged at Hilllfort.,
-      Timestamp: DateTimeOffset_1
+      Timestamp: DateTimeOffset_2
     },
     {
       Action: Ride finished at Hilllfort (277,02 Miles).,
-      Timestamp: DateTimeOffset_1
-    },
-    {
-      Action: Rider renamed from Emory Olson to Kailee Kunde.,
-      Timestamp: DateTimeOffset_1
+      Timestamp: DateTimeOffset_2
     }
   ]
 }

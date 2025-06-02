@@ -12,16 +12,16 @@
       Timestamp: DateTimeOffset_1
     },
     {
-      Action: New ride started at Trishafort.,
+      Action: Rider renamed from Herminia Terry to Madeline D'Amore.,
       Timestamp: DateTimeOffset_1
+    },
+    {
+      Action: New ride started at Trishafort.,
+      Timestamp: DateTimeOffset_2
     },
     {
       Action: Ride finished at Port Abby (138,04 Miles).,
-      Timestamp: DateTimeOffset_1
-    },
-    {
-      Action: Rider renamed from Herminia Terry to Madeline D'Amore.,
-      Timestamp: DateTimeOffset_1
+      Timestamp: DateTimeOffset_2
     }
   ]
 }

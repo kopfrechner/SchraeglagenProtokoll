@@ -13,20 +13,23 @@ public class GetRiderHistoryTests(WebAppFixture fixture) : WebAppTestBase(fixtur
         await StartStream(
             FakeEvent.RiderRegistered(rider1Id),
             FakeEvent.RiderRenamed(),
+            FakeEvent.RiderRenamed()
+        );
+
+        await StartStream(
             FakeEvent.RideStarted(riderId: rider1Id),
             FakeEvent.RideLocationTracked(),
-            FakeEvent.RideFinished(),
-            FakeEvent.RiderRenamed()
+            FakeEvent.RideFinished()
         );
 
         var rider2Id = Guid.NewGuid();
         await StartStream(
             FakeEvent.RiderRegistered(rider2Id),
             FakeEvent.RiderRenamed(),
-            FakeEvent.RideStarted(riderId: rider2Id),
-            FakeEvent.RideFinished(),
             FakeEvent.RiderRenamed()
         );
+
+        await StartStream(FakeEvent.RideStarted(riderId: rider2Id), FakeEvent.RideFinished());
 
         // Act
         var resultRider1 = await Scenario(x =>
