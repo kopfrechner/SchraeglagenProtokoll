@@ -44,7 +44,12 @@ public abstract class WebAppTestBase(WebAppFixture fixture)
         var store = scope.ServiceProvider.GetRequiredService<IDocumentStore>();
         using var session = store.LightweightSession();
 
-        var id = TryExtractEventIdFromFirstEvent(events);
+        if (events.Count == 0)
+            throw new ArgumentException("At least one event is required");
+
+        var first = events[0];
+
+        var id = TryExtractEventIdFromFirstEvent(first);
 
         var stream = id.HasValue
             ? session.Events.StartStream(id.Value, events)
@@ -54,13 +59,38 @@ public abstract class WebAppTestBase(WebAppFixture fixture)
         return stream.Id;
     }
 
-    private static Guid? TryExtractEventIdFromFirstEvent(IList<object> events)
+    public async Task<Guid> StartStreamWithTransactionPerEvent(params IList<object> events)
     {
-        return
-            events.FirstOrDefault() is { } e
-            && e.GetType().GetProperty("Id") is { PropertyType: Type t } p
-            && t == typeof(Guid)
-            ? p.GetValue(e) as Guid?
+        using var scope = fixture.Host.Services.CreateScope();
+        var store = scope.ServiceProvider.GetRequiredService<IDocumentStore>();
+        using var session = store.LightweightSession();
+
+        if (events.Count == 0)
+            throw new ArgumentException("At least one event is required");
+
+        var first = events[0];
+        var rest = events.Skip(1).ToArray();
+
+        var id = TryExtractEventIdFromFirstEvent(first);
+
+        var stream = id.HasValue
+            ? session.Events.StartStream(id.Value, first)
+            : session.Events.StartStream(first);
+        await session.SaveChangesAsync();
+
+        if (rest.Length > 0)
+        {
+            session.Events.Append(stream.Id, rest);
+            await session.SaveChangesAsync();
+        }
+
+        return stream.Id;
+    }
+
+    private static Guid? TryExtractEventIdFromFirstEvent(object @event)
+    {
+        return @event.GetType().GetProperty("Id") is { PropertyType: Type t } p && t == typeof(Guid)
+            ? p.GetValue(@event) as Guid?
             : null;
     }
 
