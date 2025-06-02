@@ -4,7 +4,8 @@
       {
          "name": "csharpier",
          "command": "dotnet",
-         "args": [ "csharpier", "format", "." ]
+         "args": [ "csharpier", "format", "." ],
+         "include": [ "**/*.cs", "**/*.json", "**/*.csproj" ]
       }
    ]
 }
