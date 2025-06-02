@@ -1,0 +1,27 @@
+﻿{
+  Id: Guid_1,
+  FullName: Rider 1,
+  RoadName: Helmchen,
+  Trips: [
+    {
+      StartLocation: Jewelmouth,
+      Destination: North Kobyhaven,
+      Distance: {
+        Value: 545.1393856411518,
+        Unit: Kilometers
+      },
+      StartTime: DateTimeOffset_1,
+      EndTime: DateTimeOffset_1
+    },
+    {
+      StartLocation: Gleasonburgh,
+      Destination: Tylerville,
+      Distance: {
+        Value: 879.1168685439586,
+        Unit: Kilometers
+      },
+      StartTime: DateTimeOffset_2,
+      EndTime: DateTimeOffset_2
+    }
+  ]
+}

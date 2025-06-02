@@ -1,0 +1,17 @@
+﻿{
+  Id: Guid_1,
+  FullName: Rider 2,
+  RoadName: VollgasVicky,
+  Trips: [
+    {
+      StartLocation: Emelieville,
+      Destination: Keelingchester,
+      Distance: {
+        Value: 62.81041775960961,
+        Unit: Miles
+      },
+      StartTime: DateTimeOffset_1,
+      EndTime: DateTimeOffset_1
+    }
+  ]
+}
