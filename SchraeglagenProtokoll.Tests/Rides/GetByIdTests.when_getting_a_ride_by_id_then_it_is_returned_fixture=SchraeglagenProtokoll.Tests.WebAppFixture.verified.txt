@@ -2,7 +2,6 @@
   Id: Guid_1,
   Version: 1,
   RiderId: Guid_2,
-  Date: DateTimeOffset_1,
   Status: Finished,
   StartLocation: Lake Brayanstad,
   Destination: South Myrlborough,

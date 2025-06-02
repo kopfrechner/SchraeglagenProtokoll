@@ -2,7 +2,6 @@
   Id: Guid_1,
   Version: 3,
   RiderId: Guid_2,
-  Date: DateTimeOffset_1,
   Status: Finished,
   StartLocation: New Caleighbury,
   Destination: South Marlen,
@@ -14,12 +13,12 @@
     {
       CommentedBy: Guid_3,
       Text: Great ride!,
-      Timestamp: DateTimeOffset_2
+      Timestamp: DateTimeOffset_1
     },
     {
       CommentedBy: Guid_2,
       Text: Yeah, beautiful scenery on this route,
-      Timestamp: DateTimeOffset_3
+      Timestamp: DateTimeOffset_2
     }
   ]
 }
