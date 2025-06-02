@@ -10,7 +10,7 @@ public class LogRideTests(WebAppFixture fixture) : WebAppTestBase(fixture)
         // Arrange
         var riderId = await StartStream(FakeEvent.RiderRegistered());
 
-        var logRideCommand = FakeCommand.LogRide();
+        var logRideCommand = FakeCommand.StartRide();
 
         // Act
         var result = await Scenario(x =>
@@ -33,7 +33,7 @@ public class LogRideTests(WebAppFixture fixture) : WebAppTestBase(fixture)
     {
         // Arrange
         var nonExistentRiderId = Guid.NewGuid();
-        var logRideCommand = FakeCommand.LogRide();
+        var logRideCommand = FakeCommand.StartRide();
 
         // Act & Assert
         await Scenario(x =>

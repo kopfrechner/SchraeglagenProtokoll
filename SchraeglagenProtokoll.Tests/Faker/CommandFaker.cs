@@ -10,33 +10,24 @@ public class CommandFaker
     public CommandFaker(int seed = 0815)
     {
         _distanceFaker = new DistanceFaker().UseSeed(seed);
-        _logRideFaker = new Faker<LogRide.LogRideCommand>().UseSeed(seed + 1);
         _addCommentFaker = new Faker<AddComment.AddCommentCommand>().UseSeed(seed + 2);
         _registerRiderFaker = new Faker<RegisterRider.RegisterRiderCommand>().UseSeed(seed + 3);
         _renameRiderFaker = new Faker<RenameRider.RenameRiderCommand>().UseSeed(seed + 4);
+        _startRideFaker = new Faker<LogRide.StartRideCommand>().UseSeed(seed + 1);
     }
 
     private Faker<Distance> _distanceFaker;
-    private Faker<LogRide.LogRideCommand> _logRideFaker;
     private Faker<AddComment.AddCommentCommand> _addCommentFaker;
     private Faker<RegisterRider.RegisterRiderCommand> _registerRiderFaker;
     private Faker<RenameRider.RenameRiderCommand> _renameRiderFaker;
+    private Faker<LogRide.StartRideCommand> _startRideFaker;
 
-    public LogRide.LogRideCommand LogRide(
-        Guid? rideId = null,
-        DateTimeOffset? date = null,
-        string? startLocation = null,
-        string? destination = null,
-        Distance? distance = null
-    )
+    public LogRide.StartRideCommand StartRide(Guid? rideId = null, string? startLocation = null)
     {
-        return _logRideFaker
-            .CustomInstantiator(f => new LogRide.LogRideCommand(
+        return _startRideFaker
+            .CustomInstantiator(f => new LogRide.StartRideCommand(
                 rideId ?? f.Random.Guid(),
-                date ?? f.Date.Recent(3),
-                startLocation ?? f.Address.City(),
-                destination ?? f.Address.City(),
-                distance ?? _distanceFaker.Generate()
+                startLocation ?? f.Address.City()
             ))
             .Generate();
     }

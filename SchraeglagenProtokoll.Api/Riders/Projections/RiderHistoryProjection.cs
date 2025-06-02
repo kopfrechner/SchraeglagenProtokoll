@@ -28,7 +28,7 @@ public class RiderHistoryProjection : MultiStreamProjection<RiderHistory, Guid>
     public RiderHistoryProjection()
     {
         Identity<RiderRegistered>(_ => _.Id);
-        Identity<RideLogged>(_ => _.RiderId);
+        Identity<RideStarted>(_ => _.RiderId);
         Identity<IEvent<RiderRenamed>>(_ => _.StreamId);
         Identity<CommentAdded>(_ => _.CommentedBy);
 
@@ -45,12 +45,9 @@ public class RiderHistoryProjection : MultiStreamProjection<RiderHistory, Guid>
         details.AddHistoryEntry($"Rider registered with alias {details.RoadName}.", e.Timestamp);
     }
 
-    public void Apply(IEvent<RideLogged> e, RiderHistory details)
+    public void Apply(IEvent<RideStarted> e, RiderHistory details)
     {
-        details.AddHistoryEntry(
-            $"Ride from {e.Data.StartLocation} to {e.Data.Destination} ({e.Data.Distance}) logged.",
-            e.Timestamp
-        );
+        details.AddHistoryEntry($"New ride started at {e.Data.StartLocation}.", e.Timestamp);
     }
 
     public void Apply(IEvent<RiderRenamed> e, RiderHistory details)

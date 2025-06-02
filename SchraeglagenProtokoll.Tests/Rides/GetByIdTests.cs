@@ -9,7 +9,7 @@ public class GetByIdTests(WebAppFixture fixture) : WebAppTestBase(fixture)
     {
         // Arrange
         var riderId = await StartStream(FakeEvent.RiderRegistered());
-        var rideId = await StartStream(FakeEvent.RideLogged(riderId: riderId));
+        var rideId = await StartStream(FakeEvent.RideStarted(riderId: riderId));
 
         // Act
         var result = await Scenario(x =>

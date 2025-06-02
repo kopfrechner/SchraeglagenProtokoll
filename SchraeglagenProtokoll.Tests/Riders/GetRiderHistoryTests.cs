@@ -13,7 +13,7 @@ public class GetRiderHistoryTests(WebAppFixture fixture) : WebAppTestBase(fixtur
         await StartStream(
             FakeEvent.RiderRegistered(rider1Id),
             FakeEvent.RiderRenamed(),
-            FakeEvent.RideLogged(riderId: rider1Id),
+            FakeEvent.RideStarted(riderId: rider1Id),
             FakeEvent.CommentAdded(rider1Id),
             FakeEvent.RiderRenamed()
         );
@@ -22,7 +22,7 @@ public class GetRiderHistoryTests(WebAppFixture fixture) : WebAppTestBase(fixtur
         await StartStream(
             FakeEvent.RiderRegistered(rider2Id),
             FakeEvent.RiderRenamed(),
-            FakeEvent.RideLogged(riderId: rider2Id),
+            FakeEvent.RideStarted(riderId: rider2Id),
             FakeEvent.CommentAdded(rider2Id),
             FakeEvent.RiderRenamed()
         );

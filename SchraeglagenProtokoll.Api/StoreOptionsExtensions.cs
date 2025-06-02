@@ -26,10 +26,6 @@ public static class StoreOptionsExtensions
         options.Projections.Snapshot<Ride>(SnapshotLifecycle.Inline);
         options.Projections.Add<RiderHistoryProjection>(ProjectionLifecycle.Inline);
 
-        // Eventual consistency can occur with Async projections.
-        // If we use Live, no documents will be precalculated.
-        options.Projections.Add<RiderStatsProjection>(ProjectionLifecycle.Async);
-
         // Recent optimization you'd want with FetchForWriting up above
         options.Projections.UseIdentityMapForAggregates = true;
     }

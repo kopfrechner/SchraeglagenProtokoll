@@ -7,24 +7,21 @@ public static class LogRide
 {
     public static void MapLogRide(this RouteGroupBuilder group)
     {
-        group.MapPost("{riderId:guid}/log-ride", LogRideHandler).WithName("LogRide").WithOpenApi();
+        group
+            .MapPost("{riderId:guid}/start-ride", LogRideHandler)
+            .WithName("LogRide")
+            .WithOpenApi();
     }
 
-    public record LogRideCommand(
-        Guid RideId,
-        DateTimeOffset Date,
-        string Start,
-        string Destination,
-        Distance Distance
-    );
+    public record StartRideCommand(Guid RideId, string Start);
 
     public static async Task<IResult> LogRideHandler(
         IDocumentSession session,
         Guid riderId,
-        LogRideCommand command
+        StartRideCommand command
     )
     {
-        var (rideId, date, start, destination, distance) = command;
+        var (rideId, start) = command;
 
         var riderExists = await session.Query<Rider>().AnyAsync(x => x.Id == riderId);
         if (!riderExists)
@@ -32,7 +29,7 @@ public static class LogRide
             return Results.BadRequest($"Unknown rider id {riderId}");
         }
 
-        var logged = new RideLogged(rideId, riderId, date, start, destination, distance);
+        var logged = new RideStarted(rideId, riderId, start);
         var stream = session.Events.StartStream<Ride>(rideId, logged);
         await session.SaveChangesAsync();
 

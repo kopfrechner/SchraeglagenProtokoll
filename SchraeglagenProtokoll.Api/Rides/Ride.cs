@@ -23,15 +23,6 @@ public enum SchraeglagenRating
     Kehrenparadies = 4,
 }
 
-public record RideLogged(
-    Guid Id,
-    Guid RiderId,
-    DateTimeOffset Date,
-    string StartLocation,
-    string Destination,
-    Distance Distance
-);
-
 public record CommentAdded(Guid CommentedBy, string Text);
 
 public enum RideStatus
@@ -74,20 +65,6 @@ public class Ride
 
     // Make serialization easy
     public Ride() { }
-
-    public static Ride Create(RideLogged @event)
-    {
-        return new Ride
-        {
-            Id = @event.Id,
-            RiderId = @event.RiderId,
-            StartLocation = @event.StartLocation,
-            Destination = @event.Destination,
-            Distance = @event.Distance,
-            Status = RideStatus.Finished,
-            TrackedLocations = [@event.StartLocation],
-        };
-    }
 
     public static Ride Create(RideStarted @event)
     {

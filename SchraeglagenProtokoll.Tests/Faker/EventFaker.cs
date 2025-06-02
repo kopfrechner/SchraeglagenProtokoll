@@ -1,5 +1,6 @@
 using Bogus;
 using SchraeglagenProtokoll.Api.Riders;
+using SchraeglagenProtokoll.Api.Riders.Projections;
 using SchraeglagenProtokoll.Api.Rides;
 
 namespace SchraeglagenProtokoll.Tests.Faker;
@@ -9,37 +10,31 @@ public class EventFaker
     public EventFaker(int seed = 0815)
     {
         _distanceFaker = new DistanceFaker().UseSeed(seed);
-        _rideLoggedFaker = new Faker<RideLogged>().UseSeed(seed + 1);
         _riderRenamedFaker = new Faker<RiderRenamed>().UseSeed(seed + 2);
         _riderRegisteredFaker = new Faker<RiderRegistered>().UseSeed(seed + 3);
         _commentAddedFaker = new Faker<CommentAdded>().UseSeed(seed + 4);
         _deleteRiderFaker = new Faker<RiderDeletedAccount>().UseSeed(seed + 5);
+        _rideStartedFaker = new Faker<RideStarted>().UseSeed(seed + 1);
     }
 
     private readonly Faker<Distance> _distanceFaker;
-    private readonly Faker<RideLogged> _rideLoggedFaker;
+    private readonly Faker<RideStarted> _rideStartedFaker;
     private readonly Faker<RiderRenamed> _riderRenamedFaker;
     private readonly Faker<RiderRegistered> _riderRegisteredFaker;
     private readonly Faker<CommentAdded> _commentAddedFaker;
     private readonly Faker<RiderDeletedAccount> _deleteRiderFaker;
 
-    public RideLogged RideLogged(
+    public RideStarted RideStarted(
         Guid? rideId = null,
         Guid? riderId = null,
-        DateTimeOffset? date = null,
-        string? startLocation = null,
-        string? destination = null,
-        Distance? distance = null
+        string? startLocation = null
     )
     {
-        return _rideLoggedFaker
-            .CustomInstantiator(f => new RideLogged(
+        return _rideStartedFaker
+            .CustomInstantiator(f => new RideStarted(
                 rideId ?? f.Random.Guid(),
                 riderId ?? f.Random.Guid(),
-                date ?? f.Date.Recent(3),
-                startLocation ?? f.Address.City(),
-                destination ?? f.Address.City(),
-                distance ?? _distanceFaker.Generate()
+                startLocation ?? f.Address.City()
             ))
             .Generate();
     }
