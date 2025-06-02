@@ -5,24 +5,24 @@ namespace SchraeglagenProtokoll.Api.Riders.Features;
 
 public static class StartRide
 {
-    public static void MapstartRide(this RouteGroupBuilder group)
+    public static void MapStartRide(this RouteGroupBuilder group)
     {
         group
-            .MapPost("{riderId:guid}/start-ride", startRideHandler)
+            .MapPost("{riderId:guid}/start-ride", StartRideHandler)
             .WithName("startRide")
             .WithOpenApi();
     }
 
     public record StartRideCommand(Guid RideId, string Start);
 
-    public static async Task<IResult> startRideHandler(
+    public static async Task<IResult> StartRideHandler(
         IDocumentSession session,
         Guid riderId,
         StartRideCommand command
     )
     {
         var (rideId, start) = command;
-        
+
         var riderExists = await session.Query<Rider>().AnyAsync(x => x.Id == riderId);
         if (!riderExists)
         {
@@ -37,7 +37,7 @@ public static class StartRide
         {
             return Results.BadRequest($"Rider {riderId} has unfinished rides");
         }
-        
+
         var logged = new RideStarted(rideId, riderId, start);
         var stream = session.Events.StartStream<Ride>(rideId, logged);
         await session.SaveChangesAsync();
