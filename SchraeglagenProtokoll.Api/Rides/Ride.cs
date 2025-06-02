@@ -21,8 +21,6 @@ public enum SchraeglagenRating
     Kehrenparadies = 4,
 }
 
-public record CommentAdded(Guid CommentedBy, string Text);
-
 public enum RideStatus
 {
     Started,

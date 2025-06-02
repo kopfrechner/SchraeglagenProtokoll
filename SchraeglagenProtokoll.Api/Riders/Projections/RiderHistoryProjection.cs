@@ -30,7 +30,6 @@ public class RiderHistoryProjection : MultiStreamProjection<RiderHistory, Guid>
         Identity<RiderRegistered>(_ => _.Id);
         Identity<RideStarted>(_ => _.RiderId);
         Identity<IEvent<RiderRenamed>>(_ => _.StreamId);
-        Identity<CommentAdded>(_ => _.CommentedBy);
 
         Identity<IEvent<RiderDeletedAccount>>(_ => _.StreamId);
         DeleteEvent<IEvent<RiderDeletedAccount>>(_ => true);
@@ -57,11 +56,6 @@ public class RiderHistoryProjection : MultiStreamProjection<RiderHistory, Guid>
             e.Timestamp
         );
         details.FullName = e.Data.FullName;
-    }
-
-    public void Apply(IEvent<CommentAdded> e, RiderHistory details)
-    {
-        details.AddHistoryEntry($"Rider added comment to a ride: {e.Data.Text}", e.Timestamp);
     }
 
     public void Apply(IEvent<Delete.DeleteRiderCommand> e, RiderHistory details)

@@ -14,7 +14,7 @@ public record Rider(Guid Id, string Email, string FullName, string RoadName)
     public int Version { get; private set; }
 
     public static Rider Create(RiderRegistered riderRegistered) =>
-        new (
+        new(
             riderRegistered.Id,
             riderRegistered.Email,
             riderRegistered.FullName,

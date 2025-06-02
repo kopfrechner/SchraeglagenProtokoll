@@ -14,7 +14,6 @@ public class GetRiderHistoryTests(WebAppFixture fixture) : WebAppTestBase(fixtur
             FakeEvent.RiderRegistered(rider1Id),
             FakeEvent.RiderRenamed(),
             FakeEvent.RideStarted(riderId: rider1Id),
-            FakeEvent.CommentAdded(rider1Id),
             FakeEvent.RiderRenamed()
         );
 
@@ -23,7 +22,6 @@ public class GetRiderHistoryTests(WebAppFixture fixture) : WebAppTestBase(fixtur
             FakeEvent.RiderRegistered(rider2Id),
             FakeEvent.RiderRenamed(),
             FakeEvent.RideStarted(riderId: rider2Id),
-            FakeEvent.CommentAdded(rider2Id),
             FakeEvent.RiderRenamed()
         );
 

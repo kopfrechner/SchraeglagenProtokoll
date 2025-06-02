@@ -12,7 +12,6 @@ public class EventFaker
         _distanceFaker = new DistanceFaker().UseSeed(seed);
         _riderRenamedFaker = new Faker<RiderRenamed>().UseSeed(seed + 2);
         _riderRegisteredFaker = new Faker<RiderRegistered>().UseSeed(seed + 3);
-        _commentAddedFaker = new Faker<CommentAdded>().UseSeed(seed + 4);
         _deleteRiderFaker = new Faker<RiderDeletedAccount>().UseSeed(seed + 5);
         _rideStartedFaker = new Faker<RideStarted>().UseSeed(seed + 1);
     }
@@ -21,7 +20,6 @@ public class EventFaker
     private readonly Faker<RideStarted> _rideStartedFaker;
     private readonly Faker<RiderRenamed> _riderRenamedFaker;
     private readonly Faker<RiderRegistered> _riderRegisteredFaker;
-    private readonly Faker<CommentAdded> _commentAddedFaker;
     private readonly Faker<RiderDeletedAccount> _deleteRiderFaker;
 
     public RideStarted RideStarted(
@@ -59,16 +57,6 @@ public class EventFaker
                 email ?? f.Internet.Email(),
                 fullName ?? f.Name.FullName(),
                 roadName ?? f.PickRandom(FakedValues.RoadNames)
-            ))
-            .Generate();
-    }
-
-    public CommentAdded CommentAdded(Guid? commentedBy = null, string? text = null)
-    {
-        return _commentAddedFaker
-            .CustomInstantiator(f => new CommentAdded(
-                commentedBy ?? f.Random.Guid(),
-                text ?? f.Lorem.Sentence()
             ))
             .Generate();
     }
