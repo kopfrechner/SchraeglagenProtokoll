@@ -89,6 +89,31 @@ public class Ride
         };
     }
 
+    public static Ride Create(RideStarted @event)
+    {
+        return new Ride
+        {
+            Id = @event.Id,
+            RiderId = @event.RiderId,
+            StartLocation = @event.StartLocation,
+            Distance = Distance.Zero(),
+            Status = RideStatus.Started,
+            TrackedLocations = [@event.StartLocation],
+        };
+    }
+
+    public void Apply(IEvent<RideFinished> @event)
+    {
+        Distance = @event.Data.Distance;
+        Status = RideStatus.Finished;
+        Destination = @event.Data.Destination;
+    }
+
+    public void Apply(RideRated @event)
+    {
+        Rating = @event.Rating;
+    }
+
     public void Apply(IEvent<CommentAdded> @event)
     {
         Comments.Add(new Comment(@event.Data.CommentedBy, @event.Data.Text, @event.Timestamp));
