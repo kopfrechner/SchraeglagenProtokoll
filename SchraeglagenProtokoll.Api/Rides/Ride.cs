@@ -2,11 +2,13 @@ using System.Text.Json.Serialization;
 
 namespace SchraeglagenProtokoll.Api.Rides;
 
-public record RideStarted(Guid Id, Guid RiderId, string StartLocation);
+public interface IRideEvent;
 
-public record RideLocationTracked(string Location);
+public record RideStarted(Guid Id, Guid RiderId, string StartLocation) : IRideEvent;
 
-public record RideFinished(string Destination, Distance Distance);
+public record RideLocationTracked(string Location) : IRideEvent;
+
+public record RideFinished(string Destination, Distance Distance) : IRideEvent;
 
 public record RideRated(SchraeglagenRating Rating);
 
