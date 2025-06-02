@@ -58,9 +58,6 @@ public class Ride
     [JsonInclude]
     public List<string> TrackedLocations { get; init; }
 
-    // Make serialization easy
-    public Ride() { }
-
     public static Ride Create(RideStarted @event)
     {
         return new Ride

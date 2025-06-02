@@ -14,7 +14,7 @@ public record Rider(Guid Id, string Email, string FullName, string RoadName)
     public int Version { get; private set; }
 
     public static Rider Create(RiderRegistered riderRegistered) =>
-        new Rider(
+        new (
             riderRegistered.Id,
             riderRegistered.Email,
             riderRegistered.FullName,
@@ -23,5 +23,5 @@ public record Rider(Guid Id, string Email, string FullName, string RoadName)
 
     public Rider Apply(RiderRenamed riderRenamed) => this with { FullName = riderRenamed.FullName };
 
-    internal bool ShouldDelete(RiderDeletedAccount riderDeletedAccount) => true;
+    private bool ShouldDelete(RiderDeletedAccount riderDeletedAccount) => true;
 }
