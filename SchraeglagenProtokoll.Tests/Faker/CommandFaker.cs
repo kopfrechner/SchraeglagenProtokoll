@@ -1,6 +1,7 @@
 using Bogus;
 using SchraeglagenProtokoll.Api.Riders.Features;
 using SchraeglagenProtokoll.Api.Rides;
+using SchraeglagenProtokoll.Api.Rides.Features;
 
 namespace SchraeglagenProtokoll.Tests.Faker;
 
@@ -12,12 +13,18 @@ public class CommandFaker
         _registerRiderFaker = new Faker<RegisterRider.RegisterRiderCommand>().UseSeed(seed + 3);
         _renameRiderFaker = new Faker<RenameRider.RenameRiderCommand>().UseSeed(seed + 4);
         _startRideFaker = new Faker<StartRide.StartRideCommand>().UseSeed(seed + 1);
+        _addLocationTrackFaker = new Faker<AddLocationTrack.AddLocationTrackCommand>().UseSeed(
+            seed + 5
+        );
+        _finishRideFaker = new Faker<FinishRide.FinishRideCommand>().UseSeed(seed + 6);
     }
 
     private Faker<Distance> _distanceFaker;
     private Faker<RegisterRider.RegisterRiderCommand> _registerRiderFaker;
     private Faker<RenameRider.RenameRiderCommand> _renameRiderFaker;
     private Faker<StartRide.StartRideCommand> _startRideFaker;
+    private Faker<AddLocationTrack.AddLocationTrackCommand> _addLocationTrackFaker;
+    private Faker<FinishRide.FinishRideCommand> _finishRideFaker;
 
     public StartRide.StartRideCommand StartRide(Guid? rideId = null, string? startLocation = null)
     {
@@ -51,6 +58,34 @@ public class CommandFaker
         return _renameRiderFaker
             .CustomInstantiator(f => new RenameRider.RenameRiderCommand(
                 fullName ?? f.Person.FullName,
+                version
+            ))
+            .Generate();
+    }
+
+    public AddLocationTrack.AddLocationTrackCommand AddLocationTrack(
+        int version,
+        string? location = null
+    )
+    {
+        return _addLocationTrackFaker
+            .CustomInstantiator(f => new AddLocationTrack.AddLocationTrackCommand(
+                location ?? f.Address.City(),
+                version
+            ))
+            .Generate();
+    }
+
+    public FinishRide.FinishRideCommand FinishRide(
+        int version,
+        string? destination = null,
+        Distance? distance = null
+    )
+    {
+        return _finishRideFaker
+            .CustomInstantiator(f => new FinishRide.FinishRideCommand(
+                destination ?? f.Address.City(),
+                distance ?? _distanceFaker.Generate(),
                 version
             ))
             .Generate();
