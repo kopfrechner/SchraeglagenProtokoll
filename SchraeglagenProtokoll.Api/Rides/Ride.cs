@@ -81,6 +81,7 @@ public class Ride
         Distance = @event.Distance;
         Status = RideStatus.Finished;
         Destination = @event.Destination;
+        TrackedLocations.Add(@event.Destination);
     }
 
     public void Apply(RideRated @event)

@@ -1,0 +1,18 @@
+﻿{
+  Id: Guid_1,
+  Version: 3,
+  RiderId: Guid_2,
+  Status: Started,
+  StartLocation: West Treport,
+  Destination: null,
+  Distance: {
+    Value: 0.0,
+    Unit: Kilometers
+  },
+  Rating: null,
+  TrackedLocations: [
+    West Treport,
+    Vienna,
+    Salzburg
+  ]
+}

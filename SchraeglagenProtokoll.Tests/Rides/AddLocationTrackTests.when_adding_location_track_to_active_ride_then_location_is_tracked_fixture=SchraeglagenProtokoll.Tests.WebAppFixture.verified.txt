@@ -1,0 +1,17 @@
+﻿{
+  Id: Guid_1,
+  Version: 2,
+  RiderId: Guid_2,
+  Status: Started,
+  StartLocation: Hamillborough,
+  Destination: null,
+  Distance: {
+    Value: 0.0,
+    Unit: Kilometers
+  },
+  Rating: null,
+  TrackedLocations: [
+    Hamillborough,
+    South Ellsworth
+  ]
+}

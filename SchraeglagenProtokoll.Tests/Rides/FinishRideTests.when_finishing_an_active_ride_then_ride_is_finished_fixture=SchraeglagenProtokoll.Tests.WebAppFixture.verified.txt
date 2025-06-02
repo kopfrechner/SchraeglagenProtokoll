@@ -1,0 +1,17 @@
+﻿{
+  Id: Guid_1,
+  Version: 2,
+  RiderId: Guid_2,
+  Status: Finished,
+  StartLocation: Doyleland,
+  Destination: Loweton,
+  Distance: {
+    Value: 783.864054728236,
+    Unit: Kilometers
+  },
+  Rating: null,
+  TrackedLocations: [
+    Doyleland,
+    Loweton
+  ]
+}

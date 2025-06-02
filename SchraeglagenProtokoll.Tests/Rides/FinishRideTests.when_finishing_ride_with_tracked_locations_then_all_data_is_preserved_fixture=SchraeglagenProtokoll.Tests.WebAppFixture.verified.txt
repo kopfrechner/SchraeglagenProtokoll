@@ -1,0 +1,19 @@
+﻿{
+  Id: Guid_1,
+  Version: 4,
+  RiderId: Guid_2,
+  Status: Finished,
+  StartLocation: Port Hobart,
+  Destination: Innsbruck,
+  Distance: {
+    Value: 250.0,
+    Unit: Kilometers
+  },
+  Rating: null,
+  TrackedLocations: [
+    Port Hobart,
+    Vienna,
+    Salzburg,
+    Innsbruck
+  ]
+}
