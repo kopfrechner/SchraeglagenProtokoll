@@ -3,7 +3,7 @@
   Version: 1,
   RiderId: Guid_2,
   Status: Started,
-  StartLocation: Wolffstad,
+  StartLocation: East Cedrickburgh,
   Destination: null,
   Distance: {
     Value: 0.0,
@@ -11,6 +11,6 @@
   },
   Rating: null,
   TrackedLocations: [
-    Wolffstad
+    East Cedrickburgh
   ]
 }

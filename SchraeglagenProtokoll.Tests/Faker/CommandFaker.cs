@@ -12,7 +12,7 @@ public class CommandFaker
         _distanceFaker = new DistanceFaker().UseSeed(seed);
         _registerRiderFaker = new Faker<RegisterRider.RegisterRiderCommand>().UseSeed(seed + 3);
         _renameRiderFaker = new Faker<RenameRider.RenameRiderCommand>().UseSeed(seed + 4);
-        _startRideFaker = new Faker<StartRide.StartRideCommand>().UseSeed(seed + 1);
+        _startRideFaker = new Faker<StartRide.StartRideCommand>().UseSeed(seed + 2);
         _addLocationTrackFaker = new Faker<AddLocationTrack.AddLocationTrackCommand>().UseSeed(
             seed + 5
         );
