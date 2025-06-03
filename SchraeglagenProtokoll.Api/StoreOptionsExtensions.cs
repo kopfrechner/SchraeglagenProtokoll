@@ -10,7 +10,11 @@ namespace SchraeglagenProtokoll.Api;
 
 public static class StoreOptionsExtensions
 {
-    public static void Setup(this StoreOptions options, string connectionString, bool isDevelopment)
+    public static void SetupStoreOptions(
+        this StoreOptions options,
+        string connectionString,
+        bool isDevelopment
+    )
     {
         options.Connection(connectionString);
 

@@ -3,8 +3,10 @@ using Marten.Events.Daemon.Resiliency;
 using Oakton;
 using Scalar.AspNetCore;
 using SchraeglagenProtokoll.Api;
+using SchraeglagenProtokoll.Api.Infrastructure;
 using SchraeglagenProtokoll.Api.Riders;
 using SchraeglagenProtokoll.Api.Rides;
+using SchraeglagenProtokoll.Api.Rides.Features.Commands;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,9 @@ builder.Host.ApplyOaktonExtensions();
 // Learn more about configuring OpenAPI at https://ak.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+// Add services to the container
+builder.Services.AddEmail(builder.Configuration);
+
 var connectionString =
     builder.Configuration.GetConnectionString("Marten")
     ?? throw new Exception("No connection string found");
@@ -21,7 +26,11 @@ var isDevelopment = builder.Environment.IsDevelopment();
 
 // Marten
 var martenConfiguration = builder
-    .Services.AddMarten(options => options.Setup(connectionString, isDevelopment))
+    .Services.AddMarten(options => options.SetupStoreOptions(connectionString, isDevelopment))
+    .AddSubscriptionWithServices<OnRideFinishedSendEmailNotificationHandler>(
+        ServiceLifetime.Singleton,
+        o => o.IncludeType<RideFinished>()
+    )
     // Another performance optimization if you're starting from scratch
     .UseLightweightSessions()
     // Enable projection daemon
