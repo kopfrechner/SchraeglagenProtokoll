@@ -212,11 +212,11 @@ The application integrates Marten.CommandLine with Oakton for database managemen
 # View available commands
 dotnet run -- help
 
-# Rebuild projections
-dotnet run -- projections:rebuild
+# List projections
+dotnet run -- projections -l
 
-# Reset event store
-dotnet run -- projections:reset
+# Rebuild projections
+dotnet run -- projections -r
 ```
 
 ### Technology Stack
@@ -238,4 +238,4 @@ The application follows domain-driven design principles with clear separation be
 
 ## License
 
-[Add your license information here]
+MIT
