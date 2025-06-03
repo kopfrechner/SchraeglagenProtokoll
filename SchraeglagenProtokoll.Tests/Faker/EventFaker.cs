@@ -13,8 +13,8 @@ public class EventFaker
         _riderRegisteredFaker = new Faker<RiderRegistered>().UseSeed(seed + 3);
         _deleteRiderFaker = new Faker<RiderDeletedAccount>().UseSeed(seed + 5);
         _rideStartedFaker = new Faker<RideStarted>().UseSeed(seed + 1);
-        _rideLocationTrackedFaker = new Faker<RideLocationTracked>().UseSeed(seed + 1);
-        _rideFinishedFaker = new Faker<RideFinished>().UseSeed(seed + 1);
+        _rideLocationTrackedFaker = new Faker<RideLocationTracked>().UseSeed(seed + 4);
+        _rideFinishedFaker = new Faker<RideFinished>().UseSeed(seed + 6);
     }
 
     private readonly Faker<Distance> _distanceFaker;

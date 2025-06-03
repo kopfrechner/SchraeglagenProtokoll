@@ -20,7 +20,7 @@
       Timestamp: DateTimeOffset_2
     },
     {
-      Action: Ride finished at Port Abby (138,04 Miles).,
+      Action: Ride finished at East Gabrielle (138,04 Miles).,
       Timestamp: DateTimeOffset_2
     }
   ]

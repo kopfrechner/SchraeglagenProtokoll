@@ -8,8 +8,8 @@
   Rating: null,
   TrackedLocations: [
     Langworthmouth,
-    Langworthmouth,
-    Terryberg
+    West Selina,
+    Darenhaven
   ],
   Version: 3
 }

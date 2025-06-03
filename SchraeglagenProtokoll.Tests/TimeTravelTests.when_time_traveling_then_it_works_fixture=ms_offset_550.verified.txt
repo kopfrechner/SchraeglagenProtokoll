@@ -3,7 +3,7 @@
   RiderId: Guid_2,
   Status: Finished,
   StartLocation: Langworthmouth,
-  Destination: Langworthmouth,
+  Destination: Port Dorothy,
   Distance: {
     Value: 316.59139334996763,
     Unit: Miles
@@ -11,11 +11,11 @@
   Rating: null,
   TrackedLocations: [
     Langworthmouth,
-    Langworthmouth,
-    Terryberg,
-    North Violet,
-    East Burdette,
-    Langworthmouth
+    West Selina,
+    Darenhaven,
+    Johnnyborough,
+    West Jed,
+    Port Dorothy
   ],
   Version: 6
 }

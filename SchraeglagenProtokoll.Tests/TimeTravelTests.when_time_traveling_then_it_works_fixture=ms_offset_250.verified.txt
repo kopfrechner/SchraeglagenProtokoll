@@ -8,9 +8,9 @@
   Rating: null,
   TrackedLocations: [
     Langworthmouth,
-    Langworthmouth,
-    Terryberg,
-    North Violet
+    West Selina,
+    Darenhaven,
+    Johnnyborough
   ],
   Version: 4
 }

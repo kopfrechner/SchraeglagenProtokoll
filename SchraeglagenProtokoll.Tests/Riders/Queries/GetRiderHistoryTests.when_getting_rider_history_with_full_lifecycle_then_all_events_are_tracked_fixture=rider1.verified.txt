@@ -20,11 +20,11 @@
       Timestamp: DateTimeOffset_2
     },
     {
-      Action: Ride location logged at Hilllfort.,
+      Action: Ride location logged at East Trace.,
       Timestamp: DateTimeOffset_2
     },
     {
-      Action: Ride finished at Hilllfort (277,02 Miles).,
+      Action: Ride finished at Lake Esta (277,02 Miles).,
       Timestamp: DateTimeOffset_2
     }
   ]

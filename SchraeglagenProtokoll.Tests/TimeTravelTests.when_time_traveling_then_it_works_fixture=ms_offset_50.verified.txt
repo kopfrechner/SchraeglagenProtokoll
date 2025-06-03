@@ -8,7 +8,7 @@
   Rating: null,
   TrackedLocations: [
     Langworthmouth,
-    Langworthmouth
+    West Selina
   ],
   Version: 2
 }
