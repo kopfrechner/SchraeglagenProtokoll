@@ -26,11 +26,14 @@ public static class Delete
             await session.Events.WriteToAggregate<Rider>(
                 id,
                 version,
-                stream =>
-                {
-                    stream.AppendOne(new RiderDeletedAccount(id, comment));
-                    stream.AppendOne(new Archived($"Rider deleted account: {comment}"));
-                }
+                stream => stream.AppendOne(new RiderDeletedAccount(id, comment))
+            );
+
+            // We need a separate transaction for archiving, otherwise RiderDeletedAccount won't be published
+            await session.Events.WriteToAggregate<Rider>(
+                id,
+                version + 1,
+                stream => stream.AppendOne(new Archived($"Rider deleted account: {comment}"))
             );
 
             return Results.NoContent();

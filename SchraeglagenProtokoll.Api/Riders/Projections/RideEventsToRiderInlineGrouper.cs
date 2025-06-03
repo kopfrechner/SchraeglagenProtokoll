@@ -22,9 +22,11 @@ public class RideEventsToRiderInlineGrouper : IAggregateGrouper<Guid>
         ITenantSliceGroup<Guid> grouping
     )
     {
+        var archivedRiderEvents = events.OfType<IEvent<RiderDeletedAccount>>().ToList();
+
         var rideEvents = events.OfType<IEvent<IRideEvent>>().ToList();
 
-        if (rideEvents.Count == 0)
+        if (rideEvents.Count == 0 && archivedRiderEvents.Count == 0)
         {
             return;
         }
@@ -38,6 +40,18 @@ public class RideEventsToRiderInlineGrouper : IAggregateGrouper<Guid>
                 if (rideStarted is not null)
                 {
                     grouping.AddEvents(rideStarted.RiderId, [e]);
+                }
+            }
+        }
+
+        if (events.All(x => x.EventTypesAre(typeof(IEvent<Archived>))))
+        {
+            foreach (var e in events)
+            {
+                var riderArchivedEvent = e.Data as IEvent;
+                if (riderArchivedEvent is not null)
+                {
+                    grouping.AddEvents(e.StreamId, [e]);
                 }
             }
         }
@@ -70,7 +84,13 @@ public class RideEventsToRiderInlineGrouper : IAggregateGrouper<Guid>
             }
 
             // Add the events to the grouping.
-            grouping.AddEvents(rideStartedEvent.Data.RiderId, streamEvents.Events);
+            var riderArchivedEvent = archivedRiderEvents
+                .Where(x => x.StreamId == rideStartedEvent.Data.RideId)
+                .ToList();
+            grouping.AddEvents(
+                rideStartedEvent.Data.RiderId,
+                streamEvents.Events.Cast<IEvent>().Union(riderArchivedEvent)
+            );
         }
     }
 }

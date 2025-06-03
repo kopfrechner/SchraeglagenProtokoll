@@ -30,9 +30,11 @@ public class RiderHistoryProjection : MultiStreamProjection<RiderHistory, Guid>
     public RiderHistoryProjection()
     {
         Identity<IEvent<IRiderEvent>>(_ => _.StreamId);
-        DeleteEvent<IEvent<RiderDeletedAccount>>(_ => true);
 
         CustomGrouping(new RideEventsToRiderInlineGrouper());
+
+        // When Rider gets archived, delete this projection
+        DeleteEvent<IEvent<RiderDeletedAccount>>(_ => true);
     }
 
     public void Apply(IEvent<RiderRegistered> e, RiderHistory details)

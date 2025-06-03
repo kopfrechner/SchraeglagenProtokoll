@@ -22,9 +22,10 @@ public class RideEventsToRiderAsyncGrouper : IAggregateGrouper<Guid>
         ITenantSliceGroup<Guid> grouping
     )
     {
-        var rideEvents = events.OfType<IEvent<IRideEvent>>().ToList();
+        var archivedRiderEvents = events.OfType<IEvent<RiderDeletedAccount>>().ToList();
 
-        if (rideEvents.Count == 0)
+        var rideEvents = events.OfType<IEvent<IRideEvent>>().ToList();
+        if (rideEvents.Count == 0 && archivedRiderEvents.Count == 0)
         {
             return;
         }
@@ -45,11 +46,14 @@ public class RideEventsToRiderAsyncGrouper : IAggregateGrouper<Guid>
             var group in rideStaredEvents.Select(g => new
             {
                 g.RiderId,
-                Events = rideEvents.Where(ev => ev.StreamId == g.StreamId),
+                Events = rideEvents.Where(ev => ev.StreamId == g.StreamId).Cast<IEvent>(),
             })
         )
         {
-            grouping.AddEvents(group.RiderId, group.Events);
+            var riderArchivedEvent = archivedRiderEvents
+                .Where(x => x.StreamId == group.RiderId)
+                .ToList();
+            grouping.AddEvents(group.RiderId, group.Events.Union(riderArchivedEvent));
         }
     }
 }
