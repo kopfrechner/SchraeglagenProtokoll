@@ -1,6 +1,7 @@
 using Marten;
 using Marten.Schema;
 using SchraeglagenProtokoll.Api.Riders;
+using SchraeglagenProtokoll.Api.Rides;
 
 namespace SchraeglagenProtokoll.Api;
 
@@ -10,12 +11,17 @@ internal class InitialData : IInitialData
     {
         await using var session = store.LightweightSession();
 
-        var rider1Guid = Guid.Parse("c7ebc3c5-51d6-439c-93bb-87b36baac106");
-        var rider2Guid = Guid.Parse("88ca015d-ba86-4891-9531-6c65ee7d3640");
-        var deletedRiderGuid = Guid.Parse("e4f201e6-0887-480d-ab07-cf81b1161066");
+        // --- Rider GUIDs ---
+        // Rider GUIDs (last 4 digits unique)
+        var rider1Guid = Guid.Parse("00000000-0000-0000-0000-000000000001"); // Rider 1, renamed, has rides
+        var rider2Guid = Guid.Parse("00000000-0000-0000-0000-000000000002"); // Rider 2, has rides
+        var deletedRiderGuid = Guid.Parse("00000000-0000-0000-0000-000000000003"); // Deleted rider
+        var noRidesRiderGuid = Guid.Parse("00000000-0000-0000-0000-000000000004"); // No rides
+        var mixedRiderGuid = Guid.Parse("00000000-0000-0000-0000-000000000005"); // Mixed rides
 
-        // Rider 1
+        // --- Register Riders ---
         await session.StartStream<Rider>(
+            rider1Guid,
             new RiderRegistered(
                 rider1Guid,
                 "schorschi@schraeg.at",
@@ -25,51 +31,103 @@ internal class InitialData : IInitialData
             new RiderRenamed(rider1Guid, "Kurven Raeuber")
         );
 
-        // Rider 2
         await session.StartStream<Rider>(
+            rider2Guid,
             new RiderRegistered(rider2Guid, "max@schraeg.at", "Max Mustermann", "SpeedyGonzales")
         );
 
-        // Deleted Rider
         await session.StartStream<Rider>(
+            deletedRiderGuid,
             new RiderRegistered(
                 deletedRiderGuid,
                 "deleted@schraeg.at",
                 "Deleted Rider",
                 "GhostRider"
             ),
-            new RiderDeletedAccount(rider2Guid, "1000PS, sonst nix.")
+            new RiderDeletedAccount(deletedRiderGuid, "1000PS, sonst nix.")
         );
 
+        await session.StartStream<Rider>(
+            noRidesRiderGuid,
+            new RiderRegistered(noRidesRiderGuid, "norides@schraeg.at", "Fahr Nix", "Stehplatz")
+        );
+
+        await session.StartStream<Rider>(
+            mixedRiderGuid,
+            new RiderRegistered(mixedRiderGuid, "mixed@schraeg.at", "Anna Kurvig", "KurvenQueen")
+        );
+
+        // --- Rides for Rider 1 (renamed) ---
+        var ride1a = Guid.Parse("00000000-0000-0000-0001-000000000001"); // Rider 1, Ride A
+        var ride1b = Guid.Parse("00000000-0000-0000-0002-000000000001"); // Rider 1, Ride B
+        await session.StartStream<Ride>(
+            ride1a,
+            new RideStarted(ride1a, rider1Guid, "Vienna"),
+            new RideLocationTracked(ride1a, "Wienerwald"),
+            new RideLocationTracked(ride1a, "Tulln"),
+            new RideFinished(ride1a, "Krems", new Distance(82.5, DistanceUnit.Kilometers))
+        );
+        await session.StartStream<Ride>(
+            ride1b,
+            new RideStarted(ride1b, rider1Guid, "Graz"),
+            new RideFinished(ride1b, "Salzburg", new Distance(280.0, DistanceUnit.Kilometers))
+        );
+
+        // --- Rides for Rider 2 ---
+        var ride2a = Guid.Parse("00000000-0000-0000-0001-000000000002"); // Rider 2, Ride A
+        await session.StartStream<Ride>(
+            ride2a,
+            new RideStarted(ride2a, rider2Guid, "Linz"),
+            new RideLocationTracked(ride2a, "Wels"),
+            new RideLocationTracked(ride2a, "Attnang"),
+            new RideFinished(ride2a, "Vöcklabruck", new Distance(120.0, DistanceUnit.Kilometers)),
+            new RideRated(ride2a, SchraeglagenRating.Kurvenspa)
+        );
+        // unfinished ride
+        var ride2b = Guid.Parse("00000000-0000-0000-0002-000000000002"); // Rider 2, Ride B
+        await session.StartStream<Ride>(
+            ride2b,
+            new RideStarted(ride2b, rider2Guid, "Wien"),
+            new RideLocationTracked(ride2b, "Stockerau")
+        );
+
+        // --- Rides for Mixed Rider ---
+        var rideM1 = Guid.Parse("00000000-0000-0000-0001-000000000005"); // Mixed Rider, Ride 1
+        await session.StartStream<Ride>(
+            rideM1,
+            new RideStarted(rideM1, mixedRiderGuid, "Innsbruck"),
+            new RideFinished(rideM1, "Bregenz", new Distance(180.0, DistanceUnit.Kilometers))
+        );
+        var rideM2 = Guid.Parse("00000000-0000-0000-0002-000000000005"); // Mixed Rider, Ride 2
+        await session.StartStream<Ride>(
+            rideM2,
+            new RideStarted(rideM2, mixedRiderGuid, "Villach")
+        // Not finished, no tracks
+        );
+
+        // --- Deleted rider: one finished ride before deletion ---
+        var rideD1 = Guid.Parse("00000000-0000-0000-0001-000000000003"); // Deleted Rider, Ride 1
+        await session.StartStream<Ride>(
+            rideD1,
+            new RideStarted(rideD1, deletedRiderGuid, "Klagenfurt"),
+            new RideFinished(rideD1, "Wolfsberg", new Distance(65.0, DistanceUnit.Kilometers))
+        );
+
+        // Save all changes
         await session.SaveChangesAsync();
     }
 }
 
 internal static class InitialDataExtensions
 {
-    public static async Task<Guid> StartStream<T>(
+    public static async Task StartStream<T>(
         this IDocumentSession session,
-        params IList<object> events
+        Guid id,
+        params object[] events
     )
         where T : class
     {
-        var id = TryExtractEventIdFromFirstEvent(events);
-
-        var stream = id.HasValue
-            ? session.Events.StartStream<T>(id.Value, events)
-            : session.Events.StartStream<T>(events);
+        session.Events.StartStream<T>(id, events);
         await session.SaveChangesAsync();
-
-        return stream.Id;
-    }
-
-    private static Guid? TryExtractEventIdFromFirstEvent(IList<object> events)
-    {
-        return
-            events.FirstOrDefault() is { } e
-            && e.GetType().GetProperty("Id") is { PropertyType: Type t } p
-            && t == typeof(Guid)
-            ? p.GetValue(e) as Guid?
-            : null;
     }
 }
