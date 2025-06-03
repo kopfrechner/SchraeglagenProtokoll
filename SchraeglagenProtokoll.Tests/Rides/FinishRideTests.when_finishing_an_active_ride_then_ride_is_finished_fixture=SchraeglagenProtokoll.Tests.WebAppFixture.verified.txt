@@ -3,7 +3,7 @@
   Version: 2,
   RiderId: Guid_2,
   Status: Finished,
-  StartLocation: Doyleland,
+  StartLocation: North Lavern,
   Destination: Loweton,
   Distance: {
     Value: 783.864054728236,
@@ -11,7 +11,7 @@
   },
   Rating: null,
   TrackedLocations: [
-    Doyleland,
+    North Lavern,
     Loweton
   ]
 }

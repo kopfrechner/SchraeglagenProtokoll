@@ -33,7 +33,7 @@ public class RiderTripProjection : MultiStreamProjection<RiderTrips, Guid>
 
     public void Apply(IEvent<RiderRegistered> e, RiderTrips riderTrips)
     {
-        riderTrips.Id = e.Data.Id;
+        riderTrips.Id = e.Data.RiderId;
         riderTrips.FullName = e.Data.FullName;
         riderTrips.RoadName = e.Data.RoadName;
     }

@@ -10,7 +10,7 @@ public class DeleteTests(WebAppFixture fixture) : WebAppTestBase(fixture)
     public async Task when_deleting_a_rider_then_projection_is_removed_but_events_remain()
     {
         // Arrange
-        var riderId = new Guid();
+        var riderId = Guid.NewGuid();
         await StartStream(
             riderId,
             FakeEvent.RiderRegistered(riderId),

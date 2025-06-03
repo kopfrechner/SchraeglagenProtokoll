@@ -3,7 +3,7 @@
   Version: 3,
   RiderId: Guid_2,
   Status: Started,
-  StartLocation: West Treport,
+  StartLocation: Houstonland,
   Destination: null,
   Distance: {
     Value: 0.0,
@@ -11,7 +11,7 @@
   },
   Rating: null,
   TrackedLocations: [
-    West Treport,
+    Houstonland,
     Vienna,
     Salzburg
   ]

@@ -37,7 +37,7 @@ public class RiderHistoryProjection : MultiStreamProjection<RiderHistory, Guid>
 
     public void Apply(IEvent<RiderRegistered> e, RiderHistory details)
     {
-        details.Id = e.Data.Id;
+        details.Id = e.Data.RiderId;
         details.FullName = e.Data.FullName;
         details.RoadName = e.Data.RoadName;
 

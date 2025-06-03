@@ -10,7 +10,7 @@ public class RenameRiderCommandTests(WebAppFixture fixture) : WebAppTestBase(fix
     public async Task when_renaming_a_rider_then_it_is_renamed()
     {
         // Arrange
-        var riderId = new Guid();
+        var riderId = Guid.NewGuid();
         await StartStream(riderId, FakeEvent.RiderRegistered(riderId));
 
         var renameRiderCommand = FakeCommand.RenameRider(version: 1);
@@ -35,7 +35,7 @@ public class RenameRiderCommandTests(WebAppFixture fixture) : WebAppTestBase(fix
     public async Task when_renaming_a_rider_then_it_is_not_renamed_if_version_is_wrong()
     {
         // Arrange
-        var riderId = new Guid();
+        var riderId = Guid.NewGuid();
         await StartStream(
             riderId,
             FakeEvent.RiderRegistered(riderId), // v1

@@ -19,7 +19,7 @@ public static class Delete
     )
     {
         var (comment, version) = command;
-        var riderDeletedAccount = new RiderDeletedAccount(comment);
+        var riderDeletedAccount = new RiderDeletedAccount(id, comment);
         await session.Events.WriteToAggregate<Rider>(
             id,
             version,

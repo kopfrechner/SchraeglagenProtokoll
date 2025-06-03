@@ -16,7 +16,7 @@
       Timestamp: DateTimeOffset_1
     },
     {
-      Action: New ride started at Heidiburgh.,
+      Action: New ride started at Hilllfort.,
       Timestamp: DateTimeOffset_2
     },
     {

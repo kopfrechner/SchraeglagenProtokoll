@@ -20,7 +20,7 @@ public static class RenameRider
     )
     {
         var (newFullName, version) = command;
-        var riderRenamed = new RiderRenamed(newFullName);
+        var riderRenamed = new RiderRenamed(id, newFullName);
         try
         {
             await session.Events.WriteToAggregate<Rider>(

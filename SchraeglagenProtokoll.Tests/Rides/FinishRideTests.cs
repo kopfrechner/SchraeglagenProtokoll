@@ -53,7 +53,7 @@ public class FinishRideTests(WebAppFixture fixture) : WebAppTestBase(fixture)
         var riderId = Guid.NewGuid();
         await StartStream(riderId, FakeEvent.RiderRegistered(riderId));
         var rideId = Guid.NewGuid();
-        await StartStreamWithTransactionPerEvent(
+        await StartStream(
             rideId,
             FakeEvent.RideStarted(rideId, riderId: riderId),
             FakeEvent.RideFinished(rideId)
@@ -76,7 +76,7 @@ public class FinishRideTests(WebAppFixture fixture) : WebAppTestBase(fixture)
         var riderId = Guid.NewGuid();
         await StartStream(riderId, FakeEvent.RiderRegistered(riderId));
         var rideId = Guid.NewGuid();
-        await StartStreamWithTransactionPerEvent(
+        await StartStream(
             rideId,
             FakeEvent.RideStarted(rideId, riderId: riderId),
             FakeEvent.RideLocationTracked(rideId, "Vienna"),
@@ -111,7 +111,7 @@ public class FinishRideTests(WebAppFixture fixture) : WebAppTestBase(fixture)
         var riderId = Guid.NewGuid();
         await StartStream(riderId, FakeEvent.RiderRegistered(riderId));
         var rideId = Guid.NewGuid();
-        await StartStreamWithTransactionPerEvent(
+        await StartStream(
             rideId,
             FakeEvent.RideStarted(rideId, riderId: riderId),
             FakeEvent.RideFinished(rideId)

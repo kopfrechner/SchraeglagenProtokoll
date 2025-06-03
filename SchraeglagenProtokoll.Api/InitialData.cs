@@ -22,7 +22,7 @@ internal class InitialData : IInitialData
                 "Josef Kniewinkel",
                 "Schraeglage9000"
             ),
-            new RiderRenamed("Kurven Raeuber")
+            new RiderRenamed(rider1Guid, "Kurven Raeuber")
         );
 
         // Rider 2
@@ -38,7 +38,7 @@ internal class InitialData : IInitialData
                 "Deleted Rider",
                 "GhostRider"
             ),
-            new RiderDeletedAccount("1000PS, sonst nix.")
+            new RiderDeletedAccount(rider2Guid, "1000PS, sonst nix.")
         );
 
         await session.SaveChangesAsync();

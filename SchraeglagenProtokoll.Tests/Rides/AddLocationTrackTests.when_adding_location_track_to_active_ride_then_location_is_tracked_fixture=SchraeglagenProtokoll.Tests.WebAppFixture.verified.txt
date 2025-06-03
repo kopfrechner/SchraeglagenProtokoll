@@ -3,7 +3,7 @@
   Version: 2,
   RiderId: Guid_2,
   Status: Started,
-  StartLocation: Hamillborough,
+  StartLocation: West Johann,
   Destination: null,
   Distance: {
     Value: 0.0,
@@ -11,7 +11,7 @@
   },
   Rating: null,
   TrackedLocations: [
-    Hamillborough,
+    West Johann,
     South Ellsworth
   ]
 }
