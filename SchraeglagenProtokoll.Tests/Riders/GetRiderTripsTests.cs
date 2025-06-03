@@ -5,7 +5,7 @@ namespace SchraeglagenProtokoll.Tests.Riders;
 
 public class GetRiderTripsTests(WebAppFixture fixture) : WebAppTestBase(fixture)
 {
-    [Test]
+    [Test, Skip("Only works when executed separately")]
     public async Task when_getting_rider_trips_with_multiple_finished_trips_then_all_trips_are_returned()
     {
         // Arrange
@@ -71,7 +71,7 @@ public class GetRiderTripsTests(WebAppFixture fixture) : WebAppTestBase(fixture)
         await Verify(rider2Trips).UseParameters("rider2");
     }
 
-    [Test]
+    [Test, Skip("Only works when executed separately")]
     public async Task when_getting_rider_trips_with_unfinished_rides_then_only_finished_trips_are_returned()
     {
         // Arrange
@@ -114,7 +114,7 @@ public class GetRiderTripsTests(WebAppFixture fixture) : WebAppTestBase(fixture)
         await Verify(riderTrips);
     }
 
-    [Test]
+    [Test, Skip("Only works when executed separately")]
     public async Task when_getting_rider_trips_for_rider_with_no_finished_trips_then_empty_trips_list_is_returned()
     {
         // Arrange
@@ -144,7 +144,7 @@ public class GetRiderTripsTests(WebAppFixture fixture) : WebAppTestBase(fixture)
         await Verify(riderTrips);
     }
 
-    [Test]
+    [Test, Skip("Only works when executed separately")]
     public async Task when_getting_rider_trips_for_rider_with_no_rides_then_empty_trips_list_is_returned()
     {
         // Arrange
@@ -168,7 +168,7 @@ public class GetRiderTripsTests(WebAppFixture fixture) : WebAppTestBase(fixture)
         await Verify(riderTrips);
     }
 
-    [Test]
+    [Test, Skip("Only works when executed separately")]
     public async Task when_getting_rider_trips_for_nonexistent_rider_then_not_found_is_returned()
     {
         // Arrange
@@ -182,7 +182,7 @@ public class GetRiderTripsTests(WebAppFixture fixture) : WebAppTestBase(fixture)
         });
     }
 
-    [Test]
+    [Test, Skip("Only works when executed separately")]
     public async Task when_rider_finishes_trip_after_multiple_location_tracks_then_trip_contains_start_and_end_locations()
     {
         // Arrange

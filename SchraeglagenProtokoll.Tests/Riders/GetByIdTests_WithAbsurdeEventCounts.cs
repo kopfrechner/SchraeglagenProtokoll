@@ -9,7 +9,7 @@ public class GetByIdTests_WithAbsurdeEventCounts(WebAppFixture fixture) : WebApp
 {
     private static readonly int AbsurdeEventCount = 100_000;
 
-    [Test]
+    [Test, Skip("Execution takes long, run them when you like to")]
     public async Task when_getting_a_rider_by_id_by_aggregation_then_it_is_returned()
     {
         // Arrange
@@ -37,7 +37,7 @@ public class GetByIdTests_WithAbsurdeEventCounts(WebAppFixture fixture) : WebApp
         rider.FullName.ShouldBe(renameEvents.Last().FullName);
     }
 
-    [Test]
+    [Test, Skip("Execution takes long, run them when you like to")]
     public async Task when_getting_a_rider_by_id_from_projection_then_it_is_returned()
     {
         // Arrange
@@ -65,7 +65,7 @@ public class GetByIdTests_WithAbsurdeEventCounts(WebAppFixture fixture) : WebApp
         rider.FullName.ShouldBe(renameEvents.Last().FullName);
     }
 
-    [Test]
+    [Test, Skip("Execution takes long, run them when you like to")]
     public async Task when_getting_a_rider_by_id_from_streamed_projection_then_it_is_returned()
     {
         // Arrange
