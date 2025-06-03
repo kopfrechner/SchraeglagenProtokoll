@@ -1,16 +1,13 @@
 ﻿{
   Id: Guid_1,
-  Version: 1,
   RiderId: Guid_2,
   Status: Started,
   StartLocation: Wolffstad,
   Destination: null,
-  Distance: {
-    Value: 0.0,
-    Unit: Kilometers
-  },
+  Distance: null,
   Rating: null,
   TrackedLocations: [
     Wolffstad
-  ]
+  ],
+  Version: 1
 }

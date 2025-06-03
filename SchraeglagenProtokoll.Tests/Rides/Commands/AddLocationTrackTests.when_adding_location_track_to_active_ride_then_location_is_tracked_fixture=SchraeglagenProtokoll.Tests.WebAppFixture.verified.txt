@@ -1,17 +1,14 @@
 ﻿{
   Id: Guid_1,
-  Version: 2,
   RiderId: Guid_2,
   Status: Started,
   StartLocation: West Johann,
   Destination: null,
-  Distance: {
-    Value: 0.0,
-    Unit: Kilometers
-  },
+  Distance: null,
   Rating: null,
   TrackedLocations: [
     West Johann,
     South Ellsworth
-  ]
+  ],
+  Version: 2
 }

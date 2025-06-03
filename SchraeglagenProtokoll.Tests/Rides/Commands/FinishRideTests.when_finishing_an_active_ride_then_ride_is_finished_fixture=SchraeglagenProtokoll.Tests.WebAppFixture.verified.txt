@@ -1,6 +1,5 @@
 ﻿{
   Id: Guid_1,
-  Version: 2,
   RiderId: Guid_2,
   Status: Finished,
   StartLocation: North Lavern,
@@ -13,5 +12,6 @@
   TrackedLocations: [
     North Lavern,
     Loweton
-  ]
+  ],
+  Version: 2
 }

@@ -32,63 +32,46 @@ public enum RideStatus
     Finished,
 }
 
-public class Ride
+public record Ride(
+    Guid Id,
+    Guid RiderId,
+    RideStatus Status,
+    string StartLocation,
+    string? Destination,
+    Distance? Distance,
+    SchraeglagenRating? Rating,
+    List<string> TrackedLocations
+)
 {
-    [JsonInclude]
-    public Guid Id { get; private set; }
-
     [JsonInclude]
     public int Version { get; private set; }
 
-    [JsonInclude]
-    public Guid RiderId { get; private set; }
+    public static Ride Create(RideStarted @event) =>
+        new Ride(
+            @event.RideId,
+            @event.RiderId,
+            RideStatus.Started,
+            @event.StartLocation,
+            null,
+            null,
+            null,
+            [@event.StartLocation]
+        );
 
-    [JsonInclude]
-    public RideStatus Status { get; private set; }
-
-    [JsonInclude]
-    public string StartLocation { get; private set; } = null!;
-
-    [JsonInclude]
-    public string Destination { get; private set; } = null!;
-
-    [JsonInclude]
-    public Distance Distance { get; private set; }
-
-    [JsonInclude]
-    public SchraeglagenRating? Rating { get; private set; }
-
-    [JsonInclude]
-    public List<string> TrackedLocations { get; init; }
-
-    public static Ride Create(RideStarted @event)
-    {
-        return new Ride
+    public Ride Apply(RideLocationTracked @event) =>
+        this with
         {
-            Id = @event.RideId,
-            RiderId = @event.RiderId,
-            StartLocation = @event.StartLocation,
-            Distance = Distance.Zero(),
-            Status = RideStatus.Started,
-            TrackedLocations = [@event.StartLocation],
+            TrackedLocations = [.. TrackedLocations, @event.Location],
         };
-    }
 
-    public void Apply(RideLocationTracked @event)
-    {
-        TrackedLocations.Add(@event.Location);
-    }
+    public Ride Apply(RideFinished @event) =>
+        this with
+        {
+            Distance = @event.Distance,
+            Status = RideStatus.Finished,
+            Destination = @event.Destination,
+            TrackedLocations = [.. TrackedLocations, @event.Destination],
+        };
 
-    public void Apply(RideFinished @event)
-    {
-        Distance = @event.Distance;
-        Status = RideStatus.Finished;
-        Destination = @event.Destination;
-        TrackedLocations.Add(@event.Destination);
-    }
-
-    public void Apply(RideRated @event)
-    {
-        Rating = @event.Rating;
-    }
+    public Ride Apply(RideRated @event) => this with { Rating = @event.Rating };
 }

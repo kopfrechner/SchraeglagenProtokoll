@@ -1,18 +1,15 @@
 ﻿{
   Id: Guid_1,
-  Version: 3,
   RiderId: Guid_2,
   Status: Started,
   StartLocation: Houstonland,
   Destination: null,
-  Distance: {
-    Value: 0.0,
-    Unit: Kilometers
-  },
+  Distance: null,
   Rating: null,
   TrackedLocations: [
     Houstonland,
     Vienna,
     Salzburg
-  ]
+  ],
+  Version: 3
 }
