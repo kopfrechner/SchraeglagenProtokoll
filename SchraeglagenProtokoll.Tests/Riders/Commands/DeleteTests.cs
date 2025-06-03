@@ -36,7 +36,7 @@ public class DeleteTests(WebAppFixture fixture) : WebAppTestBase(fixture)
             // Events and stream should still exist
             var events = await session.Events.FetchStreamAsync(riderId);
             events.ShouldNotBeEmpty();
-            events.Count.ShouldBe(3); // RiderRegistered + RiderDeletedAccount
+            events.Count.ShouldBe(4); // RiderRegistered + RiderDeletedAccount + Archive
 
             events[0].Data.ShouldBeOfType<RiderRegistered>();
             events[1].Data.ShouldBeOfType<RiderRenamed>();

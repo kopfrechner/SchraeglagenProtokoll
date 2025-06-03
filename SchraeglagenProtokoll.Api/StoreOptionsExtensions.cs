@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Marten;
 using Marten.Events.Projections;
 using SchraeglagenProtokoll.Api.Riders;
@@ -18,7 +19,11 @@ public static class StoreOptionsExtensions
     {
         options.Connection(connectionString);
 
-        options.UseSystemTextJsonForSerialization();
+        options.UseSystemTextJsonForSerialization(
+            EnumStorage.AsString,
+            Casing.Default,
+            jsonOptions => jsonOptions.Converters.Add(new JsonStringEnumConverter())
+        );
 
         // If we're running in development mode, let Marten just take care
         // of all necessary schema building and patching behind the scenes
