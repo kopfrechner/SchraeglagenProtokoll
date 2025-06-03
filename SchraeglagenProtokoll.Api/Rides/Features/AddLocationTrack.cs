@@ -34,11 +34,14 @@ public static class AddLocationTrack
         var (location, version) = command;
         var locationTracked = new RideLocationTracked(location);
 
-        await session.Events.WriteToAggregate<Ride>(
-            rideId,
-            version,
-            stream => stream.AppendOne(locationTracked)
-        );
+        session.Events.Append(rideId, version + 1, locationTracked);
+        await session.SaveChangesAsync();
+
+        // await session.Events.WriteToAggregate<Ride>(
+        //     rideId,
+        //     version,
+        //     stream => stream.AppendOne(locationTracked)
+        // );
 
         return Results.Ok();
     }
