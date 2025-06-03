@@ -1,4 +1,3 @@
-using SchraeglagenProtokoll.Api.Riders.Features;
 using SchraeglagenProtokoll.Api.Riders.Features.Commands;
 using SchraeglagenProtokoll.Api.Riders.Features.Queries;
 
