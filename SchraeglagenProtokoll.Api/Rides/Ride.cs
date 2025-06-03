@@ -17,6 +17,7 @@ public record RideRated(Guid RideId, SchraeglagenRating Rating) : IRideEvent;
 
 // TODO Implement Pause and Resume
 
+[JsonConverter(typeof(JsonStringEnumConverter<SchraeglagenRating>))]
 public enum SchraeglagenRating
 {
     Bockgerade = 0,
@@ -26,6 +27,7 @@ public enum SchraeglagenRating
     Kehrenparadies = 4,
 }
 
+[JsonConverter(typeof(JsonStringEnumConverter<RideStatus>))]
 public enum RideStatus
 {
     Started,
