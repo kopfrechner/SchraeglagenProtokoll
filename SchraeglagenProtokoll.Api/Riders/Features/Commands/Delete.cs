@@ -1,4 +1,6 @@
 using Marten;
+using Marten.Events;
+using Marten.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace SchraeglagenProtokoll.Api.Riders.Features.Commands;
@@ -18,15 +20,28 @@ public static class Delete
         [FromBody] DeleteRiderCommand command
     )
     {
-        var (comment, version) = command;
-        var riderDeletedAccount = new RiderDeletedAccount(id, comment);
-        await session.Events.WriteToAggregate<Rider>(
-            id,
-            version,
-            stream => stream.AppendOne(riderDeletedAccount)
-        );
-        await session.SaveChangesAsync();
+        try
+        {
+            var (comment, version) = command;
+            await session.Events.WriteToAggregate<Rider>(
+                id,
+                version,
+                stream =>
+                {
+                    stream.AppendOne(new RiderDeletedAccount(id, comment));
+                    stream.AppendOne(new Archived($"Rider deleted account: {comment}"));
+                }
+            );
 
-        return Results.NoContent();
+            return Results.NoContent();
+        }
+        catch (ConcurrencyException e)
+        {
+            return Results.BadRequest(e.Message);
+        }
+        catch (InvalidStreamOperationException e)
+        {
+            return Results.NotFound(e.Message);
+        }
     }
 }

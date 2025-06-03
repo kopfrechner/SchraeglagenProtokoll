@@ -40,7 +40,7 @@ public static class AddLocationTrack
             session.Events.Append(rideId, version + 1, locationTracked);
             await session.SaveChangesAsync();
 
-            return Results.NoContent();
+            return Results.Accepted();
         }
         catch (ConcurrencyException e)
         {

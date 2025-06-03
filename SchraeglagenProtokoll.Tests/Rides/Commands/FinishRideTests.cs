@@ -20,7 +20,7 @@ public class FinishRideTests(WebAppFixture fixture) : WebAppTestBase(fixture)
         var result = await Scenario(x =>
         {
             x.Post.Json(finishRideCommand).ToUrl($"/rides/{rideId}/finish");
-            x.StatusCodeShouldBe(204);
+            x.StatusCodeShouldBe(202);
         });
 
         // Assert
@@ -93,7 +93,7 @@ public class FinishRideTests(WebAppFixture fixture) : WebAppTestBase(fixture)
         await Scenario(x =>
         {
             x.Post.Json(finishRideCommand).ToUrl($"/rides/{rideId}/finish");
-            x.StatusCodeShouldBe(204);
+            x.StatusCodeShouldBe(202);
         });
 
         // Assert

@@ -40,7 +40,7 @@ public static class FinishRide
             session.Events.Append(rideId, version + 1, rideFinished);
             await session.SaveChangesAsync();
 
-            return Results.NoContent();
+            return Results.Accepted();
         }
         catch (ConcurrencyException e)
         {
