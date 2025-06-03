@@ -10,6 +10,7 @@ public static class Endpoints
         var group = app.MapGroup("/rides").WithTags("Rides");
 
         group.MapGetRideById();
+        group.MapGetRideSummaryInfoById();
         group.MapGetAllRides();
         group.MapAddLocationTrack();
         group.MapFinishRide();

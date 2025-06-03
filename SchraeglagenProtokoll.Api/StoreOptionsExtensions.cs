@@ -3,6 +3,7 @@ using Marten.Events.Projections;
 using SchraeglagenProtokoll.Api.Riders;
 using SchraeglagenProtokoll.Api.Riders.Projections;
 using SchraeglagenProtokoll.Api.Rides;
+using SchraeglagenProtokoll.Api.Rides.Projections;
 using Weasel.Core;
 
 namespace SchraeglagenProtokoll.Api;
@@ -22,8 +23,12 @@ public static class StoreOptionsExtensions
             options.AutoCreateSchemaObjects = AutoCreate.All;
         }
 
-        options.Projections.Snapshot<Rider>(SnapshotLifecycle.Inline);
+        // Ride
         options.Projections.Snapshot<Ride>(SnapshotLifecycle.Inline);
+        options.Projections.Add<RideSummaryProjection>(ProjectionLifecycle.Async);
+
+        // Rider
+        options.Projections.Snapshot<Rider>(SnapshotLifecycle.Inline);
         options.Projections.Add<RiderHistoryProjection>(ProjectionLifecycle.Inline);
         options.Projections.Add<RiderTripProjection>(ProjectionLifecycle.Async);
 
