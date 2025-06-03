@@ -15,7 +15,7 @@ internal class InitialData : IInitialData
         // Rider GUIDs (last 4 digits unique)
         var rider1Guid = Guid.Parse("00000000-0000-0000-0000-000000000001"); // Rider 1, renamed, has rides
         var rider2Guid = Guid.Parse("00000000-0000-0000-0000-000000000002"); // Rider 2, has rides
-        var deletedRiderGuid = Guid.Parse("00000000-0000-0000-0000-000000000003"); // Deleted rider
+        var rider3Guid = Guid.Parse("00000000-0000-0000-0000-000000000003"); // Deleted rider
         var noRidesRiderGuid = Guid.Parse("00000000-0000-0000-0000-000000000004"); // No rides
         var mixedRiderGuid = Guid.Parse("00000000-0000-0000-0000-000000000005"); // Mixed rides
 
@@ -37,14 +37,8 @@ internal class InitialData : IInitialData
         );
 
         await session.StartStream<Rider>(
-            deletedRiderGuid,
-            new RiderRegistered(
-                deletedRiderGuid,
-                "deleted@schraeg.at",
-                "Deleted Rider",
-                "GhostRider"
-            ),
-            new RiderDeletedAccount(deletedRiderGuid, "1000PS, sonst nix.")
+            rider3Guid,
+            new RiderRegistered(rider3Guid, "ganz@schraeg.at", "Schraeger Rider", "GhostRider")
         );
 
         await session.StartStream<Rider>(
@@ -54,7 +48,7 @@ internal class InitialData : IInitialData
 
         await session.StartStream<Rider>(
             mixedRiderGuid,
-            new RiderRegistered(mixedRiderGuid, "mixed@schraeg.at", "Anna Kurvig", "KurvenQueen")
+            new RiderRegistered(mixedRiderGuid, "mixed@schraeg.at", "Anna Schräg", "KurvenQueen")
         );
 
         // --- Rides for Rider 1 (renamed) ---
@@ -109,7 +103,7 @@ internal class InitialData : IInitialData
         var rideD1 = Guid.Parse("00000000-0000-0000-0001-000000000003"); // Deleted Rider, Ride 1
         await session.StartStream<Ride>(
             rideD1,
-            new RideStarted(rideD1, deletedRiderGuid, "Klagenfurt"),
+            new RideStarted(rideD1, rider3Guid, "Klagenfurt"),
             new RideFinished(rideD1, "Wolfsberg", new Distance(65.0, DistanceUnit.Kilometers))
         );
 
