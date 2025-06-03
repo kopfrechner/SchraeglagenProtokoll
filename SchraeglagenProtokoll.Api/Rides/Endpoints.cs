@@ -1,4 +1,3 @@
-using SchraeglagenProtokoll.Api.Rides.Features;
 using SchraeglagenProtokoll.Api.Rides.Features.Commands;
 using SchraeglagenProtokoll.Api.Rides.Features.Queries;
 
@@ -11,6 +10,7 @@ public static class Endpoints
         var group = app.MapGroup("/rides").WithTags("Rides");
 
         group.MapGetRideById();
+        group.MapGetAllRides();
         group.MapAddLocationTrack();
         group.MapFinishRide();
     }
