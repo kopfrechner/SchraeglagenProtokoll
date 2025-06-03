@@ -16,6 +16,7 @@ public class RiderTrips
 
 public class RiderTrip
 {
+    public Guid Id { get; set; }
     public string StartLocation { get; set; } = default!;
     public string Destination { get; set; } = default!;
     public Distance Distance { get; set; } = default!;
@@ -51,6 +52,7 @@ public class RiderTripProjection : MultiStreamProjection<RiderTrips, Guid>
         riderTrips.Trips.Add(
             new RiderTrip
             {
+                Id = e.StreamId,
                 StartLocation = startedEvent!.Data.StartLocation,
                 Destination = e.Data.Destination,
                 Distance = e.Data.Distance,
