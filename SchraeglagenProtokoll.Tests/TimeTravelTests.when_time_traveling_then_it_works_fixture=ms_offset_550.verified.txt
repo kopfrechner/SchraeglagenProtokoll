@@ -1,0 +1,21 @@
+﻿{
+  Id: Guid_1,
+  RiderId: Guid_2,
+  Status: Finished,
+  StartLocation: Langworthmouth,
+  Destination: Langworthmouth,
+  Distance: {
+    Value: 316.59139334996763,
+    Unit: Miles
+  },
+  Rating: null,
+  TrackedLocations: [
+    Langworthmouth,
+    Langworthmouth,
+    Terryberg,
+    North Violet,
+    East Burdette,
+    Langworthmouth
+  ],
+  Version: 6
+}

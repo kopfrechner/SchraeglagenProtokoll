@@ -1,0 +1,13 @@
+﻿{
+  Id: Guid_1,
+  RiderId: Guid_2,
+  Status: Started,
+  StartLocation: Langworthmouth,
+  Destination: null,
+  Distance: null,
+  Rating: null,
+  TrackedLocations: [
+    Langworthmouth
+  ],
+  Version: 1
+}
