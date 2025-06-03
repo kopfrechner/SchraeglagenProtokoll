@@ -1,0 +1,17 @@
+﻿{
+  Id: Guid_1,
+  FullName: GpsLover,
+  RoadName: SpritSpartakus,
+  Trips: [
+    {
+      StartLocation: Frankfurt,
+      Destination: Prague,
+      Distance: {
+        Value: 356.18506062598203,
+        Unit: Kilometers
+      },
+      StartTime: DateTimeOffset_1,
+      EndTime: DateTimeOffset_1
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+﻿{
+  Id: Guid_1,
+  FullName: SpeedDemon,
+  RoadName: Kradikus,
+  Trips: [
+    {
+      StartLocation: Vienna,
+      Destination: Innsbruck,
+      Distance: {
+        Value: 79.30542206359348,
+        Unit: Miles
+      },
+      StartTime: DateTimeOffset_1,
+      EndTime: DateTimeOffset_1
+    },
+    {
+      StartLocation: Innsbruck,
+      Destination: Vienna,
+      Distance: {
+        Value: 856.8146735694328,
+        Unit: Miles
+      },
+      StartTime: DateTimeOffset_2,
+      EndTime: DateTimeOffset_2
+    }
+  ]
+}

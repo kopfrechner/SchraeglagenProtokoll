@@ -1,0 +1,17 @@
+﻿{
+  Id: Guid_1,
+  FullName: NeverEnds,
+  RoadName: FlickzeugFred,
+  Trips: [
+    {
+      StartLocation: Munich,
+      Destination: Salzburg,
+      Distance: {
+        Value: 904.0054766945567,
+        Unit: Miles
+      },
+      StartTime: DateTimeOffset_1,
+      EndTime: DateTimeOffset_1
+    }
+  ]
+}

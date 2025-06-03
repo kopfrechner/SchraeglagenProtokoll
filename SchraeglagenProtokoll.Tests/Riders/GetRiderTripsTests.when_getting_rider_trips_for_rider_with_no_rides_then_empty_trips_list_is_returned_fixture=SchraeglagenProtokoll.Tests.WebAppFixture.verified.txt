@@ -1,0 +1,6 @@
+﻿{
+  Id: Guid_1,
+  FullName: StayHome,
+  RoadName: Asphaltcowboy,
+  Trips: null
+}

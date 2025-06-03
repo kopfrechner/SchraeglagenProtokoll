@@ -1,0 +1,17 @@
+﻿{
+  Id: Guid_1,
+  FullName: CurveQueen,
+  RoadName: Knieschleifer,
+  Trips: [
+    {
+      StartLocation: Graz,
+      Destination: Linz,
+      Distance: {
+        Value: 139.28157702986223,
+        Unit: Miles
+      },
+      StartTime: DateTimeOffset_1,
+      EndTime: DateTimeOffset_1
+    }
+  ]
+}

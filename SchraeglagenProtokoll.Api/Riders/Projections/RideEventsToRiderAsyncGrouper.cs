@@ -29,7 +29,7 @@ public class RideEventsToRiderAsyncGrouper : IAggregateGrouper<Guid>
             return;
         }
 
-        var rideIds = rideEvents.Select(e => e.StreamId).Distinct().ToList();
+        var rideIds = rideEvents.Select(e => e.Data.RideId).Distinct().ToList();
 
         var rideStaredRawEvents = await session
             .Events.QueryAllRawEvents()
