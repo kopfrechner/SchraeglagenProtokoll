@@ -2,6 +2,7 @@ using System.Text.Json.Serialization;
 using Marten.Events;
 using Marten.Events.Projections;
 using SchraeglagenProtokoll.Api.Riders.Features;
+using SchraeglagenProtokoll.Api.Riders.Features.Commands;
 using SchraeglagenProtokoll.Api.Rides;
 
 namespace SchraeglagenProtokoll.Api.Riders.Projections;

@@ -1,7 +1,7 @@
 using Marten;
 using IResult = Microsoft.AspNetCore.Http.IResult;
 
-namespace SchraeglagenProtokoll.Api.Riders.Features;
+namespace SchraeglagenProtokoll.Api.Riders.Features.Queries;
 
 public static class GetById_FromProjection
 {

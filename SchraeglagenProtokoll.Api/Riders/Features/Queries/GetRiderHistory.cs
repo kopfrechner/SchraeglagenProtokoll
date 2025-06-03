@@ -2,7 +2,7 @@ using Marten;
 using Marten.AspNetCore;
 using SchraeglagenProtokoll.Api.Riders.Projections;
 
-namespace SchraeglagenProtokoll.Api.Riders.Features;
+namespace SchraeglagenProtokoll.Api.Riders.Features.Queries;
 
 public static class GetRiderHistory
 {

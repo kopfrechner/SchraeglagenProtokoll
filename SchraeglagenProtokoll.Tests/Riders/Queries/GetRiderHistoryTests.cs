@@ -1,7 +1,7 @@
 using Alba;
 using SchraeglagenProtokoll.Api.Riders.Projections;
 
-namespace SchraeglagenProtokoll.Tests.Riders;
+namespace SchraeglagenProtokoll.Tests.Riders.Queries;
 
 public class GetRiderHistoryTests(WebAppFixture fixture) : WebAppTestBase(fixture)
 {

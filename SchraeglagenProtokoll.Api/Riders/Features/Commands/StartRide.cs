@@ -1,7 +1,7 @@
 using Marten;
 using SchraeglagenProtokoll.Api.Rides;
 
-namespace SchraeglagenProtokoll.Api.Riders.Features;
+namespace SchraeglagenProtokoll.Api.Riders.Features.Commands;
 
 public static class StartRide
 {

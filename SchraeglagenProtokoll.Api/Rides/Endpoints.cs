@@ -1,4 +1,6 @@
 using SchraeglagenProtokoll.Api.Rides.Features;
+using SchraeglagenProtokoll.Api.Rides.Features.Commands;
+using SchraeglagenProtokoll.Api.Rides.Features.Queries;
 
 namespace SchraeglagenProtokoll.Api.Rides;
 

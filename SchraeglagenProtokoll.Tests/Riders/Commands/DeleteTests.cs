@@ -1,8 +1,8 @@
 using SchraeglagenProtokoll.Api.Riders;
-using SchraeglagenProtokoll.Api.Riders.Features;
+using SchraeglagenProtokoll.Api.Riders.Features.Commands;
 using Shouldly;
 
-namespace SchraeglagenProtokoll.Tests.Riders;
+namespace SchraeglagenProtokoll.Tests.Riders.Commands;
 
 public class DeleteTests(WebAppFixture fixture) : WebAppTestBase(fixture)
 {

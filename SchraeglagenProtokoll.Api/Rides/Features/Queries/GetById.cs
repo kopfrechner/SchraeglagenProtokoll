@@ -1,7 +1,7 @@
 using Marten;
 using Marten.AspNetCore;
 
-namespace SchraeglagenProtokoll.Api.Rides.Features;
+namespace SchraeglagenProtokoll.Api.Rides.Features.Queries;
 
 public static class GetById
 {

@@ -3,7 +3,7 @@ using Alba;
 using SchraeglagenProtokoll.Api.Riders;
 using Shouldly;
 
-namespace SchraeglagenProtokoll.Tests.Riders;
+namespace SchraeglagenProtokoll.Tests.Riders.Queries;
 
 public class GetByIdTests_WithAbsurdeEventCounts(WebAppFixture fixture) : WebAppTestBase(fixture)
 {

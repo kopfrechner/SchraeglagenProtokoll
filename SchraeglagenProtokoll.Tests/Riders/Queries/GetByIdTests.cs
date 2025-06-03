@@ -1,7 +1,7 @@
 using Alba;
 using SchraeglagenProtokoll.Api.Riders;
 
-namespace SchraeglagenProtokoll.Tests.Riders;
+namespace SchraeglagenProtokoll.Tests.Riders.Queries;
 
 public class GetByIdTests(WebAppFixture fixture) : WebAppTestBase(fixture)
 {

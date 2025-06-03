@@ -1,6 +1,6 @@
 using SchraeglagenProtokoll.Api.Rides;
 
-namespace SchraeglagenProtokoll.Tests.Rides;
+namespace SchraeglagenProtokoll.Tests.Rides.Commands;
 
 public class FinishRideTests(WebAppFixture fixture) : WebAppTestBase(fixture)
 {

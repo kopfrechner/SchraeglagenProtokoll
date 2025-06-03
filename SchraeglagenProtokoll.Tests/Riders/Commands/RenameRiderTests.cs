@@ -2,7 +2,7 @@ using Alba;
 using SchraeglagenProtokoll.Api.Riders;
 using Shouldly;
 
-namespace SchraeglagenProtokoll.Tests.Riders;
+namespace SchraeglagenProtokoll.Tests.Riders.Commands;
 
 public class RenameRiderCommandTests(WebAppFixture fixture) : WebAppTestBase(fixture)
 {

@@ -1,6 +1,6 @@
 using SchraeglagenProtokoll.Api.Rides;
 
-namespace SchraeglagenProtokoll.Tests.Rides;
+namespace SchraeglagenProtokoll.Tests.Rides.Queries;
 
 public class GetByIdTests(WebAppFixture fixture) : WebAppTestBase(fixture)
 {

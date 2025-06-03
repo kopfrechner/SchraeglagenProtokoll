@@ -2,7 +2,7 @@ using Marten;
 using Marten.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
-namespace SchraeglagenProtokoll.Api.Riders.Features;
+namespace SchraeglagenProtokoll.Api.Riders.Features.Commands;
 
 public static class RenameRider
 {

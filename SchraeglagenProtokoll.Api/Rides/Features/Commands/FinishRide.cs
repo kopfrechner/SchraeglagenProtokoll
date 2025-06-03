@@ -1,6 +1,6 @@
 using Marten;
 
-namespace SchraeglagenProtokoll.Api.Rides.Features;
+namespace SchraeglagenProtokoll.Api.Rides.Features.Commands;
 
 public static class FinishRide
 {

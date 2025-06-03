@@ -20,8 +20,144 @@
     <ProjectReference Include="..\SchraeglagenProtokoll.Api\SchraeglagenProtokoll.Api.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="Riders\StartRideTests.when_logging_a_ride_then_it_is_created_fixture=SchraeglagenProtokoll.Tests.WebAppFixture.verified.txt">
+    <None Update="Riders\Commands\RegisterRiderTests.when_registering_a_rider_then_it_is_created_fixture=SchraeglagenProtokoll.Tests.WebAppFixture.verified.txt">
+      <ParentFile>RegisterRiderTests</ParentFile>
+      <DependentUpon>RegisterRiderTests.cs</DependentUpon>
+    </None>
+    <None Update="Riders\Commands\RenameRiderCommandTests.when_renaming_a_rider_then_it_is_renamed_fixture=SchraeglagenProtokoll.Tests.WebAppFixture.verified.txt">
+      <ParentFile>RenameRiderCommandTests</ParentFile>
+      <DependentUpon>RenameRiderCommandTests.cs</DependentUpon>
+    </None>
+    <None Update="Riders\Commands\StartRideTests.when_logging_a_ride_then_it_is_created_fixture=SchraeglagenProtokoll.Tests.WebAppFixture.verified.txt">
       <DependentUpon>StartRideTests.cs</DependentUpon>
+      <ParentFile>StartRideTests</ParentFile>
+    </None>
+    <None Update="Riders\Commands\StartRideTests.when_starting_a_ride_then_it_is_created_fixture=SchraeglagenProtokoll.Tests.WebAppFixture.verified.txt">
+      <ParentFile>StartRideTests</ParentFile>
+      <DependentUpon>StartRideTests.cs</DependentUpon>
+    </None>
+    <None Update="Riders\Queries\GetAllTests.when_getting_all_riders_without_pagination_then_default_page_is_returned_fixture=SchraeglagenProtokoll.Tests.WebAppFixture.verified.txt">
+      <ParentFile>GetAllTests</ParentFile>
+      <DependentUpon>GetAllTests.cs</DependentUpon>
+    </None>
+    <None Update="Riders\Queries\GetAllTests.when_getting_all_riders_with_large_page_size_then_all_riders_are_returned_fixture=SchraeglagenProtokoll.Tests.WebAppFixture.verified.txt">
+      <ParentFile>GetAllTests</ParentFile>
+      <DependentUpon>GetAllTests.cs</DependentUpon>
+    </None>
+    <None Update="Riders\Queries\GetAllTests.when_getting_all_riders_with_pagination_then_correct_page_is_returned_fixture=SchraeglagenProtokoll.Tests.WebAppFixture.verified.txt">
+      <ParentFile>GetAllTests</ParentFile>
+      <DependentUpon>GetAllTests.cs</DependentUpon>
+    </None>
+    <None Update="Riders\Queries\GetAllTests.when_getting_riders_beyond_available_pages_then_empty_page_is_returned_fixture=SchraeglagenProtokoll.Tests.WebAppFixture.verified.txt">
+      <ParentFile>GetAllTests</ParentFile>
+      <DependentUpon>GetAllTests.cs</DependentUpon>
+    </None>
+    <None Update="Riders\Queries\GetAllTests.when_getting_riders_with_empty_search_term_then_all_riders_are_returned_fixture=SchraeglagenProtokoll.Tests.WebAppFixture.verified.txt">
+      <ParentFile>GetAllTests</ParentFile>
+      <DependentUpon>GetAllTests.cs</DependentUpon>
+    </None>
+    <None Update="Riders\Queries\GetAllTests.when_searching_riders_by_full_name_then_matching_riders_are_returned_fixture=SchraeglagenProtokoll.Tests.WebAppFixture.verified.txt">
+      <ParentFile>GetAllTests</ParentFile>
+      <DependentUpon>GetAllTests.cs</DependentUpon>
+    </None>
+    <None Update="Riders\Queries\GetAllTests.when_searching_riders_by_nerd_alias_then_matching_riders_are_returned_fixture=SchraeglagenProtokoll.Tests.WebAppFixture.verified.txt">
+      <ParentFile>GetAllTests</ParentFile>
+      <DependentUpon>GetAllTests.cs</DependentUpon>
+    </None>
+    <None Update="Riders\Queries\GetAllTests.when_searching_riders_case_insensitive_then_matching_riders_are_returned_fixture=SchraeglagenProtokoll.Tests.WebAppFixture.verified.txt">
+      <ParentFile>GetAllTests</ParentFile>
+      <DependentUpon>GetAllTests.cs</DependentUpon>
+    </None>
+    <None Update="Riders\Queries\GetAllTests.when_searching_riders_with_no_matches_then_empty_page_is_returned_fixture=SchraeglagenProtokoll.Tests.WebAppFixture.verified.txt">
+      <ParentFile>GetAllTests</ParentFile>
+      <DependentUpon>GetAllTests.cs</DependentUpon>
+    </None>
+    <None Update="Riders\Queries\GetAllTests.when_searching_riders_with_pagination_then_correct_filtered_page_is_returned_fixture=SchraeglagenProtokoll.Tests.WebAppFixture.verified.txt">
+      <ParentFile>GetAllTests</ParentFile>
+      <DependentUpon>GetAllTests.cs</DependentUpon>
+    </None>
+    <None Update="Riders\Queries\GetAllTests.when_searching_riders_with_partial_match_then_matching_riders_are_returned_fixture=SchraeglagenProtokoll.Tests.WebAppFixture.verified.txt">
+      <ParentFile>GetAllTests</ParentFile>
+      <DependentUpon>GetAllTests.cs</DependentUpon>
+    </None>
+    <None Update="Riders\Queries\GetByIdTests.when_getting_a_rider_by_id_by_aggregation_then_it_is_returned_fixture=SchraeglagenProtokoll.Tests.WebAppFixture.verified.txt">
+      <ParentFile>GetByIdTests</ParentFile>
+      <DependentUpon>GetByIdTests.cs</DependentUpon>
+    </None>
+    <None Update="Riders\Queries\GetByIdTests.when_getting_a_rider_by_id_from_projection_then_it_is_returned_fixture=SchraeglagenProtokoll.Tests.WebAppFixture.verified.txt">
+      <ParentFile>GetByIdTests</ParentFile>
+      <DependentUpon>GetByIdTests.cs</DependentUpon>
+    </None>
+    <None Update="Riders\Queries\GetByIdTests.when_getting_a_rider_by_id_from_streamed_projection_then_it_is_returned_fixture=SchraeglagenProtokoll.Tests.WebAppFixture.verified.txt">
+      <ParentFile>GetByIdTests</ParentFile>
+      <DependentUpon>GetByIdTests.cs</DependentUpon>
+    </None>
+    <None Update="Riders\Queries\GetByIdTests_WithAbsurdeEventCounts.when_getting_a_rider_by_id_by_aggregation_then_it_is_returned_fixture=SchraeglagenProtokoll.Tests.WebAppFixture.verified.txt">
+      <ParentFile>GetByIdTests_WithAbsurdeEventCounts</ParentFile>
+      <DependentUpon>GetByIdTests_WithAbsurdeEventCounts.cs</DependentUpon>
+    </None>
+    <None Update="Riders\Queries\GetByIdTests_WithAbsurdeEventCounts.when_getting_a_rider_by_id_from_projection_then_it_is_returned_fixture=SchraeglagenProtokoll.Tests.WebAppFixture.verified.txt">
+      <ParentFile>GetByIdTests_WithAbsurdeEventCounts</ParentFile>
+      <DependentUpon>GetByIdTests_WithAbsurdeEventCounts.cs</DependentUpon>
+    </None>
+    <None Update="Riders\Queries\GetByIdTests_WithAbsurdeEventCounts.when_getting_a_rider_by_id_from_streamed_projection_then_it_is_returned_fixture=SchraeglagenProtokoll.Tests.WebAppFixture.verified.txt">
+      <ParentFile>GetByIdTests_WithAbsurdeEventCounts</ParentFile>
+      <DependentUpon>GetByIdTests_WithAbsurdeEventCounts.cs</DependentUpon>
+    </None>
+    <None Update="Riders\Queries\GetRiderHistoryTests.when_getting_rider_history_with_full_lifecycle_then_all_events_are_tracked_fixture=rider1.verified.txt">
+      <ParentFile>GetRiderHistoryTests</ParentFile>
+      <DependentUpon>GetRiderHistoryTests.cs</DependentUpon>
+    </None>
+    <None Update="Riders\Queries\GetRiderHistoryTests.when_getting_rider_history_with_full_lifecycle_then_all_events_are_tracked_fixture=rider2.verified.txt">
+      <ParentFile>GetRiderHistoryTests</ParentFile>
+      <DependentUpon>GetRiderHistoryTests.cs</DependentUpon>
+    </None>
+    <None Update="Riders\Queries\GetRiderHistoryTests.when_getting_rider_history_with_full_lifecycle_then_all_events_are_tracked_fixture=SchraeglagenProtokoll.Tests.WebAppFixture.verified.txt">
+      <ParentFile>GetRiderHistoryTests</ParentFile>
+      <DependentUpon>GetRiderHistoryTests.cs</DependentUpon>
+    </None>
+    <None Update="Riders\Queries\GetRiderTripsTests.when_getting_rider_history_with_full_lifecycle_then_all_events_are_tracked_fixture=rider1.verified.txt">
+      <ParentFile>GetRiderTripsTests</ParentFile>
+    </None>
+    <None Update="Riders\Queries\GetRiderTripsTests.when_getting_rider_history_with_full_lifecycle_then_all_events_are_tracked_fixture=rider2.verified.txt">
+      <ParentFile>GetRiderTripsTests</ParentFile>
+    </None>
+    <None Update="Riders\Queries\GetRiderTripsTests.when_getting_rider_trips_for_rider_with_no_finished_trips_then_empty_trips_list_is_returned_fixture=SchraeglagenProtokoll.Tests.WebAppFixture.verified.txt">
+      <ParentFile>GetRiderTripsTests</ParentFile>
+    </None>
+    <None Update="Riders\Queries\GetRiderTripsTests.when_getting_rider_trips_for_rider_with_no_rides_then_empty_trips_list_is_returned_fixture=SchraeglagenProtokoll.Tests.WebAppFixture.verified.txt">
+      <ParentFile>GetRiderTripsTests</ParentFile>
+    </None>
+    <None Update="Riders\Queries\GetRiderTripsTests.when_getting_rider_trips_with_multiple_finished_trips_then_all_trips_are_returned_fixture=rider1.verified.txt">
+      <ParentFile>GetRiderTripsTests</ParentFile>
+    </None>
+    <None Update="Riders\Queries\GetRiderTripsTests.when_getting_rider_trips_with_multiple_finished_trips_then_all_trips_are_returned_fixture=rider2.verified.txt">
+      <ParentFile>GetRiderTripsTests</ParentFile>
+    </None>
+    <None Update="Riders\Queries\GetRiderTripsTests.when_getting_rider_trips_with_unfinished_rides_then_only_finished_trips_are_returned_fixture=SchraeglagenProtokoll.Tests.WebAppFixture.verified.txt">
+      <ParentFile>GetRiderTripsTests</ParentFile>
+    </None>
+    <None Update="Riders\Queries\GetRiderTripsTests.when_rider_finishes_trip_after_multiple_location_tracks_then_trip_contains_start_and_end_locations_fixture=SchraeglagenProtokoll.Tests.WebAppFixture.verified.txt">
+      <ParentFile>GetRiderTripsTests</ParentFile>
+    </None>
+    <None Update="Rides\Commands\AddLocationTrackTests.when_adding_location_track_to_active_ride_then_location_is_tracked_fixture=SchraeglagenProtokoll.Tests.WebAppFixture.verified.txt">
+      <ParentFile>AddLocationTrackTests</ParentFile>
+    </None>
+    <None Update="Rides\Commands\AddLocationTrackTests.when_adding_multiple_location_tracks_then_all_locations_are_tracked_fixture=SchraeglagenProtokoll.Tests.WebAppFixture.verified.txt">
+      <ParentFile>AddLocationTrackTests</ParentFile>
+    </None>
+    <None Update="Rides\Commands\FinishRideTests.when_finishing_an_active_ride_then_ride_is_finished_fixture=SchraeglagenProtokoll.Tests.WebAppFixture.verified.txt">
+      <ParentFile>FinishRideTests</ParentFile>
+    </None>
+    <None Update="Rides\Commands\FinishRideTests.when_finishing_ride_with_tracked_locations_then_all_data_is_preserved_fixture=SchraeglagenProtokoll.Tests.WebAppFixture.verified.txt">
+      <ParentFile>FinishRideTests</ParentFile>
+    </None>
+    <None Update="Rides\Commands\FinishRideTests.when_starting_new_ride_after_finishing_previous_then_it_is_allowed_fixture=SchraeglagenProtokoll.Tests.WebAppFixture.verified.txt">
+      <ParentFile>FinishRideTests</ParentFile>
+    </None>
+    <None Update="Rides\Queries\GetByIdTests.when_getting_a_ride_by_id_then_it_is_returned_fixture=SchraeglagenProtokoll.Tests.WebAppFixture.verified.txt">
+      <ParentFile>GetByIdTests</ParentFile>
+      <DependentUpon>GetByIdTests.cs</DependentUpon>
     </None>
   </ItemGroup>
 </Project>

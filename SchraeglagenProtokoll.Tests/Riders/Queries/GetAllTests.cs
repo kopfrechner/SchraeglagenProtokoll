@@ -1,6 +1,6 @@
 using SchraeglagenProtokoll.Api.Riders;
 
-namespace SchraeglagenProtokoll.Tests.Riders;
+namespace SchraeglagenProtokoll.Tests.Riders.Queries;
 
 /// <remarks>
 /// PagedList is somehow not retrieved...

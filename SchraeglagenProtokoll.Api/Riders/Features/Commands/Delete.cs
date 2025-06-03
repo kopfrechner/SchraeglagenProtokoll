@@ -1,7 +1,7 @@
 using Marten;
 using Microsoft.AspNetCore.Mvc;
 
-namespace SchraeglagenProtokoll.Api.Riders.Features;
+namespace SchraeglagenProtokoll.Api.Riders.Features.Commands;
 
 public static class Delete
 {
