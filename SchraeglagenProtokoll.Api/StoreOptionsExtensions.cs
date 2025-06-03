@@ -29,5 +29,8 @@ public static class StoreOptionsExtensions
 
         // Recent optimization you'd want with FetchForWriting up above
         options.Projections.UseIdentityMapForAggregates = true;
+
+        // Turn on the PostgreSQL table partitioning for hot/cold storage on archived events
+        options.Events.UseArchivedStreamPartitioning = true;
     }
 }
