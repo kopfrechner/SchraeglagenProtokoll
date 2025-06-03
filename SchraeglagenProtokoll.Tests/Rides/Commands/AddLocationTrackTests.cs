@@ -19,7 +19,7 @@ public class AddLocationTrackTests(WebAppFixture fixture) : WebAppTestBase(fixtu
         var result = await Scenario(x =>
         {
             x.Post.Json(addLocationTrackCommand).ToUrl($"/rides/{rideId}/track-location");
-            x.StatusCodeShouldBe(200);
+            x.StatusCodeShouldBe(204);
         });
 
         // Assert
@@ -85,13 +85,13 @@ public class AddLocationTrackTests(WebAppFixture fixture) : WebAppTestBase(fixtu
         await Scenario(x =>
         {
             x.Post.Json(firstLocationCommand).ToUrl($"/rides/{rideId}/track-location");
-            x.StatusCodeShouldBe(200);
+            x.StatusCodeShouldBe(204);
         });
 
         await Scenario(x =>
         {
             x.Post.Json(secondLocationCommand).ToUrl($"/rides/{rideId}/track-location");
-            x.StatusCodeShouldBe(200);
+            x.StatusCodeShouldBe(204);
         });
 
         // Assert

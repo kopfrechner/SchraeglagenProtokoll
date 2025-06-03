@@ -1,4 +1,5 @@
 using Marten;
+using Marten.Exceptions;
 
 namespace SchraeglagenProtokoll.Api.Rides.Features.Commands;
 
@@ -34,15 +35,16 @@ public static class AddLocationTrack
         var (location, version) = command;
         var locationTracked = new RideLocationTracked(rideId, location);
 
-        session.Events.Append(rideId, version + 1, locationTracked);
-        await session.SaveChangesAsync();
+        try
+        {
+            session.Events.Append(rideId, version + 1, locationTracked);
+            await session.SaveChangesAsync();
 
-        // await session.Events.WriteToAggregate<Ride>(
-        //     rideId,
-        //     version,
-        //     stream => stream.AppendOne(locationTracked)
-        // );
-
-        return Results.Ok();
+            return Results.NoContent();
+        }
+        catch (ConcurrencyException e)
+        {
+            return Results.BadRequest(e.Message);
+        }
     }
 }

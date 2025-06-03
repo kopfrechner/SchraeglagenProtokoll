@@ -1,4 +1,5 @@
 using Marten;
+using Marten.Exceptions;
 
 namespace SchraeglagenProtokoll.Api.Rides.Features.Commands;
 
@@ -34,15 +35,16 @@ public static class FinishRide
         var (destination, distance, version) = command;
         var rideFinished = new RideFinished(rideId, destination, distance);
 
-        session.Events.Append(rideId, version + 1, rideFinished);
-        await session.SaveChangesAsync();
+        try
+        {
+            session.Events.Append(rideId, version + 1, rideFinished);
+            await session.SaveChangesAsync();
 
-        // await session.Events.WriteToAggregate<Ride>(
-        //     rideId,
-        //     version,
-        //     stream => stream.AppendOne(rideFinished)
-        // );
-
-        return Results.Ok();
+            return Results.NoContent();
+        }
+        catch (ConcurrencyException e)
+        {
+            return Results.BadRequest(e.Message);
+        }
     }
 }
