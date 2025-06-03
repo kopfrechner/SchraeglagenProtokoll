@@ -8,8 +8,10 @@ public class GetByIdTests(WebAppFixture fixture) : WebAppTestBase(fixture)
     public async Task when_getting_a_ride_by_id_then_it_is_returned()
     {
         // Arrange
-        var riderId = await StartStream(FakeEvent.RiderRegistered());
-        var rideId = await StartStream(FakeEvent.RideStarted(riderId: riderId));
+        var riderId = Guid.NewGuid();
+        await StartStream(riderId, FakeEvent.RiderRegistered(riderId));
+        var rideId = Guid.NewGuid();
+        await StartStream(rideId, FakeEvent.RideStarted(rideId, riderId: riderId));
 
         // Act
         var result = await Scenario(x =>

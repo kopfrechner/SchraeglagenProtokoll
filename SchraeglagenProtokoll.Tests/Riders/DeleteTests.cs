@@ -10,14 +10,19 @@ public class DeleteTests(WebAppFixture fixture) : WebAppTestBase(fixture)
     public async Task when_deleting_a_rider_then_projection_is_removed_but_events_remain()
     {
         // Arrange
-        var streamId = await StartStream(FakeEvent.RiderRegistered(), FakeEvent.RiderRenamed());
+        var riderId = new Guid();
+        await StartStream(
+            riderId,
+            FakeEvent.RiderRegistered(riderId),
+            FakeEvent.RiderRenamed(riderId)
+        );
 
         var deleteCommand = new Delete.DeleteRiderCommand("Test feedback", 2);
 
         // Act
         await Scenario(x =>
         {
-            x.Delete.Json(deleteCommand).ToUrl($"/rider/{streamId}");
+            x.Delete.Json(deleteCommand).ToUrl($"/rider/{riderId}");
             x.StatusCodeShouldBe(204);
         });
 
@@ -25,11 +30,11 @@ public class DeleteTests(WebAppFixture fixture) : WebAppTestBase(fixture)
         await DocumentSessionAsync(async session =>
         {
             // Projection should not exist
-            var rider = await session.LoadAsync<Rider>(streamId);
+            var rider = await session.LoadAsync<Rider>(riderId);
             rider.ShouldBeNull();
 
             // Events and stream should still exist
-            var events = await session.Events.FetchStreamAsync(streamId);
+            var events = await session.Events.FetchStreamAsync(riderId);
             events.ShouldNotBeEmpty();
             events.Count.ShouldBe(3); // RiderRegistered + RiderDeletedAccount
 

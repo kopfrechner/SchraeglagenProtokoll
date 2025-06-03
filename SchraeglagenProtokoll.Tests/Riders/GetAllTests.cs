@@ -210,8 +210,9 @@ public class GetAllTests(WebAppFixture fixture) : WebAppTestBase(fixture)
     {
         for (int i = 1; i <= count; i++)
         {
-            var riderRegistered = FakeEvent.RiderRegistered();
-            await StartStream(riderRegistered);
+            var riderId = Guid.NewGuid();
+            var riderRegistered = FakeEvent.RiderRegistered(riderId);
+            await StartStream(riderId, riderRegistered);
         }
     }
 
@@ -220,26 +221,31 @@ public class GetAllTests(WebAppFixture fixture) : WebAppTestBase(fixture)
         var riders = new[]
         {
             FakeEvent.RiderRegistered(
+                Guid.NewGuid(),
                 email: "john.smith@test.com",
                 fullName: "John Smith",
                 roadName: "Thunder"
             ),
             FakeEvent.RiderRegistered(
+                Guid.NewGuid(),
                 email: "jane.doe@test.com",
                 fullName: "Jane Doe",
                 roadName: "Shadow"
             ),
             FakeEvent.RiderRegistered(
+                Guid.NewGuid(),
                 email: "bob.johnson@test.com",
                 fullName: "Bob Johnson",
                 roadName: "Lightning"
             ),
             FakeEvent.RiderRegistered(
+                Guid.NewGuid(),
                 email: "alice.smith@test.com",
                 fullName: "Alice Smith",
                 roadName: "Storm"
             ),
             FakeEvent.RiderRegistered(
+                Guid.NewGuid(),
                 email: "charlie.brown@test.com",
                 fullName: "Charlie Brown",
                 roadName: "Rider"
@@ -248,7 +254,7 @@ public class GetAllTests(WebAppFixture fixture) : WebAppTestBase(fixture)
 
         foreach (var rider in riders)
         {
-            await StartStream(rider);
+            await StartStream(rider.RiderId, rider);
         }
     }
 
@@ -256,12 +262,14 @@ public class GetAllTests(WebAppFixture fixture) : WebAppTestBase(fixture)
     {
         for (int i = 1; i <= 10; i++)
         {
+            var riderId = Guid.NewGuid();
             var rider = FakeEvent.RiderRegistered(
+                riderId,
                 email: $"test{i}@test.com",
                 fullName: $"Test Rider {i}",
                 roadName: $"TestAlias{i}"
             );
-            await StartStream(rider);
+            await StartStream(riderId, rider);
         }
     }
 }

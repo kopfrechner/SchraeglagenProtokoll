@@ -9,7 +9,8 @@ public class GetByIdTests(WebAppFixture fixture) : WebAppTestBase(fixture)
     public async Task when_getting_a_rider_by_id_by_aggregation_then_it_is_returned()
     {
         // Arrange
-        var riderId = await StartStream(FakeEvent.RiderRegistered());
+        var riderId = new Guid();
+        await StartStream(riderId, FakeEvent.RiderRegistered(riderId));
 
         // Act
         var result = await Scenario(x =>
@@ -27,7 +28,8 @@ public class GetByIdTests(WebAppFixture fixture) : WebAppTestBase(fixture)
     public async Task when_getting_a_rider_by_id_from_projection_then_it_is_returned()
     {
         // Arrange
-        var riderId = await StartStream(FakeEvent.RiderRegistered());
+        var riderId = new Guid();
+        await StartStream(riderId, FakeEvent.RiderRegistered(riderId));
 
         // Act
         var result = await Scenario(x =>
@@ -45,7 +47,8 @@ public class GetByIdTests(WebAppFixture fixture) : WebAppTestBase(fixture)
     public async Task when_getting_a_rider_by_id_from_streamed_projection_then_it_is_returned()
     {
         // Arrange
-        var riderId = await StartStream(FakeEvent.RiderRegistered());
+        var riderId = new Guid();
+        await StartStream(riderId, FakeEvent.RiderRegistered(riderId));
 
         // Act
         var result = await Scenario(x =>

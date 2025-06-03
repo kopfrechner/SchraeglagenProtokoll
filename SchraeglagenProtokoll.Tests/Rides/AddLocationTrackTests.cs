@@ -8,8 +8,10 @@ public class AddLocationTrackTests(WebAppFixture fixture) : WebAppTestBase(fixtu
     public async Task when_adding_location_track_to_active_ride_then_location_is_tracked()
     {
         // Arrange
-        var riderId = await StartStream(FakeEvent.RiderRegistered());
-        var rideId = await StartStream(FakeEvent.RideStarted(riderId: riderId));
+        var riderId = Guid.NewGuid();
+        await StartStream(riderId, FakeEvent.RiderRegistered(riderId));
+        var rideId = Guid.NewGuid();
+        await StartStream(rideId, FakeEvent.RideStarted(rideId, riderId: riderId));
 
         var addLocationTrackCommand = FakeCommand.AddLocationTrack(version: 1);
 
@@ -48,10 +50,13 @@ public class AddLocationTrackTests(WebAppFixture fixture) : WebAppTestBase(fixtu
     public async Task when_adding_location_track_to_finished_ride_then_bad_request_is_returned()
     {
         // Arrange
-        var riderId = await StartStream(FakeEvent.RiderRegistered());
-        var rideId = await StartStreamWithTransactionPerEvent(
-            FakeEvent.RideStarted(riderId: riderId),
-            FakeEvent.RideFinished()
+        var riderId = Guid.NewGuid();
+        await StartStream(riderId, FakeEvent.RiderRegistered(riderId));
+        var rideId = Guid.NewGuid();
+        await StartStreamWithTransactionPerEvent(
+            rideId,
+            FakeEvent.RideStarted(rideId, riderId: riderId),
+            FakeEvent.RideFinished(rideId)
         );
 
         var addLocationTrackCommand = FakeCommand.AddLocationTrack(version: 2);
@@ -68,8 +73,10 @@ public class AddLocationTrackTests(WebAppFixture fixture) : WebAppTestBase(fixtu
     public async Task when_adding_multiple_location_tracks_then_all_locations_are_tracked()
     {
         // Arrange
-        var riderId = await StartStream(FakeEvent.RiderRegistered());
-        var rideId = await StartStream(FakeEvent.RideStarted(riderId: riderId));
+        var riderId = Guid.NewGuid();
+        await StartStream(riderId, FakeEvent.RiderRegistered(riderId));
+        var rideId = Guid.NewGuid();
+        await StartStream(rideId, FakeEvent.RideStarted(rideId, riderId: riderId));
 
         var firstLocationCommand = FakeCommand.AddLocationTrack(version: 1, location: "Vienna");
         var secondLocationCommand = FakeCommand.AddLocationTrack(version: 2, location: "Salzburg");

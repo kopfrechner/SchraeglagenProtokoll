@@ -30,68 +30,14 @@ public abstract class WebAppTestBase(WebAppFixture fixture)
         await query(session);
     }
 
-    public void DocumentSession(Action<IDocumentSession> query)
-    {
-        using var scope = fixture.Host.Services.CreateScope();
-        var store = scope.ServiceProvider.GetRequiredService<IDocumentStore>();
-        using var session = store.LightweightSession();
-        query(session);
-    }
-
-    public async Task<Guid> StartStream(params IList<object> events)
+    public async Task StartStream(Guid id, params IList<object> events)
     {
         using var scope = fixture.Host.Services.CreateScope();
         var store = scope.ServiceProvider.GetRequiredService<IDocumentStore>();
         using var session = store.LightweightSession();
 
-        if (events.Count == 0)
-            throw new ArgumentException("At least one event is required");
-
-        var first = events[0];
-
-        var id = TryExtractEventIdFromFirstEvent(first);
-
-        var stream = id.HasValue
-            ? session.Events.StartStream(id.Value, events)
-            : session.Events.StartStream(events);
+        session.Events.StartStream(id, events);
         await session.SaveChangesAsync();
-
-        return stream.Id;
-    }
-
-    public async Task<Guid> StartStreamWithTransactionPerEvent(params IList<object> events)
-    {
-        using var scope = fixture.Host.Services.CreateScope();
-        var store = scope.ServiceProvider.GetRequiredService<IDocumentStore>();
-        using var session = store.LightweightSession();
-
-        if (events.Count == 0)
-            throw new ArgumentException("At least one event is required");
-
-        var first = events[0];
-        var rest = events.Skip(1).ToArray();
-
-        var id = TryExtractEventIdFromFirstEvent(first);
-
-        var stream = id.HasValue
-            ? session.Events.StartStream(id.Value, first)
-            : session.Events.StartStream(first);
-        await session.SaveChangesAsync();
-
-        if (rest.Length > 0)
-        {
-            session.Events.Append(stream.Id, rest);
-            await session.SaveChangesAsync();
-        }
-
-        return stream.Id;
-    }
-
-    private static Guid? TryExtractEventIdFromFirstEvent(object @event)
-    {
-        return @event.GetType().GetProperty("Id") is { PropertyType: Type t } p && t == typeof(Guid)
-            ? p.GetValue(@event) as Guid?
-            : null;
     }
 
     public async Task WaitForNonStaleProjectionDataAsync(TimeSpan timeout)

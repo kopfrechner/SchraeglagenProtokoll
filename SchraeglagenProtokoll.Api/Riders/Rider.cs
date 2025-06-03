@@ -2,14 +2,17 @@ using System.Text.Json.Serialization;
 
 namespace SchraeglagenProtokoll.Api.Riders;
 
-public interface IRiderEvent;
+public interface IRiderEvent
+{
+    Guid RiderId { get; }
+};
 
-public record RiderRegistered(Guid Id, string Email, string FullName, string RoadName)
+public record RiderRegistered(Guid RiderId, string Email, string FullName, string RoadName)
     : IRiderEvent;
 
-public record RiderRenamed(string FullName) : IRiderEvent;
+public record RiderRenamed(Guid RiderId, string FullName) : IRiderEvent;
 
-public record RiderDeletedAccount(string? RiderFeedback) : IRiderEvent;
+public record RiderDeletedAccount(Guid RiderId, string? RiderFeedback) : IRiderEvent;
 
 public record Rider(Guid Id, string Email, string FullName, string RoadName)
 {
@@ -18,7 +21,7 @@ public record Rider(Guid Id, string Email, string FullName, string RoadName)
 
     public static Rider Create(RiderRegistered riderRegistered) =>
         new(
-            riderRegistered.Id,
+            riderRegistered.RiderId,
             riderRegistered.Email,
             riderRegistered.FullName,
             riderRegistered.RoadName

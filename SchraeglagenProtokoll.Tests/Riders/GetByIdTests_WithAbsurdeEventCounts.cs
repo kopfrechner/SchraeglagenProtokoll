@@ -13,11 +13,12 @@ public class GetByIdTests_WithAbsurdeEventCounts(WebAppFixture fixture) : WebApp
     public async Task when_getting_a_rider_by_id_by_aggregation_then_it_is_returned()
     {
         // Arrange
+        var riderId = new Guid();
         var renameEvents = Enumerable
             .Range(0, AbsurdeEventCount)
-            .Select(_ => FakeEvent.RiderRenamed())
+            .Select(_ => FakeEvent.RiderRenamed(riderId))
             .ToList();
-        var riderId = await StartStream([FakeEvent.RiderRegistered(), .. renameEvents]);
+        await StartStream(riderId, [FakeEvent.RiderRegistered(riderId), .. renameEvents]);
 
         // Act
         var stopwatch = Stopwatch.StartNew();
@@ -40,11 +41,12 @@ public class GetByIdTests_WithAbsurdeEventCounts(WebAppFixture fixture) : WebApp
     public async Task when_getting_a_rider_by_id_from_projection_then_it_is_returned()
     {
         // Arrange
+        var riderId = new Guid();
         var renameEvents = Enumerable
             .Range(0, AbsurdeEventCount)
-            .Select(_ => FakeEvent.RiderRenamed())
+            .Select(_ => FakeEvent.RiderRenamed(riderId))
             .ToList();
-        var riderId = await StartStream([FakeEvent.RiderRegistered(), .. renameEvents]);
+        await StartStream(riderId, [FakeEvent.RiderRegistered(riderId), .. renameEvents]);
 
         // Act
         var stopwatch = Stopwatch.StartNew();
@@ -67,11 +69,12 @@ public class GetByIdTests_WithAbsurdeEventCounts(WebAppFixture fixture) : WebApp
     public async Task when_getting_a_rider_by_id_from_streamed_projection_then_it_is_returned()
     {
         // Arrange
+        var riderId = new Guid();
         var renameEvents = Enumerable
             .Range(0, AbsurdeEventCount)
-            .Select(_ => FakeEvent.RiderRenamed())
+            .Select(_ => FakeEvent.RiderRenamed(riderId))
             .ToList();
-        var riderId = await StartStream([FakeEvent.RiderRegistered(), .. renameEvents]);
+        await StartStream(riderId, [FakeEvent.RiderRegistered(riderId), .. renameEvents]);
 
         // Act
         var stopwatch = Stopwatch.StartNew();

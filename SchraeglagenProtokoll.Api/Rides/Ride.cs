@@ -2,15 +2,18 @@ using System.Text.Json.Serialization;
 
 namespace SchraeglagenProtokoll.Api.Rides;
 
-public interface IRideEvent;
+public interface IRideEvent
+{
+    Guid RideId { get; }
+};
 
-public record RideStarted(Guid Id, Guid RiderId, string StartLocation) : IRideEvent;
+public record RideStarted(Guid RideId, Guid RiderId, string StartLocation) : IRideEvent;
 
-public record RideLocationTracked(string Location) : IRideEvent;
+public record RideLocationTracked(Guid RideId, string Location) : IRideEvent;
 
-public record RideFinished(string Destination, Distance Distance) : IRideEvent;
+public record RideFinished(Guid RideId, string Destination, Distance Distance) : IRideEvent;
 
-public record RideRated(SchraeglagenRating Rating);
+public record RideRated(Guid RideId, SchraeglagenRating Rating) : IRideEvent;
 
 // TODO Implement Pause and Resume
 
@@ -62,7 +65,7 @@ public class Ride
     {
         return new Ride
         {
-            Id = @event.Id,
+            Id = @event.RideId,
             RiderId = @event.RiderId,
             StartLocation = @event.StartLocation,
             Distance = Distance.Zero(),

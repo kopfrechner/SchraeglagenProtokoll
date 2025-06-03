@@ -8,7 +8,8 @@ public class StartRideTests(WebAppFixture fixture) : WebAppTestBase(fixture)
     public async Task when_starting_a_ride_then_it_is_created()
     {
         // Arrange
-        var riderId = await StartStream(FakeEvent.RiderRegistered());
+        var riderId = Guid.NewGuid();
+        await StartStream(riderId, FakeEvent.RiderRegistered(riderId));
 
         var startRideCommand = FakeCommand.StartRide();
 
@@ -47,8 +48,13 @@ public class StartRideTests(WebAppFixture fixture) : WebAppTestBase(fixture)
     public async Task when_starting_a_ride_and_there_is_one_unfinished_then_bad_request_is_returned()
     {
         // Arrange
-        var riderId = await StartStream(FakeEvent.RiderRegistered());
-        var unfinishedRideId = await StartStream(FakeEvent.RideStarted(riderId: riderId));
+        var riderId = Guid.NewGuid();
+        await StartStream(riderId, FakeEvent.RiderRegistered(riderId));
+        var unfinishedRideId = Guid.NewGuid();
+        await StartStream(
+            unfinishedRideId,
+            FakeEvent.RideStarted(unfinishedRideId, riderId: riderId)
+        );
 
         var startRideCommand = FakeCommand.StartRide();
 

@@ -32,7 +32,7 @@ public static class AddLocationTrack
         }
 
         var (location, version) = command;
-        var locationTracked = new RideLocationTracked(location);
+        var locationTracked = new RideLocationTracked(rideId, location);
 
         session.Events.Append(rideId, version + 1, locationTracked);
         await session.SaveChangesAsync();

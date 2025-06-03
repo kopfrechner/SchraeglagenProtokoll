@@ -8,8 +8,11 @@ public class FinishRideTests(WebAppFixture fixture) : WebAppTestBase(fixture)
     public async Task when_finishing_an_active_ride_then_ride_is_finished()
     {
         // Arrange
-        var riderId = await StartStream(FakeEvent.RiderRegistered());
-        var rideId = await StartStream(FakeEvent.RideStarted(riderId: riderId));
+        var riderId = Guid.NewGuid();
+        await StartStream(riderId, FakeEvent.RiderRegistered(riderId));
+
+        var rideId = Guid.NewGuid();
+        await StartStream(rideId, FakeEvent.RideStarted(rideId, riderId: riderId));
 
         var finishRideCommand = FakeCommand.FinishRide(version: 1);
 
@@ -47,10 +50,13 @@ public class FinishRideTests(WebAppFixture fixture) : WebAppTestBase(fixture)
     public async Task when_finishing_an_already_finished_ride_then_bad_request_is_returned()
     {
         // Arrange
-        var riderId = await StartStream(FakeEvent.RiderRegistered());
-        var rideId = await StartStreamWithTransactionPerEvent(
-            FakeEvent.RideStarted(riderId: riderId),
-            FakeEvent.RideFinished()
+        var riderId = Guid.NewGuid();
+        await StartStream(riderId, FakeEvent.RiderRegistered(riderId));
+        var rideId = Guid.NewGuid();
+        await StartStreamWithTransactionPerEvent(
+            rideId,
+            FakeEvent.RideStarted(rideId, riderId: riderId),
+            FakeEvent.RideFinished(rideId)
         );
 
         var finishRideCommand = FakeCommand.FinishRide(version: 2);
@@ -67,11 +73,14 @@ public class FinishRideTests(WebAppFixture fixture) : WebAppTestBase(fixture)
     public async Task when_finishing_ride_with_tracked_locations_then_all_data_is_preserved()
     {
         // Arrange
-        var riderId = await StartStream(FakeEvent.RiderRegistered());
-        var rideId = await StartStreamWithTransactionPerEvent(
-            FakeEvent.RideStarted(riderId: riderId),
-            FakeEvent.RideLocationTracked("Vienna"),
-            FakeEvent.RideLocationTracked("Salzburg")
+        var riderId = Guid.NewGuid();
+        await StartStream(riderId, FakeEvent.RiderRegistered(riderId));
+        var rideId = Guid.NewGuid();
+        await StartStreamWithTransactionPerEvent(
+            rideId,
+            FakeEvent.RideStarted(rideId, riderId: riderId),
+            FakeEvent.RideLocationTracked(rideId, "Vienna"),
+            FakeEvent.RideLocationTracked(rideId, "Salzburg")
         );
 
         var finishRideCommand = FakeCommand.FinishRide(
@@ -99,10 +108,13 @@ public class FinishRideTests(WebAppFixture fixture) : WebAppTestBase(fixture)
     public async Task when_starting_new_ride_after_finishing_previous_then_it_is_allowed()
     {
         // Arrange
-        var riderId = await StartStream(FakeEvent.RiderRegistered());
-        var firstRideId = await StartStreamWithTransactionPerEvent(
-            FakeEvent.RideStarted(riderId: riderId),
-            FakeEvent.RideFinished()
+        var riderId = Guid.NewGuid();
+        await StartStream(riderId, FakeEvent.RiderRegistered(riderId));
+        var rideId = Guid.NewGuid();
+        await StartStreamWithTransactionPerEvent(
+            rideId,
+            FakeEvent.RideStarted(rideId, riderId: riderId),
+            FakeEvent.RideFinished(rideId)
         );
 
         var startNewRideCommand = FakeCommand.StartRide();

@@ -11,25 +11,34 @@ public class GetRiderHistoryTests(WebAppFixture fixture) : WebAppTestBase(fixtur
         // Arrange
         var rider1Id = Guid.NewGuid();
         await StartStream(
+            rider1Id,
             FakeEvent.RiderRegistered(rider1Id),
-            FakeEvent.RiderRenamed(),
-            FakeEvent.RiderRenamed()
+            FakeEvent.RiderRenamed(rider1Id),
+            FakeEvent.RiderRenamed(rider1Id)
         );
 
+        var ride1Id = Guid.NewGuid();
         await StartStream(
-            FakeEvent.RideStarted(riderId: rider1Id),
-            FakeEvent.RideLocationTracked(),
-            FakeEvent.RideFinished()
+            ride1Id,
+            FakeEvent.RideStarted(ride1Id, riderId: rider1Id),
+            FakeEvent.RideLocationTracked(ride1Id),
+            FakeEvent.RideFinished(ride1Id)
         );
 
         var rider2Id = Guid.NewGuid();
         await StartStream(
+            rider2Id,
             FakeEvent.RiderRegistered(rider2Id),
-            FakeEvent.RiderRenamed(),
-            FakeEvent.RiderRenamed()
+            FakeEvent.RiderRenamed(rider2Id),
+            FakeEvent.RiderRenamed(rider2Id)
         );
 
-        await StartStream(FakeEvent.RideStarted(riderId: rider2Id), FakeEvent.RideFinished());
+        var ride2Id = Guid.NewGuid();
+        await StartStream(
+            ride2Id,
+            FakeEvent.RideStarted(ride2Id, riderId: rider2Id),
+            FakeEvent.RideFinished(ride2Id)
+        );
 
         // Act
         var resultRider1 = await Scenario(x =>
@@ -59,10 +68,10 @@ public class GetRiderHistoryTests(WebAppFixture fixture) : WebAppTestBase(fixtur
         var riderId = Guid.NewGuid();
 
         var riderRegistered = FakeEvent.RiderRegistered(riderId);
-        var deleteCommand = FakeEvent.RiderDeletedAccount();
+        var deleteCommand = FakeEvent.RiderDeletedAccount(riderId);
 
         // Act - Create events in sequence
-        await StartStream(riderRegistered, deleteCommand);
+        await StartStream(riderId, riderRegistered, deleteCommand);
 
         // Get the rider history
         await Scenario(x =>

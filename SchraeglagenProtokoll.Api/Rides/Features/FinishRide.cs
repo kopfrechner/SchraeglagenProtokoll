@@ -32,7 +32,7 @@ public static class FinishRide
         }
 
         var (destination, distance, version) = command;
-        var rideFinished = new RideFinished(destination, distance);
+        var rideFinished = new RideFinished(rideId, destination, distance);
 
         session.Events.Append(rideId, version + 1, rideFinished);
         await session.SaveChangesAsync();
