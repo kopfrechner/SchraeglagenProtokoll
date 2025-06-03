@@ -32,8 +32,8 @@ public class CommandFaker
     {
         return _startRideFaker
             .CustomInstantiator(f => new StartRide.StartRideCommand(
-                rideId ?? f.Random.Guid(),
-                startLocation ?? f.Address.City()
+                startLocation ?? f.Address.City(),
+                rideId ?? f.Random.Guid()
             ))
             .Generate();
     }

@@ -13,7 +13,7 @@ public static class StartRide
             .WithOpenApi();
     }
 
-    public record StartRideCommand(Guid RideId, string Start);
+    public record StartRideCommand(string Start, Guid? RideId = null);
 
     public static async Task<IResult> StartRideHandler(
         IDocumentSession session,
@@ -21,7 +21,7 @@ public static class StartRide
         StartRideCommand command
     )
     {
-        var (rideId, start) = command;
+        var (start, rideId) = command;
 
         var riderExists = await session.Query<Rider>().AnyAsync(x => x.Id == riderId);
         if (!riderExists)
@@ -38,8 +38,9 @@ public static class StartRide
             return Results.BadRequest($"Rider {riderId} has unfinished rides");
         }
 
-        var logged = new RideStarted(rideId, riderId, start);
-        var stream = session.Events.StartStream<Ride>(rideId, logged);
+        rideId ??= Guid.NewGuid();
+        var logged = new RideStarted(rideId.Value, riderId, start);
+        var stream = session.Events.StartStream<Ride>(rideId.Value, logged);
         await session.SaveChangesAsync();
 
         return Results.Created($"rides/{stream.Id}", stream.Id);

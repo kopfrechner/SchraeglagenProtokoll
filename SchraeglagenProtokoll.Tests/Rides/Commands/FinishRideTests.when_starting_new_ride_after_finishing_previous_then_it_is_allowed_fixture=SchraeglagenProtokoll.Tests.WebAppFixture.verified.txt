@@ -2,12 +2,12 @@
   Id: Guid_1,
   RiderId: Guid_2,
   Status: Started,
-  StartLocation: East Cedrickburgh,
+  StartLocation: East Josianeville,
   Destination: null,
   Distance: null,
   Rating: null,
   TrackedLocations: [
-    East Cedrickburgh
+    East Josianeville
   ],
   Version: 1
 }
