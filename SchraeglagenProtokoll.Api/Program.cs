@@ -1,6 +1,6 @@
+using JasperFx;
+using JasperFx.Events.Daemon;
 using Marten;
-using Marten.Events.Daemon.Resiliency;
-using Oakton;
 using Scalar.AspNetCore;
 using SchraeglagenProtokoll.Api;
 using SchraeglagenProtokoll.Api.Infrastructure;
@@ -11,7 +11,7 @@ using SchraeglagenProtokoll.Api.Rides.Features.Commands;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add command line parsing for Marten
-builder.Host.ApplyOaktonExtensions();
+builder.Host.ApplyJasperFxExtensions();
 
 // Learn more about configuring OpenAPI at https://ak.ms/aspnet/openapi
 builder.Services.AddOpenApi();
@@ -68,7 +68,7 @@ app.UseHttpsRedirection();
 app.MapRider();
 app.MapRide();
 
-await app.RunOaktonCommands(args);
+await app.RunJasperFxCommands(args);
 
 namespace SchraeglagenProtokoll.Api
 {

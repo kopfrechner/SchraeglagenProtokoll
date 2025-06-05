@@ -1,5 +1,5 @@
+using JasperFx;
 using Marten;
-using Marten.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace SchraeglagenProtokoll.Api.Riders.Features.Commands;

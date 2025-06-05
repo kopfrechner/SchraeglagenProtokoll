@@ -1,7 +1,8 @@
+using JasperFx.Events;
+using JasperFx.Events.Grouping;
 using Marten;
 using Marten.Events;
 using Marten.Events.Aggregation;
-using Marten.Events.Projections;
 using SchraeglagenProtokoll.Api.Rides;
 
 namespace SchraeglagenProtokoll.Api.Riders.Projections;
@@ -19,7 +20,7 @@ public class RideEventsToRiderAsyncGrouper : IAggregateGrouper<Guid>
     public async Task Group(
         IQuerySession session,
         IEnumerable<IEvent> events,
-        ITenantSliceGroup<Guid> grouping
+        IEventGrouping<Guid> grouping
     )
     {
         var archivedRiderEvents = events.OfType<IEvent<RiderDeletedAccount>>().ToList();

@@ -1,5 +1,6 @@
+using JasperFx;
+using JasperFx.Events;
 using Marten;
-using Marten.Events;
 using Marten.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 

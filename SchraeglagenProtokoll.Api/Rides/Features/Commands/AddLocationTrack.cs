@@ -1,5 +1,5 @@
+using JasperFx;
 using Marten;
-using Marten.Exceptions;
 
 namespace SchraeglagenProtokoll.Api.Rides.Features.Commands;
 

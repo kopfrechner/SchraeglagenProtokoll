@@ -1,4 +1,6 @@
 using System.Text.Json.Serialization;
+using JasperFx;
+using JasperFx.Events.Projections;
 using Marten;
 using Marten.Events.Projections;
 using SchraeglagenProtokoll.Api.Riders;
@@ -40,6 +42,22 @@ public static class StoreOptionsExtensions
         options.Projections.Snapshot<Rider>(SnapshotLifecycle.Inline);
         options.Projections.Add<RiderHistoryProjection>(ProjectionLifecycle.Inline);
         options.Projections.Add<RiderTripProjection>(ProjectionLifecycle.Async);
+
+        // Mask protected information
+        options.Events.AddMaskingRuleForProtectedInformation<RiderRegistered>(x =>
+            x with
+            {
+                FullName = "****",
+                Email = "****",
+                RoadName = "****",
+            }
+        );
+        options.Events.AddMaskingRuleForProtectedInformation<RiderRenamed>(x =>
+            x with
+            {
+                FullName = "***",
+            }
+        );
 
         // Recent optimization you'd want with FetchForWriting up above
         options.Projections.UseIdentityMapForAggregates = true;

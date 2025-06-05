@@ -18,6 +18,8 @@ public static class Endpoints
         group.MapGetAllRider();
         group.MapGetRiderHistory();
         group.MapGetRiderTrips();
+        group.MapMaskProtectedDataRiderById();
+        group.MapRebuildProjectionsById();
         group.MapDeleteRiderById();
     }
 }

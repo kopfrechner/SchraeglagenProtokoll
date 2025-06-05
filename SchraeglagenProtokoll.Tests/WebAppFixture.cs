@@ -1,5 +1,5 @@
 using Alba;
-using Oakton;
+using JasperFx.CommandLine;
 using SchraeglagenProtokoll.Api;
 using Testcontainers.PostgreSql;
 using TUnit.Core.Interfaces;
@@ -23,7 +23,7 @@ public class WebAppFixture : IAsyncInitializer, IAsyncDisposable
     {
         await _container.StartAsync();
 
-        OaktonEnvironment.AutoStartHost = true;
+        JasperFxEnvironment.AutoStartHost = true;
 
         var configValues = new Dictionary<string, string?>
         {

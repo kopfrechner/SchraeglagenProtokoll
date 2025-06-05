@@ -1,10 +1,9 @@
+using JasperFx;
+using JasperFx.Events;
+using JasperFx.Events.Daemon;
+using JasperFx.Events.Projections;
 using Marten;
-using Marten.Events;
-using Marten.Events.Daemon;
-using Marten.Events.Daemon.Internals;
-using Marten.Exceptions;
 using Marten.Subscriptions;
-using Microsoft.AspNetCore.Identity;
 using SchraeglagenProtokoll.Api.Infrastructure.EMail;
 using SchraeglagenProtokoll.Api.Riders;
 

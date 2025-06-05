@@ -1,4 +1,4 @@
-using Marten.Events;
+using JasperFx.Events;
 using Marten.Events.Aggregation;
 
 namespace SchraeglagenProtokoll.Api.Rides.Projections;
@@ -13,7 +13,7 @@ public record RideSummary(
     Distance? Distance = null
 );
 
-public class RideSummaryProjection : SingleStreamProjection<RideSummary>
+public class RideSummaryProjection : SingleStreamProjection<RideSummary, Guid>
 {
     public RideSummaryProjection()
     {
