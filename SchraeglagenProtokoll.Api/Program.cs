@@ -10,8 +10,10 @@ using SchraeglagenProtokoll.Api.Rides.Features.Commands;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add command line parsing for Marten
-builder.Host.ApplyJasperFxExtensions();
+if (builder.Configuration.GetValue("EnableCli", defaultValue: false))
+{
+    builder.Host.ApplyJasperFxExtensions();
+}
 
 // Learn more about configuring OpenAPI at https://ak.ms/aspnet/openapi
 builder.Services.AddOpenApi();
@@ -68,7 +70,13 @@ app.UseHttpsRedirection();
 app.MapRider();
 app.MapRide();
 
-await app.RunJasperFxCommands(args);
+if (builder.Configuration.GetValue("EnableCli", defaultValue: false))
+{
+    await app.RunJasperFxCommands(args);
+}
+{
+    await app.RunAsync();
+}
 
 namespace SchraeglagenProtokoll.Api
 {
