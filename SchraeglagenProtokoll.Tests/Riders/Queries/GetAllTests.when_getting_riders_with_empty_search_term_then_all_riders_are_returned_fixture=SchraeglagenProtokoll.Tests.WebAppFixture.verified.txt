@@ -1,37 +1,50 @@
-﻿[
-  {
-    Id: Guid_1,
-    Email: Giles.Kohler21@yahoo.com,
-    FullName: Miracle Waters,
-    RoadName: BurnoutBernd,
-    Version: 1
-  },
-  {
-    Id: Guid_2,
-    Email: Raven.Gorczany89@yahoo.com,
-    FullName: Kirk Ledner,
-    RoadName: Angststreifen,
-    Version: 1
-  },
-  {
-    Id: Guid_3,
-    Email: Joana.Green@yahoo.com,
-    FullName: Samantha Purdy,
-    RoadName: Kurvenkarle,
-    Version: 1
-  },
-  {
-    Id: Guid_4,
-    Email: Ariel_McGlynn70@yahoo.com,
-    FullName: Lilla Morar,
-    RoadName: Krad-Klaus,
-    Version: 1
-  },
-  {
-    Id: Guid_5,
-    Email: Bret.Mills@hotmail.com,
-    FullName: Felicity Cremin,
-    RoadName: Angststreifen,
-    Version: 1
-  }
-]
+﻿{
+  Items: [
+    {
+      Id: Guid_1,
+      Email: Giles.Kohler21@yahoo.com,
+      FullName: Miracle Waters,
+      RoadName: BurnoutBernd,
+      Version: 1
+    },
+    {
+      Id: Guid_2,
+      Email: Raven.Gorczany89@yahoo.com,
+      FullName: Kirk Ledner,
+      RoadName: Angststreifen,
+      Version: 1
+    },
+    {
+      Id: Guid_3,
+      Email: Joana.Green@yahoo.com,
+      FullName: Samantha Purdy,
+      RoadName: Kurvenkarle,
+      Version: 1
+    },
+    {
+      Id: Guid_4,
+      Email: Ariel_McGlynn70@yahoo.com,
+      FullName: Lilla Morar,
+      RoadName: Krad-Klaus,
+      Version: 1
+    },
+    {
+      Id: Guid_5,
+      Email: Bret.Mills@hotmail.com,
+      FullName: Felicity Cremin,
+      RoadName: Angststreifen,
+      Version: 1
+    }
+  ],
+  Count: 5,
+  PageNumber: 1,
+  PageSize: 10,
+  PageCount: 1,
+  TotalItemCount: 5,
+  HasPreviousPage: false,
+  HasNextPage: false,
+  IsFirstPage: true,
+  IsLastPage: true,
+  FirstItemOnPage: 1,
+  LastItemOnPage: 5
+}

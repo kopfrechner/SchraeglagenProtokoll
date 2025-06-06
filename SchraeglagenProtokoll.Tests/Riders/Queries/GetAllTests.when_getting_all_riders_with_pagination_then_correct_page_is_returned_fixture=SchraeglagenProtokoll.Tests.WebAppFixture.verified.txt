@@ -1,37 +1,50 @@
-﻿[
-  {
-    Id: Guid_1,
-    Email: Keenan_Hintz@yahoo.com,
-    FullName: Cristobal Flatley,
-    RoadName: HupenHugo,
-    Version: 1
-  },
-  {
-    Id: Guid_2,
-    Email: Cory_Hamill@yahoo.com,
-    FullName: Tommie Pollich,
-    RoadName: Abgasaffe,
-    Version: 1
-  },
-  {
-    Id: Guid_3,
-    Email: Ayden_Price@yahoo.com,
-    FullName: Madaline Graham,
-    RoadName: SturzbügelStefan,
-    Version: 1
-  },
-  {
-    Id: Guid_4,
-    Email: Lily.Hayes@hotmail.com,
-    FullName: Ricky Kub,
-    RoadName: BlinkerBenno,
-    Version: 1
-  },
-  {
-    Id: Guid_5,
-    Email: Ayla63@yahoo.com,
-    FullName: Jessica Schiller,
-    RoadName: KupplungsKönig,
-    Version: 1
-  }
-]
+﻿{
+  Items: [
+    {
+      Id: Guid_1,
+      Email: Keenan_Hintz@yahoo.com,
+      FullName: Cristobal Flatley,
+      RoadName: HupenHugo,
+      Version: 1
+    },
+    {
+      Id: Guid_2,
+      Email: Cory_Hamill@yahoo.com,
+      FullName: Tommie Pollich,
+      RoadName: Abgasaffe,
+      Version: 1
+    },
+    {
+      Id: Guid_3,
+      Email: Ayden_Price@yahoo.com,
+      FullName: Madaline Graham,
+      RoadName: SturzbügelStefan,
+      Version: 1
+    },
+    {
+      Id: Guid_4,
+      Email: Lily.Hayes@hotmail.com,
+      FullName: Ricky Kub,
+      RoadName: BlinkerBenno,
+      Version: 1
+    },
+    {
+      Id: Guid_5,
+      Email: Ayla63@yahoo.com,
+      FullName: Jessica Schiller,
+      RoadName: KupplungsKönig,
+      Version: 1
+    }
+  ],
+  Count: 5,
+  PageNumber: 2,
+  PageSize: 5,
+  PageCount: 3,
+  TotalItemCount: 15,
+  HasPreviousPage: true,
+  HasNextPage: true,
+  IsFirstPage: false,
+  IsLastPage: false,
+  FirstItemOnPage: 6,
+  LastItemOnPage: 10
+}

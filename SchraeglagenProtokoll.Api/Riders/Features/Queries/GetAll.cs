@@ -23,7 +23,7 @@ public static class GetAll
         if (string.IsNullOrWhiteSpace(searchTerm))
         {
             var riders = await session.Query<Rider>().ToPagedListAsync(pageNumber, pageSize);
-            return Results.Ok(riders);
+            return Results.Ok(riders.ToResponse());
         }
 
         var filteredRiders = await session
