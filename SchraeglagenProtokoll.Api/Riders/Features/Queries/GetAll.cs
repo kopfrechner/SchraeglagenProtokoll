@@ -1,6 +1,7 @@
 using Marten;
 using Marten.Pagination;
 using Microsoft.AspNetCore.Mvc;
+using SchraeglagenProtokoll.Api.Responses;
 using IResult = Microsoft.AspNetCore.Http.IResult;
 
 namespace SchraeglagenProtokoll.Api.Riders.Features.Queries;
@@ -33,6 +34,6 @@ public static class GetAll
             )
             .ToPagedListAsync(pageNumber, pageSize);
 
-        return Results.Ok(filteredRiders);
+        return Results.Ok(filteredRiders.ToResponse());
     }
 }

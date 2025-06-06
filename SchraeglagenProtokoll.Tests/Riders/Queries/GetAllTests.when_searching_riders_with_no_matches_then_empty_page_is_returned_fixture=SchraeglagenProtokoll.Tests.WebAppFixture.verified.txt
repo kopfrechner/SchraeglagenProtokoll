@@ -1,1 +1,14 @@
-﻿[]
+﻿{
+  Items: null,
+  Count: 0,
+  PageNumber: 1,
+  PageSize: 10,
+  PageCount: 0,
+  TotalItemCount: 0,
+  HasPreviousPage: false,
+  HasNextPage: false,
+  IsFirstPage: false,
+  IsLastPage: false,
+  FirstItemOnPage: 0,
+  LastItemOnPage: 0
+}

@@ -1,23 +1,36 @@
-﻿[
-  {
-    Id: Guid_1,
-    Email: test4@test.com,
-    FullName: Test Rider 4,
-    RoadName: TestAlias4,
-    Version: 1
-  },
-  {
-    Id: Guid_2,
-    Email: test5@test.com,
-    FullName: Test Rider 5,
-    RoadName: TestAlias5,
-    Version: 1
-  },
-  {
-    Id: Guid_3,
-    Email: test6@test.com,
-    FullName: Test Rider 6,
-    RoadName: TestAlias6,
-    Version: 1
-  }
-]
+﻿{
+  Items: [
+    {
+      Id: Guid_1,
+      Email: test4@test.com,
+      FullName: Test Rider 4,
+      RoadName: TestAlias4,
+      Version: 1
+    },
+    {
+      Id: Guid_2,
+      Email: test5@test.com,
+      FullName: Test Rider 5,
+      RoadName: TestAlias5,
+      Version: 1
+    },
+    {
+      Id: Guid_3,
+      Email: test6@test.com,
+      FullName: Test Rider 6,
+      RoadName: TestAlias6,
+      Version: 1
+    }
+  ],
+  Count: 3,
+  PageNumber: 2,
+  PageSize: 3,
+  PageCount: 4,
+  TotalItemCount: 10,
+  HasPreviousPage: true,
+  HasNextPage: true,
+  IsFirstPage: false,
+  IsLastPage: false,
+  FirstItemOnPage: 4,
+  LastItemOnPage: 6
+}

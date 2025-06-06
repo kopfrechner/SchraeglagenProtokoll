@@ -1,9 +1,22 @@
-﻿[
-  {
-    Id: Guid_1,
-    Email: john.smith@test.com,
-    FullName: John Smith,
-    RoadName: Thunder,
-    Version: 1
-  }
-]
+﻿{
+  Items: [
+    {
+      Id: Guid_1,
+      Email: john.smith@test.com,
+      FullName: John Smith,
+      RoadName: Thunder,
+      Version: 1
+    }
+  ],
+  Count: 1,
+  PageNumber: 1,
+  PageSize: 10,
+  PageCount: 1,
+  TotalItemCount: 1,
+  HasPreviousPage: false,
+  HasNextPage: false,
+  IsFirstPage: true,
+  IsLastPage: true,
+  FirstItemOnPage: 1,
+  LastItemOnPage: 1
+}

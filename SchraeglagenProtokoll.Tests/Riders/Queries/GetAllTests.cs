@@ -1,3 +1,4 @@
+using SchraeglagenProtokoll.Api.Responses;
 using SchraeglagenProtokoll.Api.Riders;
 
 namespace SchraeglagenProtokoll.Tests.Riders.Queries;
@@ -94,7 +95,7 @@ public class GetAllTests(WebAppFixture fixture) : WebAppTestBase(fixture)
         });
 
         // Assert
-        var pagedList = result.ReadAsJson<List<Rider>>();
+        var pagedList = result.ReadAsJson<PagedListResponse<Rider>>();
         await Verify(pagedList);
     }
 
@@ -112,7 +113,7 @@ public class GetAllTests(WebAppFixture fixture) : WebAppTestBase(fixture)
         });
 
         // Assert
-        var pagedList = result.ReadAsJson<List<Rider>>();
+        var pagedList = result.ReadAsJson<PagedListResponse<Rider>>();
         await Verify(pagedList);
     }
 
@@ -130,7 +131,7 @@ public class GetAllTests(WebAppFixture fixture) : WebAppTestBase(fixture)
         });
 
         // Assert
-        var pagedList = result.ReadAsJson<List<Rider>>();
+        var pagedList = result.ReadAsJson<PagedListResponse<Rider>>();
         await Verify(pagedList);
     }
 
@@ -148,7 +149,7 @@ public class GetAllTests(WebAppFixture fixture) : WebAppTestBase(fixture)
         });
 
         // Assert
-        var pagedList = result.ReadAsJson<List<Rider>>();
+        var pagedList = result.ReadAsJson<PagedListResponse<Rider>>();
         await Verify(pagedList);
     }
 
@@ -166,7 +167,7 @@ public class GetAllTests(WebAppFixture fixture) : WebAppTestBase(fixture)
         });
 
         // Assert
-        var pagedList = result.ReadAsJson<List<Rider>>();
+        var pagedList = result.ReadAsJson<PagedListResponse<Rider>>();
         await Verify(pagedList);
     }
 
@@ -184,7 +185,7 @@ public class GetAllTests(WebAppFixture fixture) : WebAppTestBase(fixture)
         });
 
         // Assert
-        var pagedList = result.ReadAsJson<List<Rider>>();
+        var pagedList = result.ReadAsJson<PagedListResponse<Rider>>();
         await Verify(pagedList);
     }
 
@@ -202,7 +203,7 @@ public class GetAllTests(WebAppFixture fixture) : WebAppTestBase(fixture)
         });
 
         // Assert
-        var pagedList = result.ReadAsJson<List<Rider>>();
+        var pagedList = result.ReadAsJson<PagedListResponse<Rider>>();
         await Verify(pagedList);
     }
 
