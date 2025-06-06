@@ -18,7 +18,7 @@ public static class RebuildProjections
         CancellationToken token
     )
     {
-        await session.DocumentStore.Advanced.RebuildSingleStreamAsync<Rider>(id);
+        await session.DocumentStore.Advanced.RebuildSingleStreamAsync<Rider>(id, token);
 
         return Results.Accepted();
     }
