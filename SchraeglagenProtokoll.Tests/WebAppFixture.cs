@@ -28,6 +28,8 @@ public class WebAppFixture : IAsyncInitializer, IAsyncDisposable
         var configValues = new Dictionary<string, string?>
         {
             { "ConnectionStrings:Marten", _container.GetConnectionString() },
+            { "InitializeWithInitialData", "false" },
+            { "CleanAllMartenData", "false" },
         };
 
         Host = await AlbaHost.For<Program>(ConfigurationOverride.Create(configValues));
