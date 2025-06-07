@@ -10,7 +10,7 @@ using SchraeglagenProtokoll.Api;
 using SchraeglagenProtokoll.Api.Infrastructure;
 using SchraeglagenProtokoll.Api.Riders;
 using SchraeglagenProtokoll.Api.Rides;
-using SchraeglagenProtokoll.Api.Rides.Features.Commands;
+using SchraeglagenProtokoll.Api.Rides.Subscriptions;
 
 var builder = WebApplication.CreateBuilder(args);
 
