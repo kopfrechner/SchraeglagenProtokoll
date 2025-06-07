@@ -1,5 +1,6 @@
 ﻿using ImTools;
 using Marten;
+using MartenPlayground.Tests.Setup;
 using Shouldly;
 
 namespace MartenPlayground.Tests;

@@ -3,7 +3,7 @@ using Marten;
 using TUnit.Core.Extensions;
 using Weasel.Core;
 
-namespace MartenPlayground.Tests;
+namespace MartenPlayground.Tests.Setup;
 
 [ClassDataSource<PostgresContainerFixture>(Shared = SharedType.PerTestSession)]
 public abstract class DocumentStoreTestBase(PostgresContainerFixture fixture)

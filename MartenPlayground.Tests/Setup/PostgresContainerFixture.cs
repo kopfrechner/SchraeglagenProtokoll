@@ -1,8 +1,7 @@
-using Marten;
 using Testcontainers.PostgreSql;
 using TUnit.Core.Interfaces;
 
-namespace MartenPlayground.Tests;
+namespace MartenPlayground.Tests.Setup;
 
 public class PostgresContainerFixture : IAsyncInitializer, IAsyncDisposable
 {
