@@ -19,6 +19,17 @@ services:
     ports:
       - "2025:1025"   # SMTP
       - "8125:8025"   # Web UI
-      
+  
+  aspire-dashboard:
+    image: mcr.microsoft.com/dotnet/aspire-dashboard:9.2
+    container_name: aspire-dashboard
+    platform: linux/amd64
+    ports:
+      - "18888:18888"    # Main dashboard UI port
+      - "4317:18889"     # OTLP ingestion port
+    environment:
+      - DOTNET_DASHBOARD_UNSECURED_ALLOW_ANONYMOUS=true   # Allows access without authentication
+    restart: unless-stopped
+    
 volumes:
   postgres_data:

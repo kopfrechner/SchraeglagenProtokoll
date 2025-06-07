@@ -1,6 +1,10 @@
 using JasperFx;
 using JasperFx.Events.Daemon;
 using Marten;
+using OpenTelemetry.Logs;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 using Scalar.AspNetCore;
 using SchraeglagenProtokoll.Api;
 using SchraeglagenProtokoll.Api.Infrastructure;
@@ -37,6 +41,29 @@ var martenConfiguration = builder
     .UseLightweightSessions()
     // Enable projection daemon
     .AddAsyncDaemon(DaemonMode.Solo);
+
+// Add OpenTelemetry support
+builder
+    .Services.AddOpenTelemetry()
+    .ConfigureResource(config => config.AddService("SchraeglagenProtokoll.Api"))
+    .WithTracing(tracing =>
+    {
+        tracing.AddAspNetCoreInstrumentation();
+        tracing.AddSource("Marten");
+        tracing.AddOtlpExporter();
+    })
+    .WithMetrics(metrics =>
+    {
+        metrics.AddMeter("Marten");
+        metrics.AddOtlpExporter();
+    });
+
+builder.Logging.AddOpenTelemetry(logging =>
+{
+    logging.IncludeFormattedMessage = true;
+    logging.ParseStateValues = true;
+    logging.AddOtlpExporter();
+});
 
 // Initial data
 if (builder.Configuration.GetValue("InitializeWithInitialData", defaultValue: false))

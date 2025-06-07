@@ -3,6 +3,7 @@ using JasperFx;
 using JasperFx.Events.Projections;
 using Marten;
 using Marten.Events.Projections;
+using Marten.Services;
 using SchraeglagenProtokoll.Api.Riders;
 using SchraeglagenProtokoll.Api.Riders.Projections;
 using SchraeglagenProtokoll.Api.Rides;
@@ -64,5 +65,21 @@ public static class StoreOptionsExtensions
 
         // Turn on the PostgreSQL table partitioning for hot/cold storage on archived events
         options.Events.UseArchivedStreamPartitioning = true;
+
+        // OTEL ===============================================
+        // Track Marten connection usage
+        options.OpenTelemetry.TrackConnections = TrackLevel.Normal;
+
+        // Track the number of events being appended to the system
+        options.OpenTelemetry.TrackEventCounters();
+
+        // Enable OpenTelemetry tracing for docs and events
+        options.Policies.ForAllDocuments(x =>
+        {
+            x.Metadata.CausationId.Enabled = true;
+            x.Metadata.CorrelationId.Enabled = true;
+        });
+        options.Events.MetadataConfig.CausationIdEnabled = true;
+        options.Events.MetadataConfig.CorrelationIdEnabled = true;
     }
 }
