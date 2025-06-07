@@ -115,13 +115,13 @@ public class EventStoreTests(PostgresContainerFixture fixture) : DocumentStoreTe
             .ShouldBe(new BankAccount(bankAccountId, "John Smith", Money.From(50, Currency.USD)));
     }
 
-    // Append events starting at self-aggregate
-
-    // Build a single-stream projection
-
-    // Build a multi-stream projection
-
-    // Archive a stream
-
-    // Build a notification handler
+    // TODO:
+    // * Time Travel (Timestamp / Version)
+    // * Append events starting at self-aggregate
+    // * Async vs Inline projections
+    // * Build a single-stream projection
+    // * Build a multi-stream projection
+    // * Archive a stream
+    // * Mask events
+    // * Build a notification handler
 }
