@@ -10,19 +10,21 @@ public record User(Guid Id, string FirstName, string LastName);
 public class DocumentStoreTests(PostgresContainerFixture fixture) : DocumentStoreTestBase(fixture)
 {
     [Test]
-    public async Task can_create_documentStore()
+    public async Task O1_create_documentstore_save_document_load_document()
     {
         // Create Marten DocumentStore from connection string
         var store = DocumentStore.For(options =>
         {
             options.Connection(ConnectionString);
-            options.DatabaseSchemaName = nameof(can_create_documentStore);
+            options.DatabaseSchemaName = nameof(
+                O1_create_documentstore_save_document_load_document
+            );
         });
         await using var session = store.LightweightSession();
 
         // Create document
         var user = new User(Guid.NewGuid(), "John", "Doe");
-        session.Insert(user);
+        session.Store(user);
         await session.SaveChangesAsync();
 
         // Load document
@@ -36,11 +38,9 @@ public class DocumentStoreTests(PostgresContainerFixture fixture) : DocumentStor
     }
 
     [Test]
-    public async Task can_create_test_users()
+    public async Task O2_when_create_test_users_should_succeed()
     {
-        await using var session = Session();
-
-        IList<User> users =
+        User[] users =
         [
             new(Guid.NewGuid(), "Michael", "Smith"),
             new(Guid.NewGuid(), "Sarah", "Johnson"),
@@ -49,41 +49,70 @@ public class DocumentStoreTests(PostgresContainerFixture fixture) : DocumentStor
             new(Guid.NewGuid(), "James", "Anderson"),
         ];
 
-        session.Insert<User>(users);
-
+        await using var session = Session();
+        session.Store(users);
         await session.SaveChangesAsync();
+
+        session.Query<User>().Count().ShouldBe(5);
 
         AddToBag("Users", users);
     }
 
     [Test]
-    [DependsOn(nameof(can_create_test_users))]
-    public async Task can_load_test_users()
+    [DependsOn(nameof(O2_when_create_test_users_should_succeed))]
+    public async Task O3_when_load_test_users_then_should_be_5()
     {
-        var arrangedUsers = GetFromBag<IList<User>>(nameof(can_create_test_users), "Users");
+        var arrangedUsers = GetFromBag<User[]>(
+            nameof(O2_when_create_test_users_should_succeed),
+            "Users"
+        );
         var arrangedUserIds = arrangedUsers.Select(u => u.Id).ToList();
 
         await using var session = Session();
-
         var loadedUsers = await session.LoadManyAsync<User>(arrangedUserIds);
+
         loadedUsers.Count.ShouldBe(5);
     }
 
     [Test]
-    [DependsOn(nameof(can_load_test_users))]
-    public async Task when_deleted_michael_smith_then_michael_smith_is_not_loaded()
+    [DependsOn(nameof(O3_when_load_test_users_then_should_be_5))]
+    public async Task O4_when_sahra_johnson_married_then_she_is_upserted_to_sarah_miller()
     {
-        var preparedUsers = GetFromBag<IList<User>>(nameof(can_create_test_users), "Users");
-        var firstUser = preparedUsers.FindFirst(x =>
-            x.FirstName == "Michael" && x.LastName == "Smith"
+        var arrangedUsers = GetFromBag<User[]>(
+            nameof(O2_when_create_test_users_should_succeed),
+            "Users"
         );
-        await using var session = Session();
+        var sarahJohnson = arrangedUsers.FindFirst(x =>
+            x.FirstName == "Sarah" && x.LastName == "Johnson"
+        );
 
-        session.Delete<User>(firstUser.Id);
+        await using var session = Session();
+        session.Store(sarahJohnson with { LastName = "Miller" });
         await session.SaveChangesAsync();
 
-        var loadedUsers = await session.LoadManyAsync<User>(preparedUsers.Select(u => u.Id));
+        var sarahMiller = await session.LoadAsync<User>(sarahJohnson.Id);
+        sarahMiller.ShouldNotBeNull().ShouldBe(new User(sarahJohnson.Id, "Sarah", "Miller"));
+        ;
+    }
+
+    [Test]
+    [DependsOn(nameof(O3_when_load_test_users_then_should_be_5))]
+    public async Task O5_when_deleted_michael_smith_then_michael_smith_is_not_loaded()
+    {
+        var arrangedUsers = GetFromBag<User[]>(
+            nameof(O2_when_create_test_users_should_succeed),
+            "Users"
+        );
+        var michaelSmith = arrangedUsers.FindFirst(x =>
+            x.FirstName == "Michael" && x.LastName == "Smith"
+        );
+
+        await using var session = Session();
+        session.Delete<User>(michaelSmith.Id);
+        await session.SaveChangesAsync();
+
+        var loadedUsers = await session.LoadManyAsync<User>(arrangedUsers.Select(u => u.Id));
         loadedUsers.Count.ShouldBe(4);
-        loadedUsers.ShouldNotContain(firstUser);
+        loadedUsers.ShouldNotContain(michaelSmith);
     }
 }
