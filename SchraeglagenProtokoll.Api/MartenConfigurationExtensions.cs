@@ -80,22 +80,22 @@ public static class StoreOptionsExtensions
         );
 
         // Mask protected information
-        // options.Events.AddMaskingRuleForProtectedInformation<RiderRegistered>(x =>
-        //     x with
-        //     {
-        //         FullName = "****",
-        //         Email = "****",
-        //         RoadName = "****",
-        //     }
-        // );
-        // options.Events.AddMaskingRuleForProtectedInformation<RiderRenamed>(x =>
-        //     x with
-        //     {
-        //         FullName = "***",
-        //     }
-        // );
-        //
-        // return options;
+        options.Events.AddMaskingRuleForProtectedInformation<RiderRegistered>(x =>
+            x with
+            {
+                FullName = "****",
+                Email = "****",
+                RoadName = "****",
+            }
+        );
+        options.Events.AddMaskingRuleForProtectedInformation<RiderRenamed>(x =>
+            x with
+            {
+                FullName = "***",
+            }
+        );
+
+        return options;
     }
 
     public static StoreOptions SetupArchiving(this StoreOptions options)
