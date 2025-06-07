@@ -24,7 +24,8 @@ builder
     .Services.AddMarten(options =>
         options
             .SetupDatabase(
-                builder.Configuration.GetConnectionString("Marten")!,
+                builder.Configuration.GetConnectionString("Marten")
+                    ?? throw new InvalidOperationException("Missing ConnectionString"),
                 builder.Environment.IsDevelopment()
             )
             .SetupJsonSerialization()
