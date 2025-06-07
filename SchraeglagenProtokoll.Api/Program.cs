@@ -19,20 +19,21 @@ if (builder.Configuration.GetValue("EnableCli", defaultValue: false))
     builder.Host.ApplyJasperFxExtensions();
 }
 
-// Learn more about configuring OpenAPI at https://ak.ms/aspnet/openapi
-builder.Services.AddOpenApi();
-
-// Add services to the container
-builder.Services.AddEmail(builder.Configuration);
-
-var connectionString =
-    builder.Configuration.GetConnectionString("Marten")
-    ?? throw new Exception("No connection string found");
-var isDevelopment = builder.Environment.IsDevelopment();
-
 // Marten
-var martenConfiguration = builder
-    .Services.AddMarten(options => options.SetupStoreOptions(connectionString, isDevelopment))
+builder
+    .Services.AddMarten(options =>
+        options
+            .SetupDatabase(
+                builder.Configuration.GetConnectionString("Marten")!,
+                builder.Environment.IsDevelopment()
+            )
+            .SetupJsonSerialization()
+            .SetupProjections()
+            .SetupArchivingOptions()
+            //.SetupMaskingPolicies() // Not supported yet https://github.com/JasperFx/marten/pull/3831
+            .SetupOpenTelemetry()
+    )
+    // Event subscription
     .AddSubscriptionWithServices<OnRideFinishedSendEmailNotificationHandler>(
         ServiceLifetime.Singleton,
         o => o.IncludeType<RideFinished>()
@@ -40,9 +41,23 @@ var martenConfiguration = builder
     // Another performance optimization if you're starting from scratch
     .UseLightweightSessions()
     // Enable projection daemon
-    .AddAsyncDaemon(DaemonMode.Solo);
+    .AddAsyncDaemon(DaemonMode.Solo)
+    // Initialize sample data
+    .ShouldInitializeSampleData(
+        builder.Configuration.GetValue("ResetSampleData", defaultValue: false)
+    );
+
+// Add services to the container
+builder.Services.AddEmail(builder.Configuration);
 
 // Add OpenTelemetry support
+builder.Logging.AddOpenTelemetry(logging =>
+{
+    logging.IncludeFormattedMessage = true;
+    logging.ParseStateValues = true;
+    logging.AddOtlpExporter();
+});
+
 builder
     .Services.AddOpenTelemetry()
     .ConfigureResource(config => config.AddService("SchraeglagenProtokoll.Api"))
@@ -58,29 +73,15 @@ builder
         metrics.AddOtlpExporter();
     });
 
-builder.Logging.AddOpenTelemetry(logging =>
-{
-    logging.IncludeFormattedMessage = true;
-    logging.ParseStateValues = true;
-    logging.AddOtlpExporter();
-});
-
-// Initial data
-if (builder.Configuration.GetValue("InitializeWithInitialData", defaultValue: false))
-{
-    martenConfiguration.InitializeWith<InitialData>();
-}
-
 // OpenApi
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddOpenApi();
+builder.Services.AddOpenApi().AddEndpointsApiExplorer();
 
 // ======================================
 // Build app
 var app = builder.Build();
 
 // Clean all Marten data
-if (builder.Configuration.GetValue("CleanAllMartenData", defaultValue: false))
+if (builder.Configuration.GetValue("ResetSampleData", defaultValue: false))
 {
     await app.CleanAllMartenDataAsync();
 }
@@ -94,6 +95,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+// Map Endpoints
 app.MapRider();
 app.MapRide();
 
@@ -105,7 +107,5 @@ if (builder.Configuration.GetValue("EnableCli", defaultValue: false))
     await app.RunAsync();
 }
 
-namespace SchraeglagenProtokoll.Api
-{
-    public abstract partial class Program;
-}
+// For integration testing
+public abstract partial class Program;
