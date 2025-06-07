@@ -12,12 +12,15 @@ using Weasel.Core;
 
 namespace SchraeglagenProtokoll.Api;
 
-
 public static class MartenConfigurationExtensions
 {
-    public static MartenServiceCollectionExtensions.MartenConfigurationExpression ShouldInitializeSampleData(this MartenServiceCollectionExtensions.MartenConfigurationExpression services, bool initialize)
+    public static MartenServiceCollectionExtensions.MartenConfigurationExpression ShouldInitializeSampleData(
+        this MartenServiceCollectionExtensions.MartenConfigurationExpression services,
+        bool initialize
+    )
     {
-        if (initialize) services.InitializeWith<InitialData>();        
+        if (initialize)
+            services.InitializeWith<InitialData>();
         return services;
     }
 }
@@ -31,21 +34,18 @@ public static class StoreOptionsExtensions
     )
     {
         options.Connection(connectionString);
-        
+
         // If we're running in development mode, let Marten just take care
         // of all necessary schema building and patching behind the scenes
         if (isDevelopment)
         {
             options.AutoCreateSchemaObjects = AutoCreate.All;
         }
-        
 
         return options;
     }
 
-    public static StoreOptions SetupJsonSerialization(
-        this StoreOptions options
-    )
+    public static StoreOptions SetupJsonSerialization(this StoreOptions options)
     {
         options.UseSystemTextJsonForSerialization(
             EnumStorage.AsString,
@@ -56,9 +56,7 @@ public static class StoreOptionsExtensions
         return options;
     }
 
-    public static StoreOptions SetupProjections(
-        this StoreOptions options
-    )
+    public static StoreOptions SetupProjections(this StoreOptions options)
     {
         // Ride
         options.Projections.Snapshot<Ride>(SnapshotLifecycle.Inline);
@@ -71,16 +69,16 @@ public static class StoreOptionsExtensions
 
         // Recent optimization you'd want with FetchForWriting up above
         options.Projections.UseIdentityMapForAggregates = true;
-        
+
         return options;
     }
 
-    public static StoreOptions SetupMaskingPolicies(
-        this StoreOptions options
-    )
+    public static StoreOptions SetupMaskingPolicies(this StoreOptions options)
     {
-        throw new InvalidOperationException("Wait for Record Support https://github.com/JasperFx/marten/pull/3831");
-        
+        throw new InvalidOperationException(
+            "Wait for Record Support https://github.com/JasperFx/marten/pull/3831"
+        );
+
         // Mask protected information
         // options.Events.AddMaskingRuleForProtectedInformation<RiderRegistered>(x =>
         //     x with
@@ -99,14 +97,12 @@ public static class StoreOptionsExtensions
         //
         // return options;
     }
-    
-    public static StoreOptions SetupArchivingOptions(
-        this StoreOptions options
-    )
+
+    public static StoreOptions SetupArchiving(this StoreOptions options)
     {
         // Turn on the PostgreSQL table partitioning for hot/cold storage on archived events
         options.Events.UseArchivedStreamPartitioning = true;
-        
+
         return options;
     }
 

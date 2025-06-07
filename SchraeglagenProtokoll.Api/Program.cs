@@ -30,7 +30,7 @@ builder
             )
             .SetupJsonSerialization()
             .SetupProjections()
-            .SetupArchivingOptions()
+            .SetupArchiving()
             //.SetupMaskingPolicies() // Not supported yet https://github.com/JasperFx/marten/pull/3831
             .SetupOpenTelemetry()
     )
