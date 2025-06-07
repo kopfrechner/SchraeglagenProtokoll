@@ -75,10 +75,6 @@ public static class StoreOptionsExtensions
 
     public static StoreOptions SetupMaskingPolicies(this StoreOptions options)
     {
-        throw new InvalidOperationException(
-            "Wait for Record Support https://github.com/JasperFx/marten/pull/3831"
-        );
-
         // Mask protected information
         options.Events.AddMaskingRuleForProtectedInformation<RiderRegistered>(x =>
             x with
