@@ -6,7 +6,7 @@
     <TargetFramework>net9.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Marten" Version="8.1.0" />
+    <PackageReference Include="Marten" Version="8.1.2" />
     <PackageReference Include="Shouldly" Version="4.3.0" />
     <PackageReference Include="Testcontainers.PostgreSql" Version="4.5.0" />
     <PackageReference Include="TUnit" Version="0.21.16" />

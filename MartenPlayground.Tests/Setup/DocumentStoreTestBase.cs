@@ -10,10 +10,13 @@ public abstract class DocumentStoreTestBase(PostgresContainerFixture fixture)
 {
     protected string ConnectionString => fixture.Container.GetConnectionString();
 
-    protected IDocumentStore Store(Action<StoreOptions>? configure = null) =>
+    protected IDocumentStore Store(string schema, Action<StoreOptions>? configure = null) =>
         DocumentStore.For(options =>
         {
             options.Connection(ConnectionString);
+
+            // So each test can decide its schema
+            options.DatabaseSchemaName = schema;
 
             // enum serialization
             options.UseSystemTextJsonForSerialization(
@@ -25,8 +28,8 @@ public abstract class DocumentStoreTestBase(PostgresContainerFixture fixture)
             configure?.Invoke(options);
         });
 
-    protected IDocumentSession Session(Action<StoreOptions>? configure = null) =>
-        Store(configure).LightweightSession();
+    protected IDocumentSession Session(string schema, Action<StoreOptions>? configure = null) =>
+        Store(schema, configure).LightweightSession();
 
     protected void AddToBag(string key, object value)
     {
