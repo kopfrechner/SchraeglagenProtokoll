@@ -10,21 +10,15 @@ public enum Currency
     CHF,
 }
 
-public record Money : IComparable<Money>
+public record Money(double Amount, Currency Currency) : IComparable<Money>
 {
-    public double Amount { get; init; }
-    public Currency Currency { get; init; }
-
-    private Money(double amount, Currency currency)
+    public static Money From(double amount, Currency currency)
     {
         if (amount < 0)
             throw new InvalidOperationException("Money amount cannot be negative.");
 
-        Amount = amount;
-        Currency = currency;
+        return new Money(amount, currency);
     }
-
-    public static Money From(double amount, Currency currency) => new Money(amount, currency);
 
     public override string ToString() => $"{Amount:N2} {Currency}";
 
