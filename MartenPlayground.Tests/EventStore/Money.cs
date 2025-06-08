@@ -20,6 +20,8 @@ public record Money(double Amount, Currency Currency) : IComparable<Money>
         return new Money(amount, currency);
     }
 
+    public static Money Zero(Currency currency = Currency.USD) => new(0, currency);
+
     public override string ToString() => $"{Amount:N2} {Currency}";
 
     public static Money operator +(Money left, Money right) => left.Add(right);
