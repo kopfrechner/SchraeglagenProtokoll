@@ -36,8 +36,8 @@ public class EventStoreTests_T6_Archiving(PostgresContainerFixture fixture) : Te
         // Archive the stream
         await using (var session = store.LightweightSession())
         {
-            //session.Events.ArchiveStream(bankAccountId); // Two possible approaches
-            session.Events.Append(bankAccountId, new Archived("Because..."));
+            session.Events.ArchiveStream(bankAccountId); // Two possible approaches
+            // session.Events.Append(bankAccountId, new Archived("Because..."));
             await session.SaveChangesAsync();
         }
 
