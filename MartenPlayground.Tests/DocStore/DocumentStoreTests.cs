@@ -83,7 +83,7 @@ public class DocumentStoreTests(PostgresContainerFixture fixture) : TestBase(fix
 
     [Test]
     [DependsOn(nameof(T3_when_load_test_users_then_should_be_5))]
-    public async Task O4_when_sahra_johnson_married_then_she_is_upserted_to_sarah_anderson()
+    public async Task T4_when_sahra_johnson_married_then_she_is_upserted_to_sarah_anderson()
     {
         // Arrange
         var arrangedUsers = GetFromBag<User[]>(
@@ -105,8 +105,8 @@ public class DocumentStoreTests(PostgresContainerFixture fixture) : TestBase(fix
     }
 
     [Test]
-    [DependsOn(nameof(O4_when_sahra_johnson_married_then_she_is_upserted_to_sarah_anderson))]
-    public async Task O5_when_querying_for_the_andersons_then_sarah_and_james_are_returned()
+    [DependsOn(nameof(T4_when_sahra_johnson_married_then_she_is_upserted_to_sarah_anderson))]
+    public async Task T5_when_querying_for_the_andersons_then_sarah_and_james_are_returned()
     {
         // Act
         await using var session = Session(DSDemo2);
@@ -123,8 +123,8 @@ public class DocumentStoreTests(PostgresContainerFixture fixture) : TestBase(fix
     }
 
     [Test]
-    [DependsOn(nameof(O5_when_querying_for_the_andersons_then_sarah_and_james_are_returned))]
-    public async Task O6_when_deleted_michael_smith_then_michael_smith_is_not_loaded()
+    [DependsOn(nameof(T5_when_querying_for_the_andersons_then_sarah_and_james_are_returned))]
+    public async Task T6_when_deleted_michael_smith_then_michael_smith_is_not_loaded()
     {
         // Arrange
         var arrangedUsers = GetFromBag<User[]>(
