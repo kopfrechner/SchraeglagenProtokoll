@@ -144,8 +144,4 @@ public class EventStoreTests_T1_EventSourcing(PostgresContainerFixture fixture) 
                 b => b.Balance.ShouldBe(Money.From(0, Currency.USD))
             );
     }
-
-    // TODO:
-    // * Mask events
-    // * Build a notification handler
 }
