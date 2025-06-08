@@ -7,18 +7,18 @@ using Weasel.Core;
 
 namespace MartenPlayground.Tests.EventStore;
 
-public class EventStoreTests(PostgresContainerFixture fixture) : DocumentStoreTestBase(fixture)
+public class EventStoreTests_T1_EventSourcing(PostgresContainerFixture fixture) : DocumentStoreTestBase(fixture)
 {
-    private const string EventStoreScenario01 = nameof(EventStoreScenario01);
+    private const string ESEventSourcing = nameof(ESEventSourcing);
 
     [Test]
-    public async Task O1_create_eventstore_then_create_stream()
+    public async Task T1_start_bank_account_stream()
     {
         // Create it manually for illustration purposes
         var store = DocumentStore.For(options =>
         {
             options.Connection(ConnectionString);
-            options.DatabaseSchemaName = EventStoreScenario01;
+            options.DatabaseSchemaName = ESEventSourcing;
             options.UseSystemTextJsonForSerialization(
                 EnumStorage.AsString,
                 Casing.Default,
@@ -48,17 +48,17 @@ public class EventStoreTests(PostgresContainerFixture fixture) : DocumentStoreTe
     }
 
     [Test]
-    [DependsOn(nameof(O1_create_eventstore_then_create_stream))]
-    public async Task O2_load_bankaccount_aggregate()
+    [DependsOn(nameof(T1_start_bank_account_stream))]
+    public async Task T2_load_bankaccount_aggregate()
     {
         // Arrange
         var bankAccountId = GetFromBag<Guid>(
-            nameof(O1_create_eventstore_then_create_stream),
+            nameof(T1_start_bank_account_stream),
             "BankAccountId"
         );
 
         // Act
-        await using var session = Session(EventStoreScenario01);
+        await using var session = Session(ESEventSourcing);
         var bankAccount = await session.Events.AggregateStreamAsync<BankAccount>(bankAccountId);
 
         // Assert
@@ -68,18 +68,18 @@ public class EventStoreTests(PostgresContainerFixture fixture) : DocumentStoreTe
     }
 
     [Test]
-    [DependsOn(nameof(O1_create_eventstore_then_create_stream))]
-    public async Task O3_when_create_self_aggregate_projection_then_projection_should_null()
+    [DependsOn(nameof(T1_start_bank_account_stream))]
+    public async Task T3_when_create_self_aggregate_projection_then_projection_should_null()
     {
         // Arrange
         var bankAccountId = GetFromBag<Guid>(
-            nameof(O1_create_eventstore_then_create_stream),
+            nameof(T1_start_bank_account_stream),
             "BankAccountId"
         );
 
         // Act
         await using var session = Session(
-            EventStoreScenario01,
+            ESEventSourcing,
             options => options.Projections.Snapshot<BankAccount>(SnapshotLifecycle.Inline)
         );
         await session.SaveChangesAsync();
@@ -90,18 +90,18 @@ public class EventStoreTests(PostgresContainerFixture fixture) : DocumentStoreTe
     }
 
     [Test]
-    [DependsOn(nameof(O3_when_create_self_aggregate_projection_then_projection_should_null))]
-    public async Task O4_rebuild_stream_then_projection_should_be_current_state()
+    [DependsOn(nameof(T3_when_create_self_aggregate_projection_then_projection_should_null))]
+    public async Task T4_rebuild_stream_then_projection_should_be_current_state()
     {
         // Arrange
         var bankAccountId = GetFromBag<Guid>(
-            nameof(O1_create_eventstore_then_create_stream),
+            nameof(T1_start_bank_account_stream),
             "BankAccountId"
         );
 
         // Act
         await using var session = Session(
-            EventStoreScenario01,
+            ESEventSourcing,
             options => options.Projections.Snapshot<BankAccount>(SnapshotLifecycle.Inline)
         );
 
@@ -114,9 +114,37 @@ public class EventStoreTests(PostgresContainerFixture fixture) : DocumentStoreTe
             .ShouldNotBeNull()
             .ShouldBe(new BankAccount(bankAccountId, "John Smith", Money.From(50, Currency.USD)));
     }
+    
+    
+    [Test]
+    [DependsOn(nameof(T4_rebuild_stream_then_projection_should_be_current_state))]
+    public async Task T5_append_event_on_self_aggregate()
+    {
+        // Arrange
+        var bankAccountId = GetFromBag<Guid>(
+            nameof(T1_start_bank_account_stream),
+            "BankAccountId"
+        );
+        
+        await using var session = Session(
+            ESEventSourcing,
+            options => options.Projections.Snapshot<BankAccount>(SnapshotLifecycle.Inline)
+        );
+
+        // Act
+        await session.Events.WriteToAggregate<BankAccount>(bankAccountId, 
+            stream => stream.AppendOne(new BankAccountEvent.Withdrawn(Money.From(50, Currency.USD)))
+        );
+        await session.SaveChangesAsync();
+
+        // Assert
+        var bankAccount = await session.LoadAsync<BankAccount>(bankAccountId);
+        bankAccount
+            .ShouldNotBeNull()
+            .ShouldBe(new BankAccount(bankAccountId, "John Smith", Money.From(0, Currency.USD)));
+    }
 
     // TODO:
-    // * Time Travel (Timestamp / Version)
     // * Append events starting at self-aggregate
     // * Async vs Inline projections
     // * Build a single-stream projection
