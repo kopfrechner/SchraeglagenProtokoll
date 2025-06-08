@@ -62,7 +62,11 @@ public class EventStoreTests_T1_EventSourcing(PostgresContainerFixture fixture)
         // Assert
         bankAccount
             .ShouldNotBeNull()
-            .ShouldBe(new BankAccount(bankAccountId, "John Smith", Money.From(50, Currency.USD)));
+            .ShouldSatisfyAllConditions(
+                b => b.Id.ShouldBe(bankAccountId),
+                b => b.Owner.ShouldBe("John Smith"),
+                b => b.Balance.ShouldBe(Money.From(50, Currency.USD))
+            );
     }
 
     [Test]
@@ -104,7 +108,11 @@ public class EventStoreTests_T1_EventSourcing(PostgresContainerFixture fixture)
         var bankAccount = await session.LoadAsync<BankAccount>(bankAccountId);
         bankAccount
             .ShouldNotBeNull()
-            .ShouldBe(new BankAccount(bankAccountId, "John Smith", Money.From(50, Currency.USD)));
+            .ShouldSatisfyAllConditions(
+                b => b.Id.ShouldBe(bankAccountId),
+                b => b.Owner.ShouldBe("John Smith"),
+                b => b.Balance.ShouldBe(Money.From(50, Currency.USD))
+            );
     }
 
     [Test]
@@ -130,7 +138,12 @@ public class EventStoreTests_T1_EventSourcing(PostgresContainerFixture fixture)
         var bankAccount = await session.LoadAsync<BankAccount>(bankAccountId);
         bankAccount
             .ShouldNotBeNull()
-            .ShouldBe(new BankAccount(bankAccountId, "John Smith", Money.From(0, Currency.USD)));
+            .ShouldSatisfyAllConditions(
+                b => b.Id.ShouldBe(bankAccountId),
+                b => b.Id.ShouldBe(bankAccountId),
+                b => b.Owner.ShouldBe("John Smith"),
+                b => b.Balance.ShouldBe(Money.From(0, Currency.USD))
+            );
     }
 
     // TODO:

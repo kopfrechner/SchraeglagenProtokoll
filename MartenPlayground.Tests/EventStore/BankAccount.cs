@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace MartenPlayground.Tests.EventStore;
 
 public abstract record BankAccountEvent
@@ -11,6 +13,9 @@ public abstract record BankAccountEvent
 
 public record BankAccount(Guid Id, string Owner, Money Balance)
 {
+    [JsonInclude]
+    public int Version { get; private set; }
+
     public static BankAccount Create(BankAccountEvent.Opened request) =>
         new BankAccount(request.Id, request.Owner, Money.From(0, request.PreferredCurrency));
 
