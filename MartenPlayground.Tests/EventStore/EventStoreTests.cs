@@ -121,6 +121,7 @@ public class EventStoreTests(PostgresContainerFixture fixture) : DocumentStoreTe
     // * Async vs Inline projections
     // * Build a single-stream projection
     // * Build a multi-stream projection
+    // * Optimistic Concurrency (Version)
     // * Archive a stream
     // * Mask events
     // * Build a notification handler
