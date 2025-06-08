@@ -7,7 +7,7 @@ namespace MartenPlayground.Tests.DocStore;
 
 public record User(Guid Id, string FirstName, string LastName);
 
-public class Tests(PostgresContainerFixture fixture) : TestBase(fixture)
+public class DocumentStoreTests(PostgresContainerFixture fixture) : TestBase(fixture)
 {
     private const string DSDemo1 = nameof(DSDemo1);
     private const string DSDemo2 = nameof(DSDemo2);
