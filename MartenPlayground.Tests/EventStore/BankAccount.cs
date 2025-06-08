@@ -4,11 +4,11 @@ namespace MartenPlayground.Tests.EventStore;
 
 public abstract record BankAccountEvent
 {
-    public record Opened(Guid Id, string Owner, Currency PreferredCurrency);
+    public record Opened(Guid Id, string Owner, Currency PreferredCurrency) : BankAccountEvent;
 
-    public record Withdrawn(Money Amount);
+    public record Withdrawn(Money Amount) : BankAccountEvent;
 
-    public record Deposited(Money Amount);
+    public record Deposited(Money Amount) : BankAccountEvent;
 }
 
 public record BankAccount(Guid Id, string Owner, Money Balance)
