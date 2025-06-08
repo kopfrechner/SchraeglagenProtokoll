@@ -146,11 +146,6 @@ public class EventStoreTests_T1_EventSourcing(PostgresContainerFixture fixture) 
     }
 
     // TODO:
-    // * Async vs Inline projections
-    // * Build a single-stream projection
-    // * Build a multi-stream projection
-    // * Optimistic Concurrency (Version)
-    // * Archive a stream
     // * Mask events
     // * Build a notification handler
 }
