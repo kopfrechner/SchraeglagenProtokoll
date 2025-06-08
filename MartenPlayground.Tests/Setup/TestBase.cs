@@ -6,7 +6,7 @@ using Weasel.Core;
 namespace MartenPlayground.Tests.Setup;
 
 [ClassDataSource<PostgresContainerFixture>(Shared = SharedType.PerTestSession)]
-public abstract class DocumentStoreTestBase(PostgresContainerFixture fixture)
+public abstract class TestBase(PostgresContainerFixture fixture)
 {
     protected string ConnectionString => fixture.Container.GetConnectionString();
 

@@ -3,8 +3,7 @@ using Shouldly;
 
 namespace MartenPlayground.Tests.EventStore;
 
-public class EventStoreTests_T2_TimeTravel(PostgresContainerFixture fixture)
-    : DocumentStoreTestBase(fixture)
+public class EventStoreTests_T2_TimeTravel(PostgresContainerFixture fixture) : TestBase(fixture)
 {
     private const string ESTimeTravel = nameof(ESTimeTravel);
 

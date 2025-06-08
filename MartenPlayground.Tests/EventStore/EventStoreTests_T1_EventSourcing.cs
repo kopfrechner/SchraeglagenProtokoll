@@ -7,8 +7,7 @@ using Weasel.Core;
 
 namespace MartenPlayground.Tests.EventStore;
 
-public class EventStoreTests_T1_EventSourcing(PostgresContainerFixture fixture)
-    : DocumentStoreTestBase(fixture)
+public class EventStoreTests_T1_EventSourcing(PostgresContainerFixture fixture) : TestBase(fixture)
 {
     private const string ESEventSourcing = nameof(ESEventSourcing);
 

@@ -5,8 +5,8 @@ using Shouldly;
 namespace MartenPlayground.Tests.EventStore;
 
 [NotInParallel]
-public class EventStoreTests_T2_OptimisticConcurrency(PostgresContainerFixture fixture)
-    : DocumentStoreTestBase(fixture)
+public class EventStoreTests_T3_OptimisticConcurrency(PostgresContainerFixture fixture)
+    : TestBase(fixture)
 {
     private const string ESOptimisticConcurrency = nameof(ESOptimisticConcurrency);
 
