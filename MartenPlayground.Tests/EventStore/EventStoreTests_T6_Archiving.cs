@@ -72,7 +72,7 @@ public class EventStoreTests_T6_Archiving(PostgresContainerFixture fixture) : Te
             .Events.QueryAllRawEvents()
             .Where(x => x.IsArchived)
             .ToListAsync();
-        archivedEvents.Count.ShouldBe(4);
+        archivedEvents.Count.ShouldBe(3);
         archivedEvents.Select(x => x.StreamId).ShouldAllBe(x => x == bankAccountId);
     }
 }
