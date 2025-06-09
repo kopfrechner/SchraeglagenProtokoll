@@ -10,7 +10,6 @@ using SchraeglagenProtokoll.Api.Infrastructure;
 using SchraeglagenProtokoll.Api.Infrastructure.Marten;
 using SchraeglagenProtokoll.Api.Riders;
 using SchraeglagenProtokoll.Api.Rides;
-using SchraeglagenProtokoll.Api.Rides.Subscriptions;
 using Wolverine;
 using Wolverine.Http;
 using Wolverine.Marten;
@@ -37,11 +36,6 @@ builder
             .SetupMaskingPolicies()
             .SetupOpenTelemetry()
     )
-    // Event subscription
-    .AddSubscriptionWithServices<OnRideFinishedSendEmailNotificationHandler>(
-        ServiceLifetime.Singleton,
-        o => o.IncludeType<RideFinished>()
-    )
     // Another performance optimization if you're starting from scratch
     .UseLightweightSessions()
     // Enable projection daemon
@@ -51,7 +45,20 @@ builder
         builder.Configuration.GetValue("ResetSampleData", defaultValue: false)
     )
     // Our handlers
-    .IntegrateWithWolverine();
+    .IntegrateWithWolverine()
+    // Notice the allow list filtering of event types and the possibility of overriding
+    // the starting point for this subscription at runtime
+    .ProcessEventsWithWolverineHandlersInStrictOrder(
+        "Orders",
+        o =>
+        {
+            // It's more important to create an allow list of event types that can be processed
+            o.IncludeType<RideFinished>();
+
+            o.Options.SubscribeFromPresent();
+        }
+    );
+;
 
 //builder.Host.UseWolverine();
 builder.Services.AddWolverine(ExtensionDiscovery.Automatic).AddWolverineHttp();
