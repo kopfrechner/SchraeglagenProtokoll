@@ -31,11 +31,39 @@ public class AccountActivityProjection : SingleStreamProjection<AccountActivity,
 }
 
 [NotInParallel]
-public class EventStoreTests_T4_InlineSingleStreamProjection(PostgresContainerFixture fixture)
+public class EventStoreTests_T4_LiveAndInlineSingleStreamProjection(PostgresContainerFixture fixture)
     : TestBase(fixture)
 {
     private const string ESInlineProjection = nameof(ESInlineProjection);
 
+    [Test]
+    public async Task T1_projection_counts_deposits_and_withdrawals_and_owner_live()
+    {
+        // Arrange
+        var bankAccountId = Guid.NewGuid();
+        await using var session = Session(
+            ESInlineProjection,
+            options =>
+                options.Projections.Add<AccountActivityProjection>(ProjectionLifecycle.Live)
+        );
+
+        session.Events.StartStream<BankAccount>(
+            bankAccountId,
+            new BankAccountEvent.Opened(bankAccountId, "Alice", Currency.USD),
+            new BankAccountEvent.Deposited(Money.From(200, Currency.USD)),
+            new BankAccountEvent.Deposited(Money.From(50, Currency.USD)),
+            new BankAccountEvent.Withdrawn(Money.From(70, Currency.USD))
+        );
+        await session.SaveChangesAsync();
+
+        // Act and Assert
+        var activity = await session.Events.AggregateStreamAsync<AccountActivity>(bankAccountId);
+        activity.ShouldNotBeNull();
+        activity.Owner.ShouldBe("Alice");
+        activity.DepositCount.ShouldBe(2);
+        activity.WithdrawalCount.ShouldBe(1);
+    }
+    
     [Test]
     public async Task T1_projection_counts_deposits_and_withdrawals_and_owner_inline()
     {
