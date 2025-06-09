@@ -3,7 +3,7 @@ using Marten.Schema;
 using SchraeglagenProtokoll.Api.Riders;
 using SchraeglagenProtokoll.Api.Rides;
 
-namespace SchraeglagenProtokoll.Api;
+namespace SchraeglagenProtokoll.Api.Infrastructure.Marten;
 
 internal class InitialData : IInitialData
 {

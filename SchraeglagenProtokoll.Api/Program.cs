@@ -6,11 +6,10 @@ using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Scalar.AspNetCore;
-using SchraeglagenProtokoll.Api;
 using SchraeglagenProtokoll.Api.Infrastructure;
+using SchraeglagenProtokoll.Api.Infrastructure.Marten;
 using SchraeglagenProtokoll.Api.Riders;
 using SchraeglagenProtokoll.Api.Rides;
-using SchraeglagenProtokoll.Api.Rides.Features.Commands;
 using SchraeglagenProtokoll.Api.Rides.Subscriptions;
 using Wolverine;
 using Wolverine.Marten;
@@ -116,4 +115,7 @@ if (builder.Configuration.GetValue("EnableCli", defaultValue: false))
 }
 
 // For integration testing
-public abstract partial class Program;
+namespace SchraeglagenProtokoll.Api
+{
+    public abstract partial class Program;
+}

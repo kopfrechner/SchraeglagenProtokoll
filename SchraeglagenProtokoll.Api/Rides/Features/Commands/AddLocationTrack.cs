@@ -1,3 +1,4 @@
+using SchraeglagenProtokoll.Api.Exceptions;
 using Wolverine;
 using Wolverine.Marten;
 
@@ -30,5 +31,3 @@ public static class AddLocationTrack
         yield return new RideLocationTracked(rideId, location);
     }
 }
-
-public class InvalidCommandException(string message) : Exception(message);

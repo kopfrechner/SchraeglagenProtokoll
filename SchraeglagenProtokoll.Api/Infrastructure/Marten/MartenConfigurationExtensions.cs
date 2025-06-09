@@ -10,7 +10,7 @@ using SchraeglagenProtokoll.Api.Rides;
 using SchraeglagenProtokoll.Api.Rides.Projections;
 using Weasel.Core;
 
-namespace SchraeglagenProtokoll.Api;
+namespace SchraeglagenProtokoll.Api.Infrastructure.Marten;
 
 public static class MartenConfigurationExtensions
 {
