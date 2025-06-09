@@ -64,14 +64,12 @@ public class CommandFaker
     }
 
     public AddLocationTrack.AddLocationTrackCommand AddLocationTrack(
-        Guid rideId,
         int version,
         string? location = null
     )
     {
         return _addLocationTrackFaker
             .CustomInstantiator(f => new AddLocationTrack.AddLocationTrackCommand(
-                rideId,
                 location ?? f.Address.City(),
                 version
             ))

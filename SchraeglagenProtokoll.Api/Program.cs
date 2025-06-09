@@ -12,6 +12,7 @@ using SchraeglagenProtokoll.Api.Riders;
 using SchraeglagenProtokoll.Api.Rides;
 using SchraeglagenProtokoll.Api.Rides.Subscriptions;
 using Wolverine;
+using Wolverine.Http;
 using Wolverine.Marten;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -52,7 +53,8 @@ builder
     // Our handlers
     .IntegrateWithWolverine();
 
-builder.Host.UseWolverine();
+//builder.Host.UseWolverine();
+builder.Services.AddWolverine(ExtensionDiscovery.Automatic).AddWolverineHttp();
 
 // Add services to the container
 builder.Services.AddEmail(builder.Configuration);
@@ -105,6 +107,7 @@ app.UseHttpsRedirection();
 // Map Endpoints
 app.MapRider();
 app.MapRide();
+app.MapWolverineEndpoints();
 
 if (builder.Configuration.GetValue("EnableCli", defaultValue: false))
 {

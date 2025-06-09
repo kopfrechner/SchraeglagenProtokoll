@@ -12,7 +12,7 @@ public static class Endpoints
         group.MapGetRideById();
         group.MapGetRideSummaryInfoById();
         group.MapGetAllRides();
-        group.MapAddLocationTrack();
+        //group.MapAddLocationTrack();
         group.MapFinishRide();
     }
 }

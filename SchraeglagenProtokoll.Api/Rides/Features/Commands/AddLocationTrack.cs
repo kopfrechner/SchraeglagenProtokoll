@@ -1,33 +1,37 @@
-using SchraeglagenProtokoll.Api.Exceptions;
-using Wolverine;
-using Wolverine.Marten;
+using Microsoft.AspNetCore.Mvc;
+using Wolverine.Http;
+using Wolverine.Http.Marten;
 
 namespace SchraeglagenProtokoll.Api.Rides.Features.Commands;
 
-[AggregateHandler]
+//[AggregateHandler]
 public static class AddLocationTrack
 {
-    public record AddLocationTrackCommand(Guid Id, string Location, int Version);
+    public record AddLocationTrackCommand(string Location, int Version);
 
-    public static void MapAddLocationTrack(this RouteGroupBuilder group)
-    {
-        group
-            .MapPost(
-                "/track-location",
-                (AddLocationTrackCommand command, IMessageBus bus) => bus.InvokeAsync(command)
-            )
-            .WithName("addLocationTrack")
-            .WithOpenApi();
-    }
-
-    public static IEnumerable<object> Handle(AddLocationTrackCommand command, Ride ride)
+    public static ProblemDetails Validate(Ride ride)
     {
         if (ride.Status == RideStatus.Finished)
         {
-            throw new InvalidCommandException($"Cannot track location for finished ride {ride.Id}");
+            return new ProblemDetails()
+            {
+                Detail = $"Cannot track location for finished ride {ride.Id}",
+                Status = 400,
+            };
         }
 
-        var (rideId, location, version) = command;
-        yield return new RideLocationTracked(rideId, location);
+        // All good, keep on going!
+        return WolverineContinue.NoProblems;
+    }
+
+    [WolverinePost("rides/{id:guid}/track-location"), EmptyResponse]
+    public static RideLocationTracked Handle(
+        AddLocationTrackCommand command,
+        Guid id,
+        [Aggregate] Ride ride
+    )
+    {
+        var (location, _) = command;
+        return new RideLocationTracked(id, location);
     }
 }
