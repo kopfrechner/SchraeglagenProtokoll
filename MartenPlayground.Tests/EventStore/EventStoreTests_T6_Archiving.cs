@@ -7,7 +7,6 @@ using Shouldly;
 
 namespace MartenPlayground.Tests.EventStore;
 
-[NotInParallel]
 public class EventStoreTests_T6_Archiving(PostgresContainerFixture fixture) : TestBase(fixture)
 {
     private const string ESArchiving = nameof(ESArchiving);

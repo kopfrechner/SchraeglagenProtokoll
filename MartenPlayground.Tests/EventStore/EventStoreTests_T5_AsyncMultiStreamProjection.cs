@@ -86,7 +86,6 @@ public class OwnerAccountSummaryProjection : MultiStreamProjection<OwnerAccountS
     }
 }
 
-[NotInParallel]
 public class EventStoreTests_T5_AsyncMultiStreamProjection(PostgresContainerFixture fixture)
     : TestBase(fixture)
 {
