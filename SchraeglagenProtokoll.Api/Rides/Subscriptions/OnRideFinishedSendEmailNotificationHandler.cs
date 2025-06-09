@@ -31,8 +31,8 @@ public static class OnRideFinishedSendEmailNotificationHandler
             rider!.Email,
             $"Hey {rider.RoadName}, your ride is finished",
             $"Congrats, you just finished a new ride. "
-                + $"You started {rideSummary.StartLocation} finished at {rideSummary.Destination}. "
-                + $"It took {rideSummary.Duration} and you drove {rideSummary.Distance}"
+                + $"You started at {rideSummary.StartLocation} finished at {rideSummary.Destination}. "
+                + $"It took {rideSummary.Duration} and you drove {rideSummary.Distance}."
         );
     }
 }
