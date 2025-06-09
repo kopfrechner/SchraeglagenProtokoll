@@ -13,12 +13,12 @@ public class AddLocationTrackTests(WebAppFixture fixture) : WebAppTestBase(fixtu
         var rideId = Guid.NewGuid();
         await StartStream(rideId, FakeEvent.RideStarted(rideId, riderId: riderId));
 
-        var addLocationTrackCommand = FakeCommand.AddLocationTrack(version: 1);
+        var addLocationTrackCommand = FakeCommand.AddLocationTrack(rideId: rideId, version: 1);
 
         // Act
         var result = await Scenario(x =>
         {
-            x.Post.Json(addLocationTrackCommand).ToUrl($"/rides/{rideId}/track-location");
+            x.Post.Json(addLocationTrackCommand).ToUrl($"/rides/track-location");
             x.StatusCodeShouldBe(202);
         });
 
@@ -35,13 +35,15 @@ public class AddLocationTrackTests(WebAppFixture fixture) : WebAppTestBase(fixtu
     {
         // Arrange
         var nonExistentRideId = Guid.NewGuid();
-        var addLocationTrackCommand = FakeCommand.AddLocationTrack(version: 1);
+        var addLocationTrackCommand = FakeCommand.AddLocationTrack(
+            rideId: nonExistentRideId,
+            version: 1
+        );
 
         // Act & Assert
         await Scenario(x =>
         {
-            x.Post.Json(addLocationTrackCommand)
-                .ToUrl($"/rides/{nonExistentRideId}/track-location");
+            x.Post.Json(addLocationTrackCommand).ToUrl($"/rides/track-location");
             x.StatusCodeShouldBe(400);
         });
     }
@@ -59,12 +61,12 @@ public class AddLocationTrackTests(WebAppFixture fixture) : WebAppTestBase(fixtu
             FakeEvent.RideFinished(rideId)
         );
 
-        var addLocationTrackCommand = FakeCommand.AddLocationTrack(version: 2);
+        var addLocationTrackCommand = FakeCommand.AddLocationTrack(rideId: rideId, version: 2);
 
         // Act & Assert
         await Scenario(x =>
         {
-            x.Post.Json(addLocationTrackCommand).ToUrl($"/rides/{rideId}/track-location");
+            x.Post.Json(addLocationTrackCommand).ToUrl($"/rides/track-location");
             x.StatusCodeShouldBe(400);
         });
     }
@@ -78,19 +80,27 @@ public class AddLocationTrackTests(WebAppFixture fixture) : WebAppTestBase(fixtu
         var rideId = Guid.NewGuid();
         await StartStream(rideId, FakeEvent.RideStarted(rideId, riderId: riderId));
 
-        var firstLocationCommand = FakeCommand.AddLocationTrack(version: 1, location: "Vienna");
-        var secondLocationCommand = FakeCommand.AddLocationTrack(version: 2, location: "Salzburg");
+        var firstLocationCommand = FakeCommand.AddLocationTrack(
+            rideId: rideId,
+            version: 1,
+            location: "Vienna"
+        );
+        var secondLocationCommand = FakeCommand.AddLocationTrack(
+            rideId: rideId,
+            version: 2,
+            location: "Salzburg"
+        );
 
         // Act
         await Scenario(x =>
         {
-            x.Post.Json(firstLocationCommand).ToUrl($"/rides/{rideId}/track-location");
+            x.Post.Json(firstLocationCommand).ToUrl($"/rides/track-location");
             x.StatusCodeShouldBe(202);
         });
 
         await Scenario(x =>
         {
-            x.Post.Json(secondLocationCommand).ToUrl($"/rides/{rideId}/track-location");
+            x.Post.Json(secondLocationCommand).ToUrl($"/rides/track-location");
             x.StatusCodeShouldBe(202);
         });
 

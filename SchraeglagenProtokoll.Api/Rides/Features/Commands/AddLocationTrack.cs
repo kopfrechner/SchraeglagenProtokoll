@@ -1,50 +1,34 @@
-using JasperFx;
-using Marten;
+using Wolverine;
+using Wolverine.Marten;
 
 namespace SchraeglagenProtokoll.Api.Rides.Features.Commands;
 
+[AggregateHandler]
 public static class AddLocationTrack
 {
+    public record AddLocationTrackCommand(Guid Id, string Location, int Version);
+
     public static void MapAddLocationTrack(this RouteGroupBuilder group)
     {
         group
-            .MapPost("{rideId:guid}/track-location", AddLocationTrackHandler)
+            .MapPost(
+                "/track-location",
+                (AddLocationTrackCommand command, IMessageBus bus) => bus.InvokeAsync(command)
+            )
             .WithName("addLocationTrack")
             .WithOpenApi();
     }
 
-    public record AddLocationTrackCommand(string Location, int Version);
-
-    public static async Task<IResult> AddLocationTrackHandler(
-        IDocumentSession session,
-        Guid rideId,
-        AddLocationTrackCommand command
-    )
+    public static IEnumerable<object> Handle(AddLocationTrackCommand command, Ride ride)
     {
-        var ride = await session.LoadAsync<Ride>(rideId);
-        if (ride == null)
-        {
-            return Results.BadRequest($"Unknown ride id {rideId}");
-        }
-
         if (ride.Status == RideStatus.Finished)
         {
-            return Results.BadRequest($"Cannot track location for finished ride {rideId}");
+            throw new InvalidCommandException($"Cannot track location for finished ride {ride.Id}");
         }
 
-        var (location, version) = command;
-        var locationTracked = new RideLocationTracked(rideId, location);
-
-        try
-        {
-            session.Events.Append(rideId, version + 1, locationTracked);
-            await session.SaveChangesAsync();
-
-            return Results.Accepted();
-        }
-        catch (ConcurrencyException e)
-        {
-            return Results.BadRequest(e.Message);
-        }
+        var (rideId, location, version) = command;
+        yield return new RideLocationTracked(rideId, location);
     }
 }
+
+public class InvalidCommandException(string message) : Exception(message);
