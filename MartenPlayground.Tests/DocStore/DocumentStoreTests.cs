@@ -7,10 +7,17 @@ namespace MartenPlayground.Tests.DocStore;
 
 public record User(Guid Id, string FirstName, string LastName);
 
-public class DocumentStoreTests(PostgresContainerFixture fixture) : TestBase(fixture)
+public class DocumentStoreTests : TestBase
 {
-    private const string DSDemo1 = nameof(DSDemo1);
-    private const string DSDemo2 = nameof(DSDemo2);
+    public static string DSDemo1 = nameof(DSDemo1);
+    public static string DSDemo2 = nameof(DSDemo2);
+
+    [Before(Class)]
+    public static async Task CleanupSchema()
+    {
+        await ResetAllData(DSDemo1);
+        await ResetAllData(DSDemo2);
+    }
 
     [Test]
     public async Task T1_create_documentstore_then_save_document_then_load_document()

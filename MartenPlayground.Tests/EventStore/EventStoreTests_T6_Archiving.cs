@@ -7,16 +7,22 @@ using Shouldly;
 
 namespace MartenPlayground.Tests.EventStore;
 
-public class EventStoreTests_T6_Archiving(PostgresContainerFixture fixture) : TestBase(fixture)
+public class EventStoreTests_T6_Archiving : TestBase
 {
-    private const string ESArchiving = nameof(ESArchiving);
+    public static string EST6Archiving = nameof(EST6Archiving);
+
+    [Before(Class)]
+    public static async Task CleanupSchema()
+    {
+        await ResetAllData(EST6Archiving);
+    }
 
     [Test]
     public async Task T1_archived_stream_is_not_returned_by_default_queries()
     {
         var bankAccountId = Guid.NewGuid();
         var store = Store(
-            ESArchiving,
+            EST6Archiving,
             options => options.Projections.Snapshot<BankAccount>(SnapshotLifecycle.Inline)
         );
 
@@ -64,7 +70,7 @@ public class EventStoreTests_T6_Archiving(PostgresContainerFixture fixture) : Te
             nameof(T1_archived_stream_is_not_returned_by_default_queries),
             "BankAccountId"
         );
-        await using var session = Session(ESArchiving);
+        await using var session = Session(EST6Archiving);
 
         // Query archived events
         var archivedEvents = await session

@@ -31,10 +31,15 @@ public class AccountActivityProjection : SingleStreamProjection<AccountActivity,
 }
 
 [NotInParallel]
-public class EventStoreTests_T4_LiveAndInlineSingleStreamProjection(PostgresContainerFixture fixture)
-    : TestBase(fixture)
+public class EventStoreTests_T4_LiveAndInlineSingleStreamProjection : TestBase
 {
-    private const string ESInlineProjection = nameof(ESInlineProjection);
+    public static string EST4InlineProjection = nameof(EST4InlineProjection);
+
+    [Before(Class)]
+    public static async Task CleanupSchema()
+    {
+        await ResetAllData(EST4InlineProjection);
+    }
 
     [Test]
     public async Task T1_projection_counts_deposits_and_withdrawals_and_owner_live()
@@ -42,9 +47,8 @@ public class EventStoreTests_T4_LiveAndInlineSingleStreamProjection(PostgresCont
         // Arrange
         var bankAccountId = Guid.NewGuid();
         await using var session = Session(
-            ESInlineProjection,
-            options =>
-                options.Projections.Add<AccountActivityProjection>(ProjectionLifecycle.Live)
+            EST4InlineProjection,
+            options => options.Projections.Add<AccountActivityProjection>(ProjectionLifecycle.Live)
         );
 
         session.Events.StartStream<BankAccount>(
@@ -63,14 +67,14 @@ public class EventStoreTests_T4_LiveAndInlineSingleStreamProjection(PostgresCont
         activity.DepositCount.ShouldBe(2);
         activity.WithdrawalCount.ShouldBe(1);
     }
-    
+
     [Test]
     public async Task T1_projection_counts_deposits_and_withdrawals_and_owner_inline()
     {
         // Arrange
         var bankAccountId = Guid.NewGuid();
         await using var session = Session(
-            ESInlineProjection,
+            EST4InlineProjection,
             options =>
                 options.Projections.Add<AccountActivityProjection>(ProjectionLifecycle.Inline)
         );

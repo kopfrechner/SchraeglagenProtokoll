@@ -3,14 +3,20 @@ using Shouldly;
 
 namespace MartenPlayground.Tests.EventStore;
 
-public class EventStoreTests_T2_TimeTravel(PostgresContainerFixture fixture) : TestBase(fixture)
+public class EventStoreTests_T2_TimeTravel : TestBase
 {
-    private const string ESTimeTravel = nameof(ESTimeTravel);
+    public static string EST2TimeTravel = nameof(EST2TimeTravel);
+
+    [Before(Class)]
+    public static async Task CleanupSchema()
+    {
+        await ResetAllData(EST2TimeTravel);
+    }
 
     [Test]
     public async Task T1_create_account_and_deposit_with_timestamps()
     {
-        await using var session = Session(ESTimeTravel);
+        await using var session = Session(EST2TimeTravel);
 
         var bankAccountId = Guid.NewGuid();
 
@@ -65,7 +71,7 @@ public class EventStoreTests_T2_TimeTravel(PostgresContainerFixture fixture) : T
         DateTimeOffset t1 = bag.t1;
         DateTimeOffset t2 = bag.t2;
         DateTimeOffset t3 = bag.t3;
-        await using var session = Session(ESTimeTravel);
+        await using var session = Session(EST2TimeTravel);
 
         // At t0: Only account opened
         var acc0 = await session.Events.AggregateStreamAsync<BankAccount>(
@@ -109,7 +115,7 @@ public class EventStoreTests_T2_TimeTravel(PostgresContainerFixture fixture) : T
             "TimeTravel"
         );
         Guid bankAccountId = bag.bankAccountId;
-        await using var session = Session(ESTimeTravel);
+        await using var session = Session(EST2TimeTravel);
 
         // Version 1: Opened
         var accV1 = await session.Events.AggregateStreamAsync<BankAccount>(

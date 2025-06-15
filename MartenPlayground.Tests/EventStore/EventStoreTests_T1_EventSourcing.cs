@@ -7,9 +7,15 @@ using Weasel.Core;
 
 namespace MartenPlayground.Tests.EventStore;
 
-public class EventStoreTests_T1_EventSourcing(PostgresContainerFixture fixture) : TestBase(fixture)
+public class EventStoreTests_T1_EventSourcing : TestBase
 {
-    private const string ESEventSourcing = nameof(ESEventSourcing);
+    public static string EST1EventSourcing = nameof(EST1EventSourcing);
+
+    [Before(Class)]
+    public static async Task CleanupSchema()
+    {
+        await ResetAllData(EST1EventSourcing);
+    }
 
     [Test]
     public async Task T1_start_bank_account_stream()
@@ -18,7 +24,7 @@ public class EventStoreTests_T1_EventSourcing(PostgresContainerFixture fixture) 
         var store = DocumentStore.For(options =>
         {
             options.Connection(ConnectionString);
-            options.DatabaseSchemaName = ESEventSourcing;
+            options.DatabaseSchemaName = EST1EventSourcing;
             options.UseSystemTextJsonForSerialization(
                 EnumStorage.AsString,
                 Casing.Default,
@@ -55,7 +61,7 @@ public class EventStoreTests_T1_EventSourcing(PostgresContainerFixture fixture) 
         var bankAccountId = GetFromBag<Guid>(nameof(T1_start_bank_account_stream), "BankAccountId");
 
         // Act
-        await using var session = Session(ESEventSourcing);
+        await using var session = Session(EST1EventSourcing);
         var bankAccount = await session.Events.AggregateStreamAsync<BankAccount>(bankAccountId);
 
         // Assert
@@ -77,7 +83,7 @@ public class EventStoreTests_T1_EventSourcing(PostgresContainerFixture fixture) 
 
         // Act
         await using var session = Session(
-            ESEventSourcing,
+            EST1EventSourcing,
             options => options.Projections.Snapshot<BankAccount>(SnapshotLifecycle.Inline)
         );
         await session.SaveChangesAsync();
@@ -96,7 +102,7 @@ public class EventStoreTests_T1_EventSourcing(PostgresContainerFixture fixture) 
 
         // Act
         await using var session = Session(
-            ESEventSourcing,
+            EST1EventSourcing,
             options => options.Projections.Snapshot<BankAccount>(SnapshotLifecycle.Inline)
         );
 
@@ -122,7 +128,7 @@ public class EventStoreTests_T1_EventSourcing(PostgresContainerFixture fixture) 
         var bankAccountId = GetFromBag<Guid>(nameof(T1_start_bank_account_stream), "BankAccountId");
 
         await using var session = Session(
-            ESEventSourcing,
+            EST1EventSourcing,
             options => options.Projections.Snapshot<BankAccount>(SnapshotLifecycle.Inline)
         );
 

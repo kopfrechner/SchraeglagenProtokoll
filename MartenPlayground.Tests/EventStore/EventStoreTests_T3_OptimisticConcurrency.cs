@@ -5,17 +5,22 @@ using Shouldly;
 namespace MartenPlayground.Tests.EventStore;
 
 [NotInParallel]
-public class EventStoreTests_T3_OptimisticConcurrency(PostgresContainerFixture fixture)
-    : TestBase(fixture)
+public class EventStoreTests_T3_OptimisticConcurrency : TestBase
 {
-    private const string ESOptimisticConcurrency = nameof(ESOptimisticConcurrency);
+    public static string EST3OptimisticConcurrency = nameof(EST3OptimisticConcurrency);
+
+    [Before(Class)]
+    public static async Task CleanupSchema()
+    {
+        await ResetAllData(EST3OptimisticConcurrency);
+    }
 
     [Test]
     public async Task T1_when_ignoring_version_we_have_optimistic_concurrency_issues()
     {
         var bankAccountId = Guid.NewGuid();
         // Create initial account and deposit
-        await using (var session = Session(ESOptimisticConcurrency))
+        await using (var session = Session(EST3OptimisticConcurrency))
         {
             var opened = new BankAccountEvent.Opened(bankAccountId, "Bob", Currency.USD);
             var deposit = new BankAccountEvent.Deposited(Money.From(100, Currency.USD));
@@ -24,8 +29,8 @@ public class EventStoreTests_T3_OptimisticConcurrency(PostgresContainerFixture f
         }
 
         // Open two concurrent sessions
-        await using var session1 = Session(ESOptimisticConcurrency);
-        await using var session2 = Session(ESOptimisticConcurrency);
+        await using var session1 = Session(EST3OptimisticConcurrency);
+        await using var session2 = Session(EST3OptimisticConcurrency);
 
         // Both load the current aggregate
         var aggregate1 = await session1.Events.AggregateStreamAsync<BankAccount>(bankAccountId);
@@ -46,7 +51,7 @@ public class EventStoreTests_T3_OptimisticConcurrency(PostgresContainerFixture f
         await session2.SaveChangesAsync();
 
         // Assert
-        await using var assertSession = Session(ESOptimisticConcurrency);
+        await using var assertSession = Session(EST3OptimisticConcurrency);
         var latest = await assertSession.Events.AggregateStreamAsync<BankAccount>(bankAccountId);
         latest.Balance.ShouldBe(Money.From(50, Currency.USD));
         latest.Version.ShouldBe(4);
@@ -57,7 +62,7 @@ public class EventStoreTests_T3_OptimisticConcurrency(PostgresContainerFixture f
     {
         var bankAccountId = Guid.NewGuid();
         // Create initial account and deposit
-        await using (var session = Session(ESOptimisticConcurrency))
+        await using (var session = Session(EST3OptimisticConcurrency))
         {
             var opened = new BankAccountEvent.Opened(bankAccountId, "Bob", Currency.USD);
             var deposit = new BankAccountEvent.Deposited(Money.From(100, Currency.USD));
@@ -66,8 +71,8 @@ public class EventStoreTests_T3_OptimisticConcurrency(PostgresContainerFixture f
         }
 
         // Open two concurrent sessions
-        await using var session1 = Session(ESOptimisticConcurrency);
-        await using var session2 = Session(ESOptimisticConcurrency);
+        await using var session1 = Session(EST3OptimisticConcurrency);
+        await using var session2 = Session(EST3OptimisticConcurrency);
 
         // Both load the current aggregate
         var aggregate1 = await session1.Events.AggregateStreamAsync<BankAccount>(bankAccountId);
@@ -96,7 +101,7 @@ public class EventStoreTests_T3_OptimisticConcurrency(PostgresContainerFixture f
     {
         var bankAccountId = Guid.NewGuid();
         // Create initial account and deposit
-        await using (var session = Session(ESOptimisticConcurrency))
+        await using (var session = Session(EST3OptimisticConcurrency))
         {
             var opened = new BankAccountEvent.Opened(bankAccountId, "Bob", Currency.USD);
             var deposit = new BankAccountEvent.Deposited(Money.From(100, Currency.USD));
@@ -105,8 +110,8 @@ public class EventStoreTests_T3_OptimisticConcurrency(PostgresContainerFixture f
         }
 
         // Open two concurrent sessions
-        await using var session1 = Session(ESOptimisticConcurrency);
-        await using var session2 = Session(ESOptimisticConcurrency);
+        await using var session1 = Session(EST3OptimisticConcurrency);
+        await using var session2 = Session(EST3OptimisticConcurrency);
 
         // Both load the current aggregate
         var aggregate1 = await session1.Events.FetchForWriting<BankAccount>(bankAccountId);

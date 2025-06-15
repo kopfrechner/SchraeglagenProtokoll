@@ -5,12 +5,12 @@ using Weasel.Core;
 
 namespace MartenPlayground.Tests.Setup;
 
-[ClassDataSource<PostgresContainerFixture>(Shared = SharedType.PerTestSession)]
-public abstract class TestBase(PostgresContainerFixture fixture)
+public abstract class TestBase
 {
-    protected string ConnectionString => fixture.Container.GetConnectionString();
+    protected static readonly string ConnectionString =
+        "User ID=marten;Password=change-me-123#;Host=localhost;Port=5682;Database=marten";
 
-    protected IDocumentStore Store(string schema, Action<StoreOptions>? configure = null) =>
+    protected static IDocumentStore Store(string schema, Action<StoreOptions>? configure = null) =>
         DocumentStore.For(options =>
         {
             options.Connection(ConnectionString);
@@ -28,8 +28,15 @@ public abstract class TestBase(PostgresContainerFixture fixture)
             configure?.Invoke(options);
         });
 
-    protected IDocumentSession Session(string schema, Action<StoreOptions>? configure = null) =>
-        Store(schema, configure).LightweightSession();
+    protected static IDocumentSession Session(
+        string schema,
+        Action<StoreOptions>? configure = null
+    ) => Store(schema, configure).LightweightSession();
+
+    protected static async Task ResetAllData(string schema)
+    {
+        await Store(schema).Advanced.ResetAllData();
+    }
 
     protected void AddToBag(string key, object value)
     {

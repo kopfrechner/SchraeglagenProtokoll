@@ -86,10 +86,15 @@ public class OwnerAccountSummaryProjection : MultiStreamProjection<OwnerAccountS
     }
 }
 
-public class EventStoreTests_T5_AsyncMultiStreamProjection(PostgresContainerFixture fixture)
-    : TestBase(fixture)
+public class EventStoreTests_T5_AsyncMultiStreamProjection : TestBase
 {
-    private const string ESAsyncMultiStream = nameof(ESAsyncMultiStream);
+    public static string EST5AsyncMultiStream = nameof(EST5AsyncMultiStream);
+
+    [Before(Class)]
+    public static async Task CleanupSchema()
+    {
+        await ResetAllData(EST5AsyncMultiStream);
+    }
 
     [Test]
     public async Task T1_owner_account_summary_is_eventually_consistent()
@@ -99,7 +104,7 @@ public class EventStoreTests_T5_AsyncMultiStreamProjection(PostgresContainerFixt
         var bankAccountId2 = Guid.NewGuid();
 
         var store = Store(
-            ESAsyncMultiStream,
+            EST5AsyncMultiStream,
             options =>
             {
                 options.Projections.Snapshot<BankAccount>(SnapshotLifecycle.Inline);

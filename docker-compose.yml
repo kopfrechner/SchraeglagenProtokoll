@@ -11,7 +11,18 @@ services:
       - "${POSTGRES_HOST_PORT:-5432}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-
+  
+  postgres-it:
+    image: postgres:latest
+    container_name: ${POSTGRES_IT_CONTAINER_NAME:-myitpostgrescontainer}
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_IT_USER:-myituser}
+      POSTGRES_PASSWORD: ${POSTGRES_IT_PASSWORD:-myitpassword}
+      POSTGRES_DB: ${POSTGRES_IT_DB:-myitdatabase}
+    ports:
+      - "${POSTGRES_IT_HOST_PORT:-5432}:5432"
+      
   mailhog:
     image: mailhog/mailhog:latest
     container_name: mailhog-event-sourcing

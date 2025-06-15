@@ -52,17 +52,22 @@ public class TransactionNotificationSubscription : SubscriptionBase
     }
 }
 
-public class EventStoreTests_T8_BasicSubscription(PostgresContainerFixture fixture)
-    : TestBase(fixture)
+public class EventStoreTests_T8_BasicSubscription : TestBase
 {
-    private const string ESBasicSubscription = nameof(ESBasicSubscription);
+    public static string EST8BasicSubscription = nameof(EST8BasicSubscription);
+
+    [Before(Class)]
+    public static async Task CleanupSchema()
+    {
+        await ResetAllData(EST8BasicSubscription);
+    }
 
     [Test]
     public async Task T1_subscription_receives_deposit_events()
     {
         var collector = new TransactionNotificationCollector();
         var subscription = new TransactionNotificationSubscription(collector);
-        var store = Store(ESBasicSubscription, options => options.Events.Subscribe(subscription));
+        var store = Store(EST8BasicSubscription, options => options.Events.Subscribe(subscription));
 
         // Start daemon
         // Allow the subscription to process events

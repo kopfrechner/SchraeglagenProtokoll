@@ -4,10 +4,15 @@ using Shouldly;
 
 namespace MartenPlayground.Tests.EventStore;
 
-public class EventStoreTests_T7_MaskedProjection(PostgresContainerFixture fixture)
-    : TestBase(fixture)
+public class EventStoreTests_T7_MaskedProjection : TestBase
 {
-    private const string ESMasked = nameof(ESMasked);
+    public static string EST7Masked = nameof(EST7Masked);
+
+    [Before(Class)]
+    public static async Task CleanupSchema()
+    {
+        await ResetAllData(EST7Masked);
+    }
 
     [Test]
     public async Task T1_when_mask_events_protected_data_is_erased()
@@ -15,7 +20,7 @@ public class EventStoreTests_T7_MaskedProjection(PostgresContainerFixture fixtur
         var owner = "Alice";
         var bankAccountId = Guid.NewGuid();
         var session = Session(
-            ESMasked,
+            EST7Masked,
             options =>
                 options.Events.AddMaskingRuleForProtectedInformation<BankAccountEvent.Opened>(x =>
                     x with
