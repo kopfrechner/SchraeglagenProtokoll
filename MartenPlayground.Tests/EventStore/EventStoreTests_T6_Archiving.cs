@@ -10,7 +10,7 @@ namespace MartenPlayground.Tests.EventStore;
 
 public class EventStoreTests_T6_Archiving : TestBase
 {
-    public static string EST6Archiving = nameof(EST6Archiving);
+    public static readonly string EST6Archiving = nameof(EST6Archiving);
 
     [Before(Class)]
     public static async Task CleanupSchema()

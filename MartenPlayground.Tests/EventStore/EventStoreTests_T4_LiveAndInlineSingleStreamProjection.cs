@@ -34,7 +34,7 @@ public class AccountActivityProjection : SingleStreamProjection<AccountActivity,
 [NotInParallel]
 public class EventStoreTests_T4_LiveAndInlineSingleStreamProjection : TestBase
 {
-    public static string EST4InlineProjection = nameof(EST4InlineProjection);
+    public static readonly string EST4InlineProjection = nameof(EST4InlineProjection);
 
     [Before(Class)]
     public static async Task CleanupSchema()

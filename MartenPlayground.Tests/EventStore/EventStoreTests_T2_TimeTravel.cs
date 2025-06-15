@@ -6,7 +6,7 @@ namespace MartenPlayground.Tests.EventStore;
 
 public class EventStoreTests_T2_TimeTravel : TestBase
 {
-    public static string EST2TimeTravel = nameof(EST2TimeTravel);
+    public static readonly string EST2TimeTravel = nameof(EST2TimeTravel);
 
     [Before(Class)]
     public static async Task CleanupSchema()

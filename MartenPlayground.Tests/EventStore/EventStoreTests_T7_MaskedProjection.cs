@@ -7,7 +7,7 @@ namespace MartenPlayground.Tests.EventStore;
 
 public class EventStoreTests_T7_MaskedProjection : TestBase
 {
-    public static string EST7Masked = nameof(EST7Masked);
+    public static readonly string EST7Masked = nameof(EST7Masked);
 
     [Before(Class)]
     public static async Task CleanupSchema()

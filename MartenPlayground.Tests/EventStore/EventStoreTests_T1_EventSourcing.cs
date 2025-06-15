@@ -10,7 +10,7 @@ namespace MartenPlayground.Tests.EventStore;
 
 public class EventStoreTests_T1_EventSourcing : TestBase
 {
-    public static string EST1EventSourcing = nameof(EST1EventSourcing);
+    public static readonly string EST1EventSourcing = nameof(EST1EventSourcing);
 
     [Before(Class)]
     public static async Task CleanupSchema()

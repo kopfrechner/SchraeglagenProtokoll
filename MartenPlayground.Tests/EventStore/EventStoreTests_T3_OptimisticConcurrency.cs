@@ -8,7 +8,7 @@ namespace MartenPlayground.Tests.EventStore;
 [NotInParallel]
 public class EventStoreTests_T3_OptimisticConcurrency : TestBase
 {
-    public static string EST3OptimisticConcurrency = nameof(EST3OptimisticConcurrency);
+    public static readonly string EST3OptimisticConcurrency = nameof(EST3OptimisticConcurrency);
 
     [Before(Class)]
     public static async Task CleanupSchema()

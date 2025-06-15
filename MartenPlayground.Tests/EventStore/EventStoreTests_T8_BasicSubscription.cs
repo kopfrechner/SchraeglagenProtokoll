@@ -55,7 +55,7 @@ public class TransactionNotificationSubscription : SubscriptionBase
 
 public class EventStoreTests_T8_BasicSubscription : TestBase
 {
-    public static string EST8BasicSubscription = nameof(EST8BasicSubscription);
+    public static readonly string EST8BasicSubscription = nameof(EST8BasicSubscription);
 
     [Before(Class)]
     public static async Task CleanupSchema()

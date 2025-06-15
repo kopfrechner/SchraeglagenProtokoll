@@ -89,7 +89,7 @@ public class OwnerAccountSummaryProjection : MultiStreamProjection<OwnerAccountS
 
 public class EventStoreTests_T5_AsyncMultiStreamProjection : TestBase
 {
-    public static string EST5AsyncMultiStream = nameof(EST5AsyncMultiStream);
+    public static readonly string EST5AsyncMultiStream = nameof(EST5AsyncMultiStream);
 
     [Before(Class)]
     public static async Task CleanupSchema()
