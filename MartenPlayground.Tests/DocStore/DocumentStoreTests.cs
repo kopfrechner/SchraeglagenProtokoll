@@ -9,24 +9,24 @@ public record User(Guid Id, string FirstName, string LastName);
 
 public class DocumentStoreTests : TestBase
 {
-    public static string DSDemo1 = nameof(DSDemo1);
-    public static string DSDemo2 = nameof(DSDemo2);
+    public static readonly string DsDemo1 = nameof(DsDemo1);
+    public static readonly string DsDemo2 = nameof(DsDemo2);
 
     [Before(Class)]
     public static async Task CleanupSchema()
     {
-        await ResetAllData(DSDemo1);
-        await ResetAllData(DSDemo2);
+        await ResetAllData(DsDemo1);
+        await ResetAllData(DsDemo2);
     }
 
     [Test]
-    public async Task T1_create_documentstore_then_save_document_then_load_document()
+    public async Task T1_create_documentstore_save_and_load_document()
     {
         // Create Marten DocumentStore from a connection string
         var store = DocumentStore.For(options =>
         {
             options.Connection(ConnectionString);
-            options.DatabaseSchemaName = DSDemo1;
+            options.DatabaseSchemaName = DsDemo1;
         });
         await using var session = store.LightweightSession();
 
@@ -46,7 +46,7 @@ public class DocumentStoreTests : TestBase
     }
 
     [Test]
-    public async Task T2_when_create_test_users_should_succeed()
+    public async Task T2_create_five_test_users()
     {
         // Arrange
         User[] users =
@@ -59,7 +59,7 @@ public class DocumentStoreTests : TestBase
         ];
 
         // Act
-        await using var session = Session(DSDemo2);
+        await using var session = Session(DsDemo2);
         session.Store(users);
         await session.SaveChangesAsync();
 
@@ -70,18 +70,15 @@ public class DocumentStoreTests : TestBase
     }
 
     [Test]
-    [DependsOn(nameof(T2_when_create_test_users_should_succeed))]
-    public async Task T3_when_load_test_users_then_should_be_5()
+    [DependsOn(nameof(T2_create_five_test_users))]
+    public async Task T3_load_five_test_users()
     {
         // Arrange
-        var arrangedUsers = GetFromBag<User[]>(
-            nameof(T2_when_create_test_users_should_succeed),
-            "Users"
-        );
+        var arrangedUsers = GetFromBag<User[]>(nameof(T2_create_five_test_users), "Users");
         var arrangedUserIds = arrangedUsers.Select(u => u.Id).ToList();
 
         // Act
-        await using var session = Session(DSDemo2);
+        await using var session = Session(DsDemo2);
         var loadedUsers = await session.LoadManyAsync<User>(arrangedUserIds);
 
         // Assert
@@ -89,20 +86,17 @@ public class DocumentStoreTests : TestBase
     }
 
     [Test]
-    [DependsOn(nameof(T3_when_load_test_users_then_should_be_5))]
-    public async Task T4_when_sahra_johnson_married_then_she_is_upserted_to_sarah_anderson()
+    [DependsOn(nameof(T3_load_five_test_users))]
+    public async Task T4_when_sahra_johnson_married_she_is_upserted_to_sarah_anderson()
     {
         // Arrange
-        var arrangedUsers = GetFromBag<User[]>(
-            nameof(T2_when_create_test_users_should_succeed),
-            "Users"
-        );
+        var arrangedUsers = GetFromBag<User[]>(nameof(T2_create_five_test_users), "Users");
         var sarahJohnson = arrangedUsers.FindFirst(x =>
             x.FirstName == "Sarah" && x.LastName == "Johnson"
         );
 
         // Act
-        await using var session = Session(DSDemo2);
+        await using var session = Session(DsDemo2);
         session.Store(sarahJohnson with { LastName = "Anderson" });
         await session.SaveChangesAsync();
 
@@ -112,11 +106,11 @@ public class DocumentStoreTests : TestBase
     }
 
     [Test]
-    [DependsOn(nameof(T4_when_sahra_johnson_married_then_she_is_upserted_to_sarah_anderson))]
-    public async Task T5_when_querying_for_the_andersons_then_sarah_and_james_are_returned()
+    [DependsOn(nameof(T4_when_sahra_johnson_married_she_is_upserted_to_sarah_anderson))]
+    public async Task T5_querying_andersons_returns_sarah_and_james()
     {
         // Act
-        await using var session = Session(DSDemo2);
+        await using var session = Session(DsDemo2);
         var andersons = await session
             .Query<User>()
             .Where(x => x.LastName == "Anderson")
@@ -130,20 +124,17 @@ public class DocumentStoreTests : TestBase
     }
 
     [Test]
-    [DependsOn(nameof(T5_when_querying_for_the_andersons_then_sarah_and_james_are_returned))]
-    public async Task T6_when_deleted_michael_smith_then_michael_smith_is_not_loaded()
+    [DependsOn(nameof(T5_querying_andersons_returns_sarah_and_james))]
+    public async Task T6_delete_michael_smith()
     {
         // Arrange
-        var arrangedUsers = GetFromBag<User[]>(
-            nameof(T2_when_create_test_users_should_succeed),
-            "Users"
-        );
+        var arrangedUsers = GetFromBag<User[]>(nameof(T2_create_five_test_users), "Users");
         var michaelSmith = arrangedUsers.FindFirst(x =>
             x.FirstName == "Michael" && x.LastName == "Smith"
         );
 
         // Act
-        await using var session = Session(DSDemo2);
+        await using var session = Session(DsDemo2);
         session.Delete<User>(michaelSmith.Id);
         await session.SaveChangesAsync();
 

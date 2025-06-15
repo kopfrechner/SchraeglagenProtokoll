@@ -77,7 +77,7 @@ public class EventStoreTests_T1_EventSourcing : TestBase
 
     [Test]
     [DependsOn(nameof(T1_start_bank_account_stream))]
-    public async Task T3_when_create_self_aggregate_projection_then_projection_should_null()
+    public async Task T3_self_aggregate_projection_is_null_initially()
     {
         // Arrange
         var bankAccountId = GetFromBag<Guid>(nameof(T1_start_bank_account_stream), "BankAccountId");
@@ -95,7 +95,7 @@ public class EventStoreTests_T1_EventSourcing : TestBase
     }
 
     [Test]
-    [DependsOn(nameof(T3_when_create_self_aggregate_projection_then_projection_should_null))]
+    [DependsOn(nameof(T3_self_aggregate_projection_is_null_initially))]
     public async Task T4_rebuild_stream_then_projection_should_be_current_state()
     {
         // Arrange
