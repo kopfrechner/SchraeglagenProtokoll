@@ -38,7 +38,7 @@ public class EventStoreTests_T1_EventSourcing : TestBase
         var bankAccountId = Guid.NewGuid();
 
         // Create events
-        var opened = new BankAccountEvent.Opened(bankAccountId, "John Smith", Currency.USD);
+        var opened = new BankAccountEvent.Opened("John Smith", Currency.USD);
         var deposited = new BankAccountEvent.Deposited(Money.From(100, Currency.USD));
 
         // Start a brand-new stream and commit the new events part of a transaction

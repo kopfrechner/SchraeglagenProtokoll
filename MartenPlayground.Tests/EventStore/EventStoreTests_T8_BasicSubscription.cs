@@ -80,7 +80,7 @@ public class EventStoreTests_T8_BasicSubscription : TestBase
         {
             session.Events.StartStream<BankAccount>(
                 accountId,
-                new BankAccountEvent.Opened(accountId, "Alice", Currency.USD),
+                new BankAccountEvent.Opened("Alice", Currency.USD),
                 new BankAccountEvent.Deposited(Money.From(100, Currency.USD)),
                 new BankAccountEvent.Deposited(Money.From(50, Currency.USD)),
                 new BankAccountEvent.Withdrawn(Money.From(25, Currency.USD))

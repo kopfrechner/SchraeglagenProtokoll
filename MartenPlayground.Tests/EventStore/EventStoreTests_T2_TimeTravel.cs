@@ -21,7 +21,7 @@ public class EventStoreTests_T2_TimeTravel : TestBase
 
         var bankAccountId = Guid.NewGuid();
 
-        var opened = new BankAccountEvent.Opened(bankAccountId, "Alice", Currency.USD);
+        var opened = new BankAccountEvent.Opened("Alice", Currency.USD);
         var deposit1 = new BankAccountEvent.Deposited(Money.From(100, Currency.USD));
         var deposit2 = new BankAccountEvent.Deposited(Money.From(50, Currency.USD));
         var deposit3 = new BankAccountEvent.Deposited(Money.From(25, Currency.USD));

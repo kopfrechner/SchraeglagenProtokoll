@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using JasperFx.Events;
 using JasperFx.Events.Projections;
 using Marten.Events.Aggregation;
@@ -9,19 +10,22 @@ namespace MartenPlayground.Tests.EventStore;
 
 // Projection model for counting deposits and withdrawals and tracking owner
 public record AccountActivity(
-    Guid Id,
     string Owner,
     int DepositCount = 0,
     int WithdrawalCount = 0,
     DateTimeOffset? LastActivity = null
-);
+)
+{
+    [JsonInclude]
+    public Guid Id { get; private set; }
+};
 
 // Inline projection for counting deposits and withdrawals and tracking owner
 public class AccountActivityProjection : SingleStreamProjection<AccountActivity, Guid>
 {
     public AccountActivityProjection()
     {
-        CreateEvent<BankAccountEvent.Opened>(e => new AccountActivity(e.Id, e.Owner));
+        CreateEvent<BankAccountEvent.Opened>(e => new AccountActivity(e.Owner));
         ProjectEvent<IEvent<BankAccountEvent.Deposited>>(
             (a, e) => a with { DepositCount = a.DepositCount + 1, LastActivity = e.Timestamp }
         );
@@ -54,7 +58,7 @@ public class EventStoreTests_T4_LiveAndInlineSingleStreamProjection : TestBase
 
         session.Events.StartStream<BankAccount>(
             bankAccountId,
-            new BankAccountEvent.Opened(bankAccountId, "Alice", Currency.USD),
+            new BankAccountEvent.Opened("Alice", Currency.USD),
             new BankAccountEvent.Deposited(Money.From(200, Currency.USD)),
             new BankAccountEvent.Deposited(Money.From(50, Currency.USD)),
             new BankAccountEvent.Withdrawn(Money.From(70, Currency.USD))
@@ -64,6 +68,7 @@ public class EventStoreTests_T4_LiveAndInlineSingleStreamProjection : TestBase
         // Act and Assert
         var activity = await session.Events.AggregateStreamAsync<AccountActivity>(bankAccountId);
         activity.ShouldNotBeNull();
+        activity.Id.ShouldBe(bankAccountId);
         activity.Owner.ShouldBe("Alice");
         activity.DepositCount.ShouldBe(2);
         activity.WithdrawalCount.ShouldBe(1);
@@ -82,7 +87,7 @@ public class EventStoreTests_T4_LiveAndInlineSingleStreamProjection : TestBase
 
         session.Events.StartStream<BankAccount>(
             bankAccountId,
-            new BankAccountEvent.Opened(bankAccountId, "Alice", Currency.USD),
+            new BankAccountEvent.Opened("Alice", Currency.USD),
             new BankAccountEvent.Deposited(Money.From(200, Currency.USD)),
             new BankAccountEvent.Deposited(Money.From(50, Currency.USD)),
             new BankAccountEvent.Withdrawn(Money.From(70, Currency.USD))
@@ -92,6 +97,7 @@ public class EventStoreTests_T4_LiveAndInlineSingleStreamProjection : TestBase
         // Act and Assert
         var activity = await session.LoadAsync<AccountActivity>(bankAccountId);
         activity.ShouldNotBeNull();
+        activity.Id.ShouldBe(bankAccountId);
         activity.Owner.ShouldBe("Alice");
         activity.DepositCount.ShouldBe(2);
         activity.WithdrawalCount.ShouldBe(1);

@@ -23,7 +23,7 @@ public class EventStoreTests_T3_OptimisticConcurrency : TestBase
         // Create initial account and deposit
         await using (var session = Session(EST3OptimisticConcurrency))
         {
-            var opened = new BankAccountEvent.Opened(bankAccountId, "Bob", Currency.USD);
+            var opened = new BankAccountEvent.Opened("Bob", Currency.USD);
             var deposit = new BankAccountEvent.Deposited(Money.From(100, Currency.USD));
             session.Events.StartStream<BankAccount>(bankAccountId, opened, deposit);
             await session.SaveChangesAsync();
@@ -65,7 +65,7 @@ public class EventStoreTests_T3_OptimisticConcurrency : TestBase
         // Create initial account and deposit
         await using (var session = Session(EST3OptimisticConcurrency))
         {
-            var opened = new BankAccountEvent.Opened(bankAccountId, "Bob", Currency.USD);
+            var opened = new BankAccountEvent.Opened("Bob", Currency.USD);
             var deposit = new BankAccountEvent.Deposited(Money.From(100, Currency.USD));
             session.Events.StartStream<BankAccount>(bankAccountId, opened, deposit);
             await session.SaveChangesAsync();
@@ -104,7 +104,7 @@ public class EventStoreTests_T3_OptimisticConcurrency : TestBase
         // Create initial account and deposit
         await using (var session = Session(EST3OptimisticConcurrency))
         {
-            var opened = new BankAccountEvent.Opened(bankAccountId, "Bob", Currency.USD);
+            var opened = new BankAccountEvent.Opened("Bob", Currency.USD);
             var deposit = new BankAccountEvent.Deposited(Money.From(100, Currency.USD));
             session.Events.StartStream<BankAccount>(bankAccountId, opened, deposit);
             await session.SaveChangesAsync();

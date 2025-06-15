@@ -34,7 +34,7 @@ public class EventStoreTests_T7_MaskedProjection : TestBase
         // Store events with unmasked owner
         session.Events.StartStream<BankAccount>(
             bankAccountId,
-            new BankAccountEvent.Opened(bankAccountId, owner, Currency.USD),
+            new BankAccountEvent.Opened(owner, Currency.USD),
             new BankAccountEvent.Deposited(Money.From(100, Currency.USD)),
             new BankAccountEvent.Withdrawn(Money.From(30, Currency.USD))
         );

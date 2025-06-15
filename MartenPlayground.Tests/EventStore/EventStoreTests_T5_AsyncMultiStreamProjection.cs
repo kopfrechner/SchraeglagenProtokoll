@@ -9,7 +9,7 @@ using Shouldly;
 namespace MartenPlayground.Tests.EventStore;
 
 public record OwnerAccountSummary(
-    string Id,
+    string Id, // Id here is the Owner, we could think of it as a GroupId
     int AccountCount,
     Money TotalBalance,
     int TotalDeposits,
@@ -122,13 +122,13 @@ public class EventStoreTests_T5_AsyncMultiStreamProjection : TestBase
         {
             session.Events.StartStream<BankAccount>(
                 bankAccountId1,
-                new BankAccountEvent.Opened(bankAccountId1, owner, Currency.USD),
+                new BankAccountEvent.Opened(owner, Currency.USD),
                 new BankAccountEvent.Deposited(Money.From(100, Currency.USD)),
                 new BankAccountEvent.Withdrawn(Money.From(30, Currency.USD))
             );
             session.Events.StartStream<BankAccount>(
                 bankAccountId2,
-                new BankAccountEvent.Opened(bankAccountId2, owner, Currency.USD),
+                new BankAccountEvent.Opened(owner, Currency.USD),
                 new BankAccountEvent.Deposited(Money.From(200, Currency.USD)),
                 new BankAccountEvent.Deposited(Money.From(50, Currency.USD)),
                 new BankAccountEvent.Withdrawn(Money.From(70, Currency.USD))

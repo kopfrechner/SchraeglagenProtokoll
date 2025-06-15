@@ -32,7 +32,7 @@ public class EventStoreTests_T6_Archiving : TestBase
         {
             session.Events.StartStream<BankAccount>(
                 bankAccountId,
-                new BankAccountEvent.Opened(bankAccountId, "Bob", Currency.USD),
+                new BankAccountEvent.Opened("Bob", Currency.USD),
                 new BankAccountEvent.Deposited(Money.From(100, Currency.USD)),
                 new BankAccountEvent.Withdrawn(Money.From(30, Currency.USD))
             );
