@@ -1,3 +1,4 @@
+using MartenPlayground.Tests.EventStore.Model;
 using MartenPlayground.Tests.Setup;
 using Shouldly;
 
