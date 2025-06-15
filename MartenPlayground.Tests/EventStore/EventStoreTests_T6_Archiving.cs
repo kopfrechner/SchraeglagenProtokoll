@@ -1,6 +1,4 @@
-using JasperFx.Events;
 using Marten;
-using Marten.Events;
 using Marten.Events.Projections;
 using MartenPlayground.Tests.EventStore.Model;
 using MartenPlayground.Tests.Setup;
