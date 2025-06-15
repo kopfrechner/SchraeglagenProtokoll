@@ -1,11 +1,19 @@
 using ImTools;
 using Marten;
+using Marten.Services;
 using MartenPlayground.Tests.Setup;
 using Shouldly;
 
 namespace MartenPlayground.Tests.DocStore;
 
-public record User(Guid Id, string FirstName, string LastName);
+public record UserRecord(Guid Id, string FirstName, string LastName);
+
+public class UserClass(Guid id, string firstName, string lastName)
+{
+    public Guid Id { get; set; } = id;
+    public string FirstName { get; set; } = firstName;
+    public string LastName { get; set; } = lastName;
+}
 
 public class DocumentStoreTests : TestBase
 {
@@ -28,28 +36,42 @@ public class DocumentStoreTests : TestBase
             options.Connection(ConnectionString);
             options.DatabaseSchemaName = DsDemo1;
         });
-        await using var session = store.LightweightSession();
 
         // Create a document
-        var user = new User(Guid.NewGuid(), "John", "Doe");
-        session.Store(user);
-        await session.SaveChangesAsync();
+        await using var writeSession = store.LightweightSession(); // Suits most needs
+        var johnDoe = new UserClass(Guid.NewGuid(), "John", "Doe");
+        writeSession.Store(johnDoe);
+        await writeSession.SaveChangesAsync();
 
         // Load document
-        var loadedUser = await session.LoadAsync<User>(user.Id);
-        loadedUser
+        await using var readSession = store.QuerySession(); // For Read-Only operations
+        var loadedJohnDoe = await readSession.LoadAsync<UserClass>(johnDoe.Id);
+        loadedJohnDoe
             .ShouldNotBeNull()
             .ShouldSatisfyAllConditions(
                 u => u.FirstName.ShouldBe("John"),
                 u => u.LastName.ShouldBe("Doe")
             );
+
+        // Change with Dirty-Tracking and save it
+        await using var dirtyTrackedSession = store.DirtyTrackedSession( // Dirty check (with cached JSON)
+            SessionOptions.ForConnectionString(ConnectionString)
+        );
+        var trackedJohnDoe = await dirtyTrackedSession.LoadAsync<UserClass>(johnDoe.Id);
+        // dirtyUser = dirtyUser with { FirstName = "Jane" }; // does not work with records -> copy
+        trackedJohnDoe!.FirstName = "Jane";
+        await dirtyTrackedSession.SaveChangesAsync();
+
+        // Load document again
+        var loadedJaneDoe = await readSession.LoadAsync<UserClass>(trackedJohnDoe.Id);
+        loadedJaneDoe.ShouldNotBeNull().FirstName.ShouldBe("Jane");
     }
 
     [Test]
     public async Task T2_create_five_test_users()
     {
         // Arrange
-        User[] users =
+        UserRecord[] users =
         [
             new(Guid.NewGuid(), "Michael", "Smith"),
             new(Guid.NewGuid(), "Sarah", "Johnson"),
@@ -64,7 +86,7 @@ public class DocumentStoreTests : TestBase
         await session.SaveChangesAsync();
 
         // Assert
-        session.Query<User>().Count().ShouldBe(5);
+        session.Query<UserRecord>().Count().ShouldBe(5);
 
         AddToBag("Users", users);
     }
@@ -74,12 +96,12 @@ public class DocumentStoreTests : TestBase
     public async Task T3_load_five_test_users()
     {
         // Arrange
-        var arrangedUsers = GetFromBag<User[]>(nameof(T2_create_five_test_users), "Users");
+        var arrangedUsers = GetFromBag<UserRecord[]>(nameof(T2_create_five_test_users), "Users");
         var arrangedUserIds = arrangedUsers.Select(u => u.Id).ToList();
 
         // Act
         await using var session = Session(DsDemo2);
-        var loadedUsers = await session.LoadManyAsync<User>(arrangedUserIds);
+        var loadedUsers = await session.LoadManyAsync<UserRecord>(arrangedUserIds);
 
         // Assert
         loadedUsers.Count.ShouldBe(5);
@@ -90,7 +112,7 @@ public class DocumentStoreTests : TestBase
     public async Task T4_when_sahra_johnson_married_she_is_upserted_to_sarah_anderson()
     {
         // Arrange
-        var arrangedUsers = GetFromBag<User[]>(nameof(T2_create_five_test_users), "Users");
+        var arrangedUsers = GetFromBag<UserRecord[]>(nameof(T2_create_five_test_users), "Users");
         var sarahJohnson = arrangedUsers.FindFirst(x =>
             x.FirstName == "Sarah" && x.LastName == "Johnson"
         );
@@ -101,8 +123,10 @@ public class DocumentStoreTests : TestBase
         await session.SaveChangesAsync();
 
         // Assert
-        var sarahAnderson = await session.LoadAsync<User>(sarahJohnson.Id);
-        sarahAnderson.ShouldNotBeNull().ShouldBe(new User(sarahJohnson.Id, "Sarah", "Anderson"));
+        var sarahAnderson = await session.LoadAsync<UserRecord>(sarahJohnson.Id);
+        sarahAnderson
+            .ShouldNotBeNull()
+            .ShouldBe(new UserRecord(sarahJohnson.Id, "Sarah", "Anderson"));
     }
 
     [Test]
@@ -112,7 +136,7 @@ public class DocumentStoreTests : TestBase
         // Act
         await using var session = Session(DsDemo2);
         var andersons = await session
-            .Query<User>()
+            .Query<UserRecord>()
             .Where(x => x.LastName == "Anderson")
             .ToListAsync();
         await session.SaveChangesAsync();
@@ -128,18 +152,18 @@ public class DocumentStoreTests : TestBase
     public async Task T6_delete_michael_smith()
     {
         // Arrange
-        var arrangedUsers = GetFromBag<User[]>(nameof(T2_create_five_test_users), "Users");
+        var arrangedUsers = GetFromBag<UserRecord[]>(nameof(T2_create_five_test_users), "Users");
         var michaelSmith = arrangedUsers.FindFirst(x =>
             x.FirstName == "Michael" && x.LastName == "Smith"
         );
 
         // Act
         await using var session = Session(DsDemo2);
-        session.Delete<User>(michaelSmith.Id);
+        session.Delete<UserRecord>(michaelSmith.Id);
         await session.SaveChangesAsync();
 
         // Assert
-        var loadedUsers = await session.LoadManyAsync<User>(arrangedUsers.Select(u => u.Id));
+        var loadedUsers = await session.LoadManyAsync<UserRecord>(arrangedUsers.Select(u => u.Id));
         loadedUsers.Count.ShouldBe(4);
         loadedUsers.ShouldNotContain(michaelSmith);
     }
