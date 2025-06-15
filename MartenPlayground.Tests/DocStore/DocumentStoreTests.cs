@@ -38,14 +38,14 @@ public class DocumentStoreTests : TestBase
         });
 
         // Create a document
-        await using var writeSession = store.LightweightSession(); // Suits most needs
+        await using var lightweightSession = store.LightweightSession(); // Suits most needs
         var johnDoe = new UserClass(Guid.NewGuid(), "John", "Doe");
-        writeSession.Store(johnDoe);
-        await writeSession.SaveChangesAsync();
+        lightweightSession.Store(johnDoe);
+        await lightweightSession.SaveChangesAsync();
 
         // Load document
-        await using var readSession = store.QuerySession(); // For Read-Only operations
-        var loadedJohnDoe = await readSession.LoadAsync<UserClass>(johnDoe.Id);
+        await using var querySession = store.QuerySession(); // For Read-Only operations
+        var loadedJohnDoe = await querySession.LoadAsync<UserClass>(johnDoe.Id);
         loadedJohnDoe
             .ShouldNotBeNull()
             .ShouldSatisfyAllConditions(
@@ -63,7 +63,7 @@ public class DocumentStoreTests : TestBase
         await dirtyTrackedSession.SaveChangesAsync();
 
         // Load document again
-        var loadedJaneDoe = await readSession.LoadAsync<UserClass>(trackedJohnDoe.Id);
+        var loadedJaneDoe = await querySession.LoadAsync<UserClass>(trackedJohnDoe.Id);
         loadedJaneDoe.ShouldNotBeNull().FirstName.ShouldBe("Jane");
     }
 
@@ -135,6 +135,7 @@ public class DocumentStoreTests : TestBase
     {
         // Act
         await using var session = Session(DsDemo2);
+        // https://martendb.io/documents/querying/linq/
         var andersons = await session
             .Query<UserRecord>()
             .Where(x => x.LastName == "Anderson")
