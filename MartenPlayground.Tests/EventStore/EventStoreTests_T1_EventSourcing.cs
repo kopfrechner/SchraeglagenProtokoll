@@ -32,21 +32,25 @@ public class EventStoreTests_T1_EventSourcing : TestBase
                 jsonOptions => jsonOptions.Converters.Add(new JsonStringEnumConverter())
             );
         });
+
+        // Open a session
         await using var session = store.LightweightSession();
 
         // This will be our bankAccountId
         var bankAccountId = Guid.NewGuid();
 
-        // Create events
-        var opened = new BankAccountEvent.Opened("John Smith", Currency.USD);
-        var deposited = new BankAccountEvent.Deposited(Money.From(100, Currency.USD));
-
         // Start a brand-new stream and commit the new events part of a transaction
-        session.Events.StartStream<BankAccount>(bankAccountId, opened, deposited);
+        session.Events.StartStream<BankAccount>(
+            bankAccountId,
+            new BankAccountEvent.Opened("John Smith", Currency.USD),
+            new BankAccountEvent.Deposited(Money.From(100, Currency.USD))
+        );
 
         // Add some more events to the stream
-        var withdrawn = new BankAccountEvent.Withdrawn(Money.From(50, Currency.USD));
-        session.Events.Append(bankAccountId, withdrawn);
+        session.Events.Append(
+            bankAccountId,
+            new BankAccountEvent.Withdrawn(Money.From(50, Currency.USD))
+        );
 
         // Save the pending changes to db
         await session.SaveChangesAsync();
