@@ -18,7 +18,7 @@ public record AccountActivity(
 {
     [JsonInclude]
     public Guid Id { get; private set; }
-};
+}
 
 // Inline projection for counting deposits and withdrawals and tracking owner
 public class AccountActivityProjection : SingleStreamProjection<AccountActivity, Guid>

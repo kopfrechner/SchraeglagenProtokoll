@@ -2,6 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace MartenPlayground.Tests.Model;
 
+// Discriminated Union
 public abstract record BankAccountEvent
 {
     public record Opened(string Owner, Currency PreferredCurrency) : BankAccountEvent;

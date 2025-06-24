@@ -8,7 +8,7 @@ using Shouldly;
 namespace MartenPlayground.Tests.EventStore;
 
 public record OwnerAccountSummary(
-    string Id, // Id here is the Owner, we could think of it as a GroupId
+    string Id, // In this case, the ID is the Owner. We can think of it as a "GroupBy Owner"
     int AccountCount,
     Money TotalBalance,
     int TotalDeposits,
@@ -22,6 +22,7 @@ public class OwnerAccountSummaryProjection : MultiStreamProjection<OwnerAccountS
         // Group by Owner from Opened event
         Identity<BankAccountEvent.Opened>(e => e.Owner);
 
+        // That's the "GroupBy Owner" function that groups Events to a certain Owner
         CustomGrouping(
             async (session, events, grouping) =>
             {
