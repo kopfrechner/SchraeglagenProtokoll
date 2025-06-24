@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace MartenPlayground.Tests.EventStore.Model;
+namespace MartenPlayground.Tests.Model;
 
 [JsonConverter(typeof(JsonStringEnumConverter<Currency>))]
 public enum Currency

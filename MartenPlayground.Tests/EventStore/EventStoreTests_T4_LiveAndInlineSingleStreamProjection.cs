@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 using JasperFx.Events;
 using JasperFx.Events.Projections;
 using Marten.Events.Aggregation;
-using MartenPlayground.Tests.EventStore.Model;
+using MartenPlayground.Tests.Model;
 using MartenPlayground.Tests.Setup;
 using Shouldly;
 

@@ -1,7 +1,6 @@
 using System.Text.Json.Serialization;
-using Marten;
 
-namespace MartenPlayground.Tests.EventStore.Model;
+namespace MartenPlayground.Tests.Model;
 
 public abstract record BankAccountEvent
 {

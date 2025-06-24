@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
 using Marten;
 using Marten.Events.Projections;
-using MartenPlayground.Tests.EventStore.Model;
+using MartenPlayground.Tests.Model;
 using MartenPlayground.Tests.Setup;
 using Shouldly;
 using Weasel.Core;

@@ -2,7 +2,7 @@ using JasperFx.Events.Daemon;
 using JasperFx.Events.Projections;
 using Marten;
 using Marten.Subscriptions;
-using MartenPlayground.Tests.EventStore.Model;
+using MartenPlayground.Tests.Model;
 using MartenPlayground.Tests.Setup;
 using Shouldly;
 
